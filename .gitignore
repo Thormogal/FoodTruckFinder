@@ -26,3 +26,4 @@ Andra genererade filer:
 .DS_Store
 *.lock
 Pods/
+GoogleService-Info-Secrets.plist
