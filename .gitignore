@@ -1,0 +1,25 @@
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+//*.xcodeproj/xcworkspace/
+
+Objektfiler:
+*.o
+*.lo
+*.la
+*.al
+
+Konfigurationsfiler för Xcode:
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+
+Andra genererade filer:
+
+*.swp
+.DS_Store
+*.lock
+Pods/
