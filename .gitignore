@@ -17,6 +17,9 @@ Konfigurationsfiler för Xcode:
 *.perspectivev3
 *.xcuserstate
 
+Firestore:
+GoogleService-Info-2.plist
+
 Andra genererade filer:
 
 *.swp
