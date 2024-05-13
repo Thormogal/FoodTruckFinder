@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//Test av kommentar
+
 struct ContentView: View {
     //Alvin
     var body: some View {
