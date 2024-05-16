@@ -48,9 +48,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEA92BDF2BF5F97B00FD159A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CEA92BE02BF5F98200FD159A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEA92BE12BF5F98A00FD159A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
+				CEA92BDF2BF5F97B00FD159A /* Models */,
+				CEA92BE02BF5F98200FD159A /* Views */,
+				CEA92BE12BF5F98A00FD159A /* ViewControllers */,
 				CEB9EB552BF217840093A288 /* FirebasePlist.swift */,
 				CEB9EB4E2BF206380093A288 /* GoogleService-Info-Secrets.plist */,
 				CEB9EB4F2BF206380093A288 /* GoogleService-Info.plist */,
