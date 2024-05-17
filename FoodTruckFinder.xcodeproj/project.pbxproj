@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02BC91892BF7350F00221CCB /* SplashView.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC91882BF7350F00221CCB /* SplashView.swif.swift */; };
 		CEB9EB362BF1F5450093A288 /* FoodTruckFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB352BF1F5450093A288 /* FoodTruckFinderApp.swift */; };
 		CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB372BF1F5460093A288 /* ContentView.swift */; };
 		CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB9EB392BF1F5490093A288 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02BC91882BF7350F00221CCB /* SplashView.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swif.swift; sourceTree = "<group>"; };
 		CEB9EB322BF1F5450093A288 /* FoodTruckFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTruckFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB9EB352BF1F5450093A288 /* FoodTruckFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckFinderApp.swift; sourceTree = "<group>"; };
 		CEB9EB372BF1F5460093A288 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				CEB9EB372BF1F5460093A288 /* ContentView.swift */,
 				CEB9EB392BF1F5490093A288 /* Assets.xcassets */,
 				CEB9EB3B2BF1F5490093A288 /* Preview Content */,
+				02BC91882BF7350F00221CCB /* SplashView.swif.swift */,
 			);
 			path = FoodTruckFinder;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */,
+				02BC91892BF7350F00221CCB /* SplashView.swif.swift in Sources */,
 				CEB9EB362BF1F5450093A288 /* FoodTruckFinderApp.swift in Sources */,
 				CEB9EB562BF217840093A288 /* FirebasePlist.swift in Sources */,
 			);
