@@ -23,8 +23,8 @@ class FoodTruckViewModel: ObservableObject {
             paymentMethods: "Cash, Card",
             imageURL: "https://example.com/foodtruck.jpg",
             menu: [
-                MenuItem(id: UUID().uuidString, name: "Taco", ingredients: "Beef, Lettuce, Cheese, Salsa", price: 50),
-                MenuItem(id: UUID().uuidString, name: "Burrito", ingredients: "Chicken, Rice, Beans, Cheese, Salsa", price: 80)
+                MenuItem(id: UUID().uuidString, name: "Taco", price: 50, ingredients: "Beef, Lettuce, Cheese, Salsa"),
+                MenuItem(id: UUID().uuidString, name: "Burrito", price: 80, ingredients: "Chicken, Rice, Beans, Cheese, Salsa")
             ],
             location: Location(latitude: 59.3293, longitude: 18.0686)
         )
