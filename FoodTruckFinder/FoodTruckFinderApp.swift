@@ -23,6 +23,7 @@ struct YourApp: App {
     WindowGroup {
       NavigationView {
           SplashView()
+         // StartViewUser()
       }
     }
   }
