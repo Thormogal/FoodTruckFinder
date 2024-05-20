@@ -12,11 +12,11 @@ import Foundation
 struct SignUpView: View {
     @Binding var signedIn: Bool
     var auth = Auth.auth()
-    var db = Firestore.firestore()  // Firestore reference
+    var db = Firestore.firestore()
     @State private var password: String = ""
     @State private var email: String = ""
     @State private var username: String = ""
-    @State private var selectedRole = "User"  // Default role
+    @State private var selectedRole = "User"  
 
     let roles = ["User", "Food Truck Owner"]
 
@@ -102,7 +102,7 @@ struct SignUpView: View {
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
     }
 
-    // Function to save user profile to Firestore
+   
     func saveUserProfile(uid: String, username: String, email: String, userType: Int) {
         let userData: [String: Any] = [
             "username": username,

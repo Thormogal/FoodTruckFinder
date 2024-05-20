@@ -14,12 +14,11 @@ struct StartViewUser : View {
     var body: some View {
         VStack {
             if signedIn {
-                // Visa den vy som användare ska se när de är inloggade
                 Text("Hello, user!")
                 Button(action: {
                     do {
                         try Auth.auth().signOut()
-                        signedIn = false  // Uppdatera din signedIn state för att återspegla att användaren inte längre är inloggad
+                        signedIn = false
                     } catch let signOutError as NSError {
                         print("Error signing out: \(signOutError)")
                     }
@@ -27,7 +26,6 @@ struct StartViewUser : View {
                     Text("Sign Out")
                 })
             } else {
-                // Visa SignInView om användaren inte är inloggad
                 SignInView(signedIn: $signedIn)
             }
         }

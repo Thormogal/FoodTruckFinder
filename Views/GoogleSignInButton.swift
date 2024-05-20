@@ -40,14 +40,14 @@ struct GoogleSignInButton: UIViewRepresentable {
                 return
             }
             
-            // Get the top view controller
+           
             guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
                 print("Root view controller is nil")
                 return
             }
             
             
-            // Start the sign-in flow
+   
             GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { signInResult, error in
                 if let error = error {
                     // Handle error
@@ -62,21 +62,20 @@ struct GoogleSignInButton: UIViewRepresentable {
                 
                 let user = signInResult.user
                 
-                // Fetch user's authentication tokens
+           
                 let idToken = user.idToken?.tokenString
                 let accessToken = user.accessToken.tokenString
                 
-                // Create a Firebase credential with the tokens
+              
                 let credential = GoogleAuthProvider.credential(withIDToken: idToken!, accessToken: accessToken)
-                
-                // Sign in with Firebase
+              
                 Auth.auth().signIn(with: credential) { authResult, error in
                     if let error = error {
                         print("Firebase sign-in error: \(error.localizedDescription)")
                         return
                     }
                     
-                    // User is signed in to Firebase
+                 
                     if let user = authResult?.user {
                         print("Firebase User ID: \(user.uid)")
                         print("Firebase Email: \(user.email ?? "No Email")")
@@ -84,14 +83,13 @@ struct GoogleSignInButton: UIViewRepresentable {
                     }
                 }
                 
-                // Fetch user's profile information
+               
                 let userId = user.userID
                 let fullName = user.profile?.name
                 let givenName = user.profile?.givenName
                 let familyName = user.profile?.familyName
                 let email = user.profile?.email
-                
-                // Use these details in your app
+            
                 print("User ID: \(userId ?? "No User ID")")
                 print("Full Name: \(fullName ?? "No Full Name")")
                 print("Given Name: \(givenName ?? "No Given Name")")
