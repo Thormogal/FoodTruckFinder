@@ -6,20 +6,27 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import GoogleSignIn
+import FirebaseFirestore
 
 //Test av kommentar
 
 struct ContentView: View {
-    //Alvin
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        @State var signedIn = false
+    
+   
+        var body: some View {
+            if !signedIn{
+                SignInView(signedIn: $signedIn)
+    
+            }else{
+                StartViewUser()
+            }
+    
+    
         }
-        .padding()
-    }
+    
 }
 
 #Preview {
