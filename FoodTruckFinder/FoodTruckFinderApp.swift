@@ -36,6 +36,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct YourApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
+
     var body: some Scene {
         WindowGroup {
             NavigationView {
@@ -43,6 +44,8 @@ struct YourApp: App {
             }
         }
         }
+
+
     }
 
 
