@@ -13,6 +13,7 @@ import Foundation
 
 struct SignInView: View {
     @Binding var signedIn: Bool
+    @Binding var userType: Int?
     var auth = Auth.auth()
     @State private var password: String = ""
     @State private var email: String = ""
@@ -45,11 +46,12 @@ struct SignInView: View {
             .padding(.horizontal, 20)
             
             Button(action: {
-                auth.signIn(withEmail: email, password: password) { result, error in
-                    if let error = error {
-                        print("Error signing in: \(error.localizedDescription)")
+                signInAndFetchUserType { type in
+                    if let type = type {
+                        self.userType = type
+                        self.signedIn = true
                     } else {
-                        signedIn = true
+                        // Handle the error or unknown user type
                     }
                 }
             }, label: {
@@ -80,11 +82,55 @@ struct SignInView: View {
             
             Spacer()
         }
-        .onAppear {
-            if Auth.auth().currentUser != nil {
-                signedIn = true
+//                .onAppear {
+//                    if Auth.auth().currentUser != nil {
+//                        signInAndFetchUserType { type in
+//                            if let type = type {
+//                                self.userType = type
+//                                self.signedIn = true
+//                            } else {
+//                                // Handle the error or unknown user type
+//                            }
+//                        }
+//                    }
+//                }
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
+    }
+    func signInAndFetchUserType(completion: @escaping (Int?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error signing in: \(error.localizedDescription)")
+                completion(nil)
+            } else {
+         
+                if let user = authResult?.user {
+                    fetchUserType(userID: user.uid) { type in
+                        completion(type)
+                    }
+                } else {
+                    print("No user found after sign-in")
+                    completion(nil)
+                }
             }
         }
-        .background(Color(.systemGroupedBackground).ignoresSafeArea())
+    }
+    
+    func fetchUserType(userID: String, completion: @escaping (Int?) -> Void) {
+        let db = Firestore.firestore()
+        let usersCollection = db.collection("users")
+        
+        usersCollection.document(userID).getDocument { document, error in
+            if let document = document, document.exists {
+                if let data = document.data(), let level = data["usertype"] as? Int {
+                    completion(level)
+                } else {
+                    print("User document does not contain 'level' field")
+                    completion(nil)
+                }
+            } else {
+                print("Error fetching user document: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
+            }
+        }
     }
 }
