@@ -14,20 +14,41 @@ struct StartViewUser : View {
     var body: some View {
         VStack {
             if signedIn {
-                Text("Hello, user!")
-                Button(action: {
-                    do {
-                        try Auth.auth().signOut()
-                        signedIn = false
-                    } catch let signOutError as NSError {
-                        print("Error signing out: \(signOutError)")
-                    }
-                }, label: {
-                    Text("Sign Out")
-                })
+//                Text("Hello, user!")
+//                Button(action: {
+//                    do {
+//                        try Auth.auth().signOut()
+//                        signedIn = false
+//                    } catch let signOutError as NSError {
+//                        print("Error signing out: \(signOutError)")
+//                    }
+//                }, label: {
+//                    Text("Sign Out")
+//                })
             } else {
-                SignInView(signedIn: $signedIn)
+                //SignInView(signedIn: $signedIn,userType: <#T##Binding<Int?>#>)
             }
+            TabView {
+                        HomeView()
+                            .tabItem {
+                                Image(systemName: "house")
+                                Text("Home")
+                            }
+
+                        MapView()
+                            .tabItem {
+                                Image(systemName: "map")
+                                Text("Map")
+                            }
+
+                        ProfileView()
+                            .tabItem {
+                                Image(systemName: "person")
+                                Text("Profile")
+                            }
+                    }
         }
+
+
     }
 }
