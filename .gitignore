@@ -24,3 +24,4 @@ Andra genererade filer:
 *.lock
 Pods/
 GoogleService-Info.plist
+GoogleService-Info-Secrets.plist
