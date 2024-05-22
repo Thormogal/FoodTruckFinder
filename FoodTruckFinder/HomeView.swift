@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+import Firebase
+import FirebaseFirestore
 extension UIColor {
     static func fromHex(_ hex: String) -> UIColor {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -24,26 +25,38 @@ extension UIColor {
 }
 
 struct HomeView: View {
+    @State private var foodTrucks: [FoodTruck] = []
+    
     var body: some View {
         NavigationStack {
-            List {
+            List(foodTrucks) { foodTruck in
                 VStack(alignment: .leading) {
-                    Text("Jevez FoodTruck")
-                                         .font(.headline)
-                                         .padding(.bottom, 5)
-                                         .frame(maxWidth: .infinity)
-                                         .multilineTextAlignment(.center)
-                                    
+                    Text(foodTruck.name)
+                        .font(.headline)
+                        .padding(.bottom, 5)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                    
                     HStack {
-                        Image("cardpic")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
+//                        if let imageURL = URL(string: foodTruck.imageURL) {
+//                            AsyncImage(url: imageURL) { phase in
+//                                if let image = phase.image {
+//                                    image.resizable()
+//                                         .frame(width: 100, height: 100)
+//                                         .clipShape(Circle())
+//                                } else {
+                                    Image("cardpic")
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(Circle())
+//                                }
+//                            }
+//                        }
                         Spacer()
                         VStack(alignment: .leading) {
-                            Text("Open: 11.00-18.00")
-                            Text("Food: Mexican")
-                            RtingView(rating: 3)
+                            Text(foodTruck.openingHours)
+                            Text("Food: \(foodTruck.foodType)")
+                            RtingView(rating: Int(foodTruck.rating)) // Pass rating directly
                         }
                         Spacer()
                     }
@@ -54,15 +67,37 @@ struct HomeView: View {
                 .cornerRadius(10)
                 .padding(.vertical, 5)
             }
-            .listStyle(PlainListStyle())
+            .onAppear {
+                fetchFoodTrucks()
+            }
+        }
+    }
+    
+    private func fetchFoodTrucks() {
+        let db = Firestore.firestore()
+        db.collection("foodTrucks").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            
+            self.foodTrucks = documents.compactMap { document -> FoodTruck? in
+                try? document.data(as: FoodTruck.self)
+            }
         }
     }
 }
 
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+
+//struct HomeView_Previews: PreviewProvider {
+////    static var previews: some View {
+////        //HomeView()
+////    }
+//}
 
