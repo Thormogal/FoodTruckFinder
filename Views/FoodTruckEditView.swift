@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FoodTruckEditView: View {
     @Binding var foodTruck: FoodTruck
+    var onSave: () -> Void
 
     var body: some View {
         NavigationView {
@@ -29,9 +30,9 @@ struct FoodTruckEditView: View {
                     }
                 }
             }
-            .navigationBarTitle("Edit Food Truck")
+            .navigationBarTitle("Edit Foodtruck")
             .navigationBarItems(trailing: Button("Done") {
-                // Action to save changes
+                onSave()
             })
         }
     }
@@ -57,7 +58,9 @@ struct FoodTruckEditView_Previews: PreviewProvider {
             location: Location(latitude: 59.3293, longitude: 18.0686)
         )
         
-        FoodTruckEditView(foodTruck: .constant(mockFoodTruck))
+        FoodTruckEditView(foodTruck: .constant(mockFoodTruck), onSave: {})
     }
 }
+
+
 

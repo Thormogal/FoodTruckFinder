@@ -7,26 +7,59 @@
 
 import Foundation
 import Combine
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class FoodTruckViewModel: ObservableObject {
     @Published var foodTruck: FoodTruck
+    private var db = Firestore.firestore()
+    var auth = Auth.auth()
 
     init() {
-        // Mock data
+        // Initialize with empty FoodTruck object
         self.foodTruck = FoodTruck(
             id: UUID().uuidString,
-            name: "Awesome Food Truck",
-            rating: 4.5,
-            foodType: "Mexican",
-            priceRange: "80 - 140kr",
-            openingHours: "10:00 - 20:00",
-            paymentMethods: "Cash, Card",
-            imageURL: "https://example.com/foodtruck.jpg",
-            menu: [
-                MenuItem(id: UUID().uuidString, name: "Taco", price: 50, ingredients: "Beef, Lettuce, Cheese, Salsa"),
-                MenuItem(id: UUID().uuidString, name: "Burrito", price: 80, ingredients: "Chicken, Rice, Beans, Cheese, Salsa")
-            ],
-            location: Location(latitude: 59.3293, longitude: 18.0686)
+            name: "",
+            rating: 0.0,
+            foodType: "",
+            priceRange: "",
+            openingHours: "",
+            paymentMethods: "",
+            imageURL: "",
+            menu: [],
+            location: Location(latitude: 0.0, longitude: 0.0)
         )
+        fetchFoodTruckData()
+    }
+
+    func fetchFoodTruckData() {
+        guard let userId = auth.currentUser?.uid else { return }
+        db.collection("foodTrucks").document(userId).getDocument { (document, error) in
+            if let document = document, document.exists {
+                do {
+                    let foodTruck = try document.data(as: FoodTruck.self)
+                    self.foodTruck = foodTruck
+                } catch {
+                    print("Error decoding food truck: \(error)")
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+
+
+    func saveFoodTruckData() {
+        guard let userId = auth.currentUser?.uid else { return }
+        do {
+            try db.collection("foodTrucks").document(userId).setData(from: foodTruck)
+        } catch {
+            print("Error saving food truck: \(error)")
+        }
     }
 }
+
+
+
+

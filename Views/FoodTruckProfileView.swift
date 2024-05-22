@@ -36,7 +36,6 @@ struct FoodTruckProfileView: View {
                 ))
                 .frame(height: 200)
 
-                // Information
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Type of Food: \(viewModel.foodTruck.foodType)")
                     Text("Price Range: \(viewModel.foodTruck.priceRange)")
@@ -78,7 +77,10 @@ struct FoodTruckProfileView: View {
                         .foregroundColor(.blue)
                 }
                 .sheet(isPresented: $isEditing) {
-                    FoodTruckEditView(foodTruck: $viewModel.foodTruck)
+                    FoodTruckEditView(foodTruck: $viewModel.foodTruck) {
+                        viewModel.saveFoodTruckData()
+                        isEditing = false
+                    }
                 }
             }
         }
@@ -107,6 +109,8 @@ struct FoodTruckProfileView_Previews: PreviewProvider {
         FoodTruckProfileView(viewModel: viewModel)
     }
 }
+
+
 
 
 

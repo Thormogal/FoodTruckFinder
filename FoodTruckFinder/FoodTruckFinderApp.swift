@@ -41,6 +41,8 @@ struct YourApp: App {
         WindowGroup {
             NavigationView {
                 ContentView()
+                ProfileView()
+                //MapView()
             }
         }
         }

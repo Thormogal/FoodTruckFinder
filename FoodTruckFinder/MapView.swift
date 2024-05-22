@@ -9,19 +9,14 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 59.3293, longitude: 18.0686),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-    )
-    
-    @GestureState private var zoomScale: CGFloat = 1.0
+    @StateObject private var locationManager = LocationManager()
     @State private var searchText = ""
-    
+    @GestureState private var zoomScale: CGFloat = 1.0
     
     var body: some View {
         VStack {
             SearchBar(text: $searchText, onSearchButtonClicked: search)
-            Map(coordinateRegion: $region)
+            Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
                 .edgesIgnoringSafeArea(.all)
                 .gesture(
                     MagnificationGesture()
@@ -30,10 +25,10 @@ struct MapView: View {
                         }
                         .onEnded { value in
                             let delta = value - 1.0
-                            let currentSpan = region.span
+                            let currentSpan = locationManager.region.span
                             let newSpan = MKCoordinateSpan(latitudeDelta: currentSpan.latitudeDelta / Double(1 + delta), longitudeDelta: currentSpan.longitudeDelta / Double(1 + delta))
                             
-                            region.span = newSpan
+                            locationManager.region.span = newSpan
                         }
                 )
         }
@@ -42,7 +37,7 @@ struct MapView: View {
     private func search() {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
-        request.region = region
+        request.region = locationManager.region
         
         let search = MKLocalSearch(request: request)
         search.start { response, error in
@@ -54,7 +49,7 @@ struct MapView: View {
             // Update the region to the first result
             if let item = response.mapItems.first {
                 withAnimation {
-                    region = MKCoordinateRegion(
+                    locationManager.region = MKCoordinateRegion(
                         center: item.placemark.coordinate,
                         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                     )
@@ -102,7 +97,6 @@ struct SearchBar: UIViewRepresentable {
         uiView.text = text
     }
 }
-
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
