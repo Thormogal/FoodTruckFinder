@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FoodTruck: Identifiable {
+struct FoodTruck: Identifiable, Codable {
     var id: String
     var name: String
     var rating: Double
@@ -20,14 +20,15 @@ struct FoodTruck: Identifiable {
     var location: Location
 }
 
-struct MenuItem: Identifiable {
+struct MenuItem: Identifiable, Codable {
     var id: String
     var name: String
     var price: Double
     var ingredients: String
 }
 
-struct Location {
+struct Location: Codable {
     var latitude: Double
     var longitude: Double
 }
+

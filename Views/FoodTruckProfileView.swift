@@ -77,7 +77,10 @@ struct FoodTruckProfileView: View {
                         .foregroundColor(.blue)
                 }
                 .sheet(isPresented: $isEditing) {
-                    FoodTruckEditView(foodTruck: $viewModel.foodTruck)
+                    FoodTruckEditView(foodTruck: $viewModel.foodTruck) {
+                        viewModel.saveFoodTruckData()
+                        isEditing = false
+                    }
                 }
             }
         }
@@ -106,6 +109,8 @@ struct FoodTruckProfileView_Previews: PreviewProvider {
         FoodTruckProfileView(viewModel: viewModel)
     }
 }
+
+
 
 
 
