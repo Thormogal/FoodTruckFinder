@@ -7,20 +7,39 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseStorage
 
 struct ProfileView: View {
     @State private var userEmail: String = "Unknown"
+    @State private var profileImage: UIImage? = nil
+    @State private var showingImagePicker = false
+    @State private var profileImageUrl: URL? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .center, spacing: 30.0) {
-                Image("ProfilePic")
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-                    .padding(.leading)
-
+                if let profileImage = profileImage {
+                    Image(uiImage: profileImage)
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+                        .padding(.leading)
+                        .onTapGesture {
+                            self.showingImagePicker = true
+                        }
+                } else {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+                        .padding(.leading)
+                        .onTapGesture {
+                            self.showingImagePicker = true
+                        }
+                }
+                
                 VStack(alignment: .leading) {
                     Text(userEmail)
                         .font(.title)
@@ -32,7 +51,8 @@ struct ProfileView: View {
                 .padding(.leading)
             }
             .padding(.top)
-
+            Spacer()
+            
             VStack(alignment: .leading) {
                 HStack {
                     Image("HamburgerIcon")
@@ -63,9 +83,13 @@ struct ProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             fetchUserEmail()
+            fetchProfileImage()
+        }
+        .sheet(isPresented: $showingImagePicker, onDismiss: uploadProfileImage) {
+            ImagePicker(image: $profileImage)
         }
     }
-
+    
     private func fetchUserEmail() {
         if let user = Auth.auth().currentUser {
             self.userEmail = user.email ?? "No Email"
@@ -73,11 +97,65 @@ struct ProfileView: View {
             self.userEmail = "No User Signed In"
         }
     }
-
+    
+    private func fetchProfileImage() {
+        guard let user = Auth.auth().currentUser else { return }
+        let storageRef = Storage.storage().reference().child("profile_images/\(user.uid).jpg")
+        
+        storageRef.downloadURL { url, error in
+            if let error = error {
+                print("Error fetching profile image URL: \(error)")
+                return
+            }
+            self.profileImageUrl = url
+            if let url = url {
+                downloadImage(from: url) { image in
+                    self.profileImage = image
+                }
+            }
+        }
+    }
+    
+    private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }.resume()
+    }
+    
+    private func uploadProfileImage() {
+        guard let user = Auth.auth().currentUser, let image = profileImage, let imageData = image.jpegData(compressionQuality: 0.8) else { return }
+        
+        let storageRef = Storage.storage().reference().child("profile_images/\(user.uid).jpg")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        storageRef.putData(imageData, metadata: metadata) { metadata, error in
+            if let error = error {
+                print("Error while uploading profile image: \(error)")
+                return
+            }
+            storageRef.downloadURL { url, error in
+                if let error = error {
+                    print("Error while getting download URL for image: \(error)")
+                    return
+                }
+                self.profileImageUrl = url
+            }
+        }
+    }
+    
     private func signOut() {
         do {
             try Auth.auth().signOut()
-
+            
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
