@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ProfileView: View {
+    @State private var userEmail: String = "Unknown"
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .center, spacing: 30.0) {
@@ -19,7 +22,7 @@ struct ProfileView: View {
                     .padding(.leading)
 
                 VStack(alignment: .leading) {
-                    Text("Ahmad Saidan")
+                    Text(userEmail)
                         .font(.title)
                         .fontWeight(.bold)
                     Text("Göteborg, Sweden")
@@ -29,6 +32,7 @@ struct ProfileView: View {
                 .padding(.leading)
             }
             .padding(.top)
+
             VStack(alignment: .leading) {
                 HStack {
                     Image("HamburgerIcon")
@@ -44,9 +48,39 @@ struct ProfileView: View {
             .frame(maxHeight: .infinity)
             
             Spacer()
+            
+            Button(action: signOut) {
+                Text("Sign Out")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .padding(.bottom)
+            }
         }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            fetchUserEmail()
+        }
+    }
+
+    private func fetchUserEmail() {
+        if let user = Auth.auth().currentUser {
+            self.userEmail = user.email ?? "No Email"
+        } else {
+            self.userEmail = "No User Signed In"
+        }
+    }
+
+    private func signOut() {
+        do {
+            try Auth.auth().signOut()
+
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
 }
 
@@ -55,4 +89,3 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView()
     }
 }
-
