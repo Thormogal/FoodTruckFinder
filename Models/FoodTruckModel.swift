@@ -7,8 +7,11 @@
 
 import Foundation
 
+import Foundation
+import FirebaseFirestoreSwift
+
 struct FoodTruck: Identifiable, Codable {
-    var id: String
+    @DocumentID var id: String?
     var name: String
     var rating: Double
     var foodType: String
@@ -21,7 +24,7 @@ struct FoodTruck: Identifiable, Codable {
 }
 
 struct MenuItem: Identifiable, Codable {
-    var id: String
+    var id = UUID().uuidString
     var name: String
     var price: Double
     var ingredients: String

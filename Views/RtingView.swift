@@ -7,25 +7,26 @@
 
 import SwiftUI
 
+
+
 struct RtingView: View {
     
-    let rating: Int
-    let maximumRating = 5
-    
-    var body: some View {
-        HStack {
-            ForEach(1...maximumRating, id: \.self) { index in
-                Image(index <= rating ? "filledburger" : "burger")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-        }
-    }
+    var rating: Double
+   
+       var body: some View {
+           HStack {
+               ForEach(0..<5) { index in
+                   Image(index < Int(rating) ? "filledburger" : "burger")
+                       .foregroundColor(index < Int(rating) ? .yellow : .gray)
+               }
+           }
+           .padding(.horizontal)
+       }
 }
 
 struct RatingView_Previews: PreviewProvider {
     static var previews: some View {
-        RatingView(rating: 4)
+        RtingView(rating: 4)
             .previewLayout(.sizeThatFits)
             .padding()
     }
