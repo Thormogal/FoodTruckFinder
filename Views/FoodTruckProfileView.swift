@@ -27,7 +27,7 @@ struct FoodTruckProfileView: View {
                 .clipped()
 
                 // Rating bar
-                RatingView(rating: viewModel.foodTruck.rating)
+                RtingView(rating: (viewModel.foodTruck.rating))
 
                 // Location map view
                 LocationMapView(coordinate: CLLocationCoordinate2D(
@@ -87,20 +87,6 @@ struct FoodTruckProfileView: View {
     }
 }
 
-// RatingView for displaying the rating
-struct RatingView: View {
-    var rating: Double
-
-    var body: some View {
-        HStack {
-            ForEach(0..<5) { index in
-                Image(systemName: index < Int(rating) ? "star.fill" : "star")
-                    .foregroundColor(index < Int(rating) ? .yellow : .gray)
-            }
-        }
-        .padding(.horizontal)
-    }
-}
 
 // Preview Provider
 struct FoodTruckProfileView_Previews: PreviewProvider {
