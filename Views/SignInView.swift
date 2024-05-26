@@ -8,8 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import GoogleSignIn
-import FirebaseFirestore
-import Foundation
+import Firebase
 
 struct SignInView: View {
     @Binding var signedIn: Bool
@@ -17,7 +16,8 @@ struct SignInView: View {
     var auth = Auth.auth()
     @State private var password: String = ""
     @State private var email: String = ""
-    
+    @State private var errorMessage: String?
+
     var body: some View {
         VStack {
             Spacer()
@@ -80,6 +80,12 @@ struct SignInView: View {
                 .padding(.top, 20)
                 .padding(.horizontal, 20)
             
+            if let errorMessage = errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            
             Spacer()
         }
 //                .onAppear {
@@ -95,42 +101,42 @@ struct SignInView: View {
 //                    }
 //                }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
-    }
-    func signInAndFetchUserType(completion: @escaping (Int?) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                print("Error signing in: \(error.localizedDescription)")
-                completion(nil)
-            } else {
-         
-                if let user = authResult?.user {
-                    fetchUserType(userID: user.uid) { type in
-                        completion(type)
+            }
+
+            func signInAndFetchUserType(completion: @escaping (Int?) -> Void) {
+                Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                    if let error = error {
+                        self.errorMessage = error.localizedDescription
+                        completion(nil)
+                    } else {
+                        if let user = authResult?.user {
+                            fetchUserType(userID: user.uid) { type in
+                                completion(type)
+                            }
+                        } else {
+                            print("No user found after sign-in")
+                            completion(nil)
+                        }
                     }
-                } else {
-                    print("No user found after sign-in")
-                    completion(nil)
+                }
+            }
+            
+            func fetchUserType(userID: String, completion: @escaping (Int?) -> Void) {
+                let db = Firestore.firestore()
+                let usersCollection = db.collection("users")
+                
+                usersCollection.document(userID).getDocument { document, error in
+                    if let document = document, document.exists {
+                        if let data = document.data(), let userType = data["usertype"] as? Int {
+                            completion(userType)
+                        } else {
+                            print("User document does not contain 'usertype' field")
+                            completion(nil)
+                        }
+                    } else {
+                        print("Error fetching user document: \(error?.localizedDescription ?? "Unknown error")")
+                        completion(nil)
+                    }
                 }
             }
         }
-    }
-    
-    func fetchUserType(userID: String, completion: @escaping (Int?) -> Void) {
-        let db = Firestore.firestore()
-        let usersCollection = db.collection("users")
-        
-        usersCollection.document(userID).getDocument { document, error in
-            if let document = document, document.exists {
-                if let data = document.data(), let level = data["usertype"] as? Int {
-                    completion(level)
-                } else {
-                    print("User document does not contain 'level' field")
-                    completion(nil)
-                }
-            } else {
-                print("Error fetching user document: \(error?.localizedDescription ?? "Unknown error")")
-                completion(nil)
-            }
-        }
-    }
-}
