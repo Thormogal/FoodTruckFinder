@@ -15,21 +15,47 @@ struct ContentView: View {
     @State private var userType: Int? = nil
 
     var body: some View {
-        if !signedIn {
-            SignInView(signedIn: $signedIn, userType: $userType)
-        } else {
-            if let userType = userType {
-                if userType == 1 {
-                    StartViewUser(signedIn: $signedIn)
-                } else if userType == 2 {
-                    FoodTruckViewModelProvider { viewModel in
-                        FoodTruckProfileView(viewModel: viewModel)
+        Group {
+            if signedIn {
+                if let userType = userType {
+                    if userType == 1 {
+                        StartViewUser(signedIn: $signedIn)
+                    } else if userType == 2 {
+                        FoodTruckViewModelProvider { viewModel in
+                            FoodTruckProfileView(viewModel: viewModel)
+                        }
+                    } else {
+                        Text("Unknown user type")
                     }
                 } else {
-                    Text("Unknown user type")
+                    Text("Loading...")
                 }
             } else {
-                Text("Loading...")
+                SignInView(signedIn: $signedIn, userType: $userType)
+            }
+        }
+        .onAppear {
+            checkUserLoggedInStatus()
+        }
+    }
+
+    private func checkUserLoggedInStatus() {
+        if let user = Auth.auth().currentUser {
+            self.signedIn = true
+            fetchUserType(user: user)
+        } else {
+            self.signedIn = false
+        }
+    }
+
+    private func fetchUserType(user: User) {
+        let userId = user.uid
+        let db = Firestore.firestore()
+        db.collection("users").document(userId).getDocument { document, error in
+            if let document = document, document.exists {
+                self.userType = document.data()?["usertype"] as? Int
+            } else {
+                print("User does not exist or error fetching user data: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
     }
@@ -47,6 +73,7 @@ struct FoodTruckViewModelProvider<Content: View>: View {
 #Preview {
     ContentView()
 }
+
 
 
 

@@ -12,9 +12,9 @@ struct SplashView: View {
 
     var body: some View {
         if isActive {
-            ContentView() // Vaš glavni view
+            ContentView() 
         } else {
-            Image("image 2") // Promijenite naziv slike ovdje
+            Image("image 2")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
