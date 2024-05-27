@@ -9,7 +9,7 @@ import SwiftUI
 
 
 
-struct RtingView: View {
+struct RatingView: View {
     
     var rating: Double
    
@@ -26,7 +26,7 @@ struct RtingView: View {
 
 struct RatingView_Previews: PreviewProvider {
     static var previews: some View {
-        RtingView(rating: 4)
+        RatingView(rating: 4)
             .previewLayout(.sizeThatFits)
             .padding()
     }

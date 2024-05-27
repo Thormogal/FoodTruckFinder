@@ -11,12 +11,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-
 class FoodTruckViewModel: ObservableObject {
     @Published var foodTruck: FoodTruck
     private var db = Firestore.firestore()
     var auth = Auth.auth()
-
     
     init(foodTruck: FoodTruck? = nil) {
         if let foodTruck = foodTruck {
@@ -57,12 +55,20 @@ class FoodTruckViewModel: ObservableObject {
     func saveFoodTruckData() {
         guard let userId = auth.currentUser?.uid else { return }
         do {
-            try db.collection("foodTrucks").document(userId).setData(from: foodTruck)
+            print("Saving food truck: \(foodTruck)")
+            try db.collection("foodTrucks").document(userId).setData(from: foodTruck) { error in
+                if let error = error {
+                    print("Error saving food truck: \(error)")
+                } else {
+                    print("Food truck successfully saved.")
+                }
+            }
         } catch {
             print("Error saving food truck: \(error)")
         }
     }
 }
+
 
 
 
