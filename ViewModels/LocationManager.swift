@@ -29,7 +29,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            // Handle case when location access is denied
             print("Location access denied.")
         case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
@@ -49,7 +48,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // Handle location manager errors
         print("Location manager failed with error: \(error)")
     }
 }

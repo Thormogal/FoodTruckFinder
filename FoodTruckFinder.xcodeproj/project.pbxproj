@@ -18,9 +18,9 @@
 		5291D2F92BFB69D7004B7109 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2F82BFB69D7004B7109 /* SignUpView.swift */; };
 		5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2FA2BFB6E4B004B7109 /* SignInView.swift */; };
 		5291D3392BFD3420004B7109 /* RtingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RtingView.swift */; };
-		5291D33B2BFE1902004B7109 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5291D33A2BFE1902004B7109 /* GoogleService-Info.plist */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManager.swift */; };
-		59D2873E2BFE15B400134A21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */; };
+		59DB35E82C04FD69003655DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59DB35E72C04FD69003655DF /* GoogleService-Info.plist */; };
+		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */; };
 		CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */; };
 		CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */; };
@@ -49,9 +49,9 @@
 		5291D2F82BFB69D7004B7109 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpView.swift; path = Views/SignUpView.swift; sourceTree = SOURCE_ROOT; };
 		5291D2FA2BFB6E4B004B7109 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5291D3382BFD3420004B7109 /* RtingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RtingView.swift; sourceTree = "<group>"; };
-		5291D33A2BFE1902004B7109 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		59DB35E72C04FD69003655DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckModel.swift; sourceTree = "<group>"; };
 		CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckViewModel.swift; sourceTree = "<group>"; };
 		CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckProfileView.swift; sourceTree = "<group>"; };
@@ -119,7 +119,8 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
-				59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */,
+				59DB35E92C050E66003655DF /* FoodTruckService.swift */,
+				59DB35E72C04FD69003655DF /* GoogleService-Info.plist */,
 				CEA92BDF2BF5F97B00FD159A /* Models */,
 				CEA92BE02BF5F98200FD159A /* Views */,
 				CEA92BE12BF5F98A00FD159A /* ViewModels */,
@@ -240,8 +241,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59D2873E2BFE15B400134A21 /* GoogleService-Info.plist in Resources */,
 				CEB9EB3D2BF1F5490093A288 /* Preview Assets.xcassets in Resources */,
+				59DB35E82C04FD69003655DF /* GoogleService-Info.plist in Resources */,
 				CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +265,7 @@
 				CEAB080E2BFA901A005AE0E9 /* LocationMapView.swift in Sources */,
 				CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */,
 				CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */,
+				59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */,
 				CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */,
 				02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */,
 				5291D3392BFD3420004B7109 /* RtingView.swift in Sources */,

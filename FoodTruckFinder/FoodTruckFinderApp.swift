@@ -40,10 +40,11 @@ struct YourApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                SplashView()
-                ContentView()
+                //SplashView()
+                //ContentView()
                 //ProfileView()
-                //MapView()
+                MapView()
+                //HomeView()
             }
         }
         }
