@@ -16,12 +16,12 @@ struct ProfileView: View {
     @State private var profileImageUrl: URL? = nil
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack(alignment: .center, spacing: 30.0) {
+        VStack(alignment: .leading) {
+            HStack(alignment: .top,spacing: 60) {
                 if let profileImage = profileImage {
                     Image(uiImage: profileImage)
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 80, height: 80)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.gray, lineWidth: 2))
                         .padding(.leading)
@@ -40,17 +40,18 @@ struct ProfileView: View {
                         }
                 }
                 
-                VStack(alignment: .leading) {
-                    Text(userEmail)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(Auth.auth().currentUser?.displayName ?? "Username not available")
                         .font(.title)
                         .fontWeight(.bold)
-                    Text("Göteborg, Sweden")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                    Text(userEmail)
+                        .font(.title2)
+                        .fontWeight(.light)
                 }
                 .padding(.leading)
             }
             .padding(.top)
+            Spacer()
             Spacer()
             
             VStack(alignment: .leading) {
