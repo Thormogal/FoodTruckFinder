@@ -10,6 +10,8 @@ import FirebaseAuth
 import FirebaseStorage
 
 struct ProfileView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var userEmail: String = "Unknown"
     @State private var profileImage: UIImage? = nil
     @State private var showingImagePicker = false
@@ -156,6 +158,7 @@ struct ProfileView: View {
     private func signOut() {
         do {
             try Auth.auth().signOut()
+            presentationMode.wrappedValue.dismiss()
             
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)

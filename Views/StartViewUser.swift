@@ -10,11 +10,11 @@ import SwiftUI
 import FirebaseAuth
 
 struct StartViewUser: View {
-    @Binding var signedIn: Bool
+    @StateObject private var authViewModel = AuthViewModel()
 
     var body: some View {
         VStack {
-            if signedIn {
+            if authViewModel.isSignedIn {
                 TabView {
                     HomeView()
                         .tabItem {
@@ -35,9 +35,8 @@ struct StartViewUser: View {
                         }
                 }
             } else {
-                SignInView(signedIn: $signedIn, userType: .constant(nil))
+                SignInView(signedIn: $authViewModel.isSignedIn, userType: .constant(nil))
             }
         }
     }
 }
-
