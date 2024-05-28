@@ -5,9 +5,15 @@
 //  Created by Irfan Sarac on 2024-05-17.
 //
 
+
+
+// Your HomeView implementation here...
+
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import CoreLocation
+
 enum SortOption: String, CaseIterable, Identifiable {
     case distance = "Distance"
     case price = "Price"
@@ -31,11 +37,8 @@ extension UIColor {
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
-import SwiftUI
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
-struct Category:Equatable, Identifiable {
+struct Category: Equatable, Identifiable {
     var id = UUID()
     var name: String
     var imageName: String
@@ -77,6 +80,8 @@ struct HomeView: View {
         Category(name: "Kebab", imageName: "kebab"),
         Category(name: "Chicken", imageName: "chicken")
     ]
+    @ObservedObject private var locationManager = LocationManager()
+    
     
     var body: some View {
         NavigationStack {
@@ -96,29 +101,39 @@ struct HomeView: View {
                 }
                 
                 HStack {
-                                  ZStack {
-                                      RoundedRectangle(cornerRadius: 25)
-                                          .fill(Color(UIColor.fromHex("3D84B7")))
-                                          .frame(width: 125, height: 35)
-                                      Picker("Sort by", selection: $selectedSortOption) {
-                                          ForEach(SortOption.allCases) { option in
-                                              Text(option.rawValue).tag(option)
-                                            
-                                          }
-                                      }
-                                      .pickerStyle(MenuPickerStyle())
-                                      .padding(.horizontal, 10)
-                                      .onChange(of: selectedSortOption) { _ in
-                                          sortFoodTrucks()
-                                      }
-                                      .accentColor(.white)
-                                  }
-                                  Spacer()
-                              }
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(Color(UIColor.fromHex("3D84B7")))
+                            .frame(width: 125, height: 35)
+                        Picker("Sort by", selection: $selectedSortOption) {
+                            ForEach(SortOption.allCases) { option in
+                                Text(option.rawValue).tag(option)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .padding(.horizontal, 10)
+                        .onChange(of: selectedSortOption) { _ in
+                            sortFoodTrucks()
+                        }
+                        .accentColor(.white)
+                    }
+                    Spacer()
+                }
                 .padding(.horizontal, 10)
-                              .padding(.vertical, 10)
+                .padding(.vertical, 10)
                 
-               
+                
+//                if let userLocation = locationManager.userLocation {
+//                    Text("Current Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+//                        .padding()
+//                        .onAppear {
+//                            print("User Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+//                        }
+//                } else {
+//                    Text("Current Location: Calculating...")
+//                        .padding()
+//                }
+
                 List(filteredFoodTrucks) { foodTruck in
                     NavigationLink(destination: FoodTruckProfileView(viewModel: FoodTruckViewModel(foodTruck: foodTruck))) {
                         VStack(alignment: .leading) {
@@ -137,8 +152,13 @@ struct HomeView: View {
                                 VStack(alignment: .leading) {
                                     Text(foodTruck.openingHours)
                                     Text("Food: \(foodTruck.foodType)")
-                                    Text("price: \(foodTruck.priceRange)")
-                                    RtingView(rating: (foodTruck.rating))
+                                    Text("Price: \(foodTruck.priceRange)")
+                                    RtingView(rating: foodTruck.rating)
+                                    if let userLocation = locationManager.userLocation {
+                                        Text("Distance: \(String(format: "%.2f", foodTruck.distance(to: userLocation))) km")
+                                    } else {
+                                        Text("Distance: Calculating...")
+                                    }
                                 }
                                 Spacer()
                             }
@@ -158,52 +178,61 @@ struct HomeView: View {
     }
     
     private func fetchFoodTrucks() {
-            let db = Firestore.firestore()
-            db.collection("foodTrucks").getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error getting documents: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let documents = snapshot?.documents else {
-                    print("No documents found")
-                    return
-                }
-                
-                self.foodTrucks = documents.compactMap { document -> FoodTruck? in
-                    do {
-                        let foodTruck = try document.data(as: FoodTruck.self)
-                        return foodTruck
-                    } catch {
-                        print("Error decoding document into FoodTruck: \(error.localizedDescription)")
-                        return nil
-                    }
-                }
-                filterFoodTrucks()
+        let db = Firestore.firestore()
+        db.collection("foodTrucks").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                return
             }
-        }
-        
-        private func filterFoodTrucks() {
-            if let selectedCategory = selectedCategory, selectedCategory.name != "All" {
-                filteredFoodTrucks = foodTrucks.filter { $0.foodType == selectedCategory.name }
-            } else {
-                filteredFoodTrucks = foodTrucks
+            
+            guard let documents = snapshot?.documents else {
+                print("No documents found")
+                return
             }
-            sortFoodTrucks()
-        }
-        
-        private func sortFoodTrucks() {
-            switch selectedSortOption {
-            case .distance:
-                // Replace with distance calculation
-                filteredFoodTrucks.sort { $0.distance < $1.distance }
-            case .price:
-                filteredFoodTrucks.sort { $0.priceRange < $1.priceRange }
-            case .rating:
-                filteredFoodTrucks.sort { $0.rating > $1.rating }
+            
+            self.foodTrucks = documents.compactMap { document -> FoodTruck? in
+                do {
+                    let foodTruck = try document.data(as: FoodTruck.self)
+                    return foodTruck
+                } catch {
+                    print("Error decoding document into FoodTruck: \(error.localizedDescription)")
+                    return nil
+                }
             }
+            filterFoodTrucks()
         }
     }
+    
+    private func filterFoodTrucks() {
+        if let selectedCategory = selectedCategory, selectedCategory.name != "All" {
+            filteredFoodTrucks = foodTrucks.filter { $0.foodType == selectedCategory.name }
+        } else {
+            filteredFoodTrucks = foodTrucks
+        }
+        sortFoodTrucks()
+    }
+    
+    private func sortFoodTrucks() {
+        if let userLocation = locationManager.userLocation {
+            print("User Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+        } else {
+            print("User Location not available")
+        }
+        switch selectedSortOption {
+        case .distance:
+            if let userLocation = locationManager.userLocation {
+                filteredFoodTrucks.sort { $0.distance(to: userLocation) < $1.distance(to: userLocation) }
+                print("Sorted by distance")
+            }
+        case .price:
+            filteredFoodTrucks.sort { $0.priceRange < $1.priceRange }
+            print("Sorted by price")
+        case .rating:
+            filteredFoodTrucks.sort { $0.rating > $1.rating }
+            print("Sorted by rating")
+        }
+    }
+}
 
     
    
