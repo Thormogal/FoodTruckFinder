@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02BC91892BF7350F00221CCB /* SplashView.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC91882BF7350F00221CCB /* SplashView.swif.swift */; };
+		02BC91892BF7350F00221CCB /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC91882BF7350F00221CCB /* SplashView.swift */; };
 		02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC918C2BF78A8500221CCB /* HomeView.swift */; };
 		02BC918F2BF78AA200221CCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC918E2BF78AA200221CCB /* MapView.swift */; };
 		02BC91912BF78AB600221CCB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC91902BF78AB600221CCB /* ProfileView.swift */; };
@@ -17,10 +17,12 @@
 		5291D2F32BF68E7C004B7109 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2F22BF68E7C004B7109 /* GoogleSignInButton.swift */; };
 		5291D2F92BFB69D7004B7109 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2F82BFB69D7004B7109 /* SignUpView.swift */; };
 		5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2FA2BFB6E4B004B7109 /* SignInView.swift */; };
-		5291D3392BFD3420004B7109 /* RtingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RtingView.swift */; };
-		5291D33B2BFE1902004B7109 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5291D33A2BFE1902004B7109 /* GoogleService-Info.plist */; };
+		5291D3392BFD3420004B7109 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RatingView.swift */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManager.swift */; };
 		59D2873E2BFE15B400134A21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */; };
+		CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */; };
+		CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */; };
+		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */; };
 		CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */; };
 		CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */; };
@@ -40,7 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		02BC91882BF7350F00221CCB /* SplashView.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swif.swift; sourceTree = "<group>"; };
+		02BC91882BF7350F00221CCB /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		02BC918C2BF78A8500221CCB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		02BC918E2BF78AA200221CCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		02BC91902BF78AB600221CCB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -48,10 +50,12 @@
 		5291D2F22BF68E7C004B7109 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GoogleSignInButton.swift; path = Views/GoogleSignInButton.swift; sourceTree = SOURCE_ROOT; };
 		5291D2F82BFB69D7004B7109 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpView.swift; path = Views/SignUpView.swift; sourceTree = SOURCE_ROOT; };
 		5291D2FA2BFB6E4B004B7109 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		5291D3382BFD3420004B7109 /* RtingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RtingView.swift; sourceTree = "<group>"; };
-		5291D33A2BFE1902004B7109 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5291D3382BFD3420004B7109 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckImagePickerViewModel.swift; sourceTree = "<group>"; };
+		CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckImagePicker.swift; sourceTree = "<group>"; };
+		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckModel.swift; sourceTree = "<group>"; };
 		CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckViewModel.swift; sourceTree = "<group>"; };
 		CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckProfileView.swift; sourceTree = "<group>"; };
@@ -84,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEA4E7D52C052CB600BEDE81 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		CEA92BDF2BF5F97B00FD159A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,7 +114,7 @@
 				CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */,
 				CEAB080B2BFA8C70005AE0E9 /* FoodTruckEditView.swift */,
 				CEAB080D2BFA901A005AE0E9 /* LocationMapView.swift */,
-				5291D3382BFD3420004B7109 /* RtingView.swift */,
+				5291D3382BFD3420004B7109 /* RatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -112,6 +124,7 @@
 			children = (
 				CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */,
 				59CF165C2BFD20E600ABBA67 /* LocationManager.swift */,
+				CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -119,7 +132,11 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
+
 				59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */,
+				CEA4E7D52C052CB600BEDE81 /* Components */,
+				59DB35E92C050E66003655DF /* FoodTruckService.swift */,
+
 				CEA92BDF2BF5F97B00FD159A /* Models */,
 				CEA92BE02BF5F98200FD159A /* Views */,
 				CEA92BE12BF5F98A00FD159A /* ViewModels */,
@@ -145,7 +162,7 @@
 				CEB9EB372BF1F5460093A288 /* ContentView.swift */,
 				CEB9EB392BF1F5490093A288 /* Assets.xcassets */,
 				CEB9EB3B2BF1F5490093A288 /* Preview Content */,
-				02BC91882BF7350F00221CCB /* SplashView.swif.swift */,
+				02BC91882BF7350F00221CCB /* SplashView.swift */,
 				02BC918C2BF78A8500221CCB /* HomeView.swift */,
 				02BC918E2BF78AA200221CCB /* MapView.swift */,
 				02BC91902BF78AB600221CCB /* ProfileView.swift */,
@@ -240,8 +257,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59D2873E2BFE15B400134A21 /* GoogleService-Info.plist in Resources */,
 				CEB9EB3D2BF1F5490093A288 /* Preview Assets.xcassets in Resources */,
+				59DB35E82C04FD69003655DF /* GoogleService-Info.plist in Resources */,
 				CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,16 +274,19 @@
 				59CF165D2BFD20E600ABBA67 /* LocationManager.swift in Sources */,
 				02BC918F2BF78AA200221CCB /* MapView.swift in Sources */,
 				E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */,
+				CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */,
 				CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */,
 				5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */,
+				CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */,
 				CEAB080C2BFA8C70005AE0E9 /* FoodTruckEditView.swift in Sources */,
-				02BC91892BF7350F00221CCB /* SplashView.swif.swift in Sources */,
+				02BC91892BF7350F00221CCB /* SplashView.swift in Sources */,
 				CEAB080E2BFA901A005AE0E9 /* LocationMapView.swift in Sources */,
 				CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */,
 				CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */,
+				59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */,
 				CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */,
 				02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */,
-				5291D3392BFD3420004B7109 /* RtingView.swift in Sources */,
+				5291D3392BFD3420004B7109 /* RatingView.swift in Sources */,
 				CEB9EB362BF1F5450093A288 /* FoodTruckFinderApp.swift in Sources */,
 				5291D2F32BF68E7C004B7109 /* GoogleSignInButton.swift in Sources */,
 				5291D2E82BF64EBC004B7109 /* StartViewUser.swift in Sources */,

@@ -10,6 +10,8 @@ import SwiftUI
 struct FoodTruckEditView: View {
     @Binding var foodTruck: FoodTruck
     var onSave: () -> Void
+    @StateObject private var imagePickerViewModel = TruckImagePickerViewModel()
+    @State private var showingImagePicker = false
 
     var body: some View {
         NavigationView {
@@ -23,44 +25,54 @@ struct FoodTruckEditView: View {
                 }
 
                 Section(header: Text("Menu")) {
-                    ForEach($foodTruck.menu) { $item in
-                        TextField("Item Name", text: $item.name)
-                        TextField("Item Price", value: $item.price, formatter: NumberFormatter())
-                        TextField("Ingredients", text: $item.ingredients)
+                    ForEach(Array($foodTruck.menu.enumerated()), id: \.element.id) { index, $item in
+                        VStack {
+                            TextField("Item Name", text: $item.name)
+                            TextField("Item Price", value: $item.price, formatter: NumberFormatter())
+                            TextField("Ingredients", text: $item.ingredients)
+                            Button(action: {
+                                removeMenuItem(at: index)
+                            }) {
+                                Text("Remove Item")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                    Button(action: addMenuItem) {
+                        Text("Add Item")
                     }
                 }
             }
             .navigationBarTitle("Edit Foodtruck")
-            .navigationBarItems(trailing: Button("Done") {
+            .navigationBarItems(leading: Button(action: {
+                showingImagePicker = true
+            }) {
+                Image(systemName: "photo")
+            }, trailing: Button("Done") {
                 onSave()
             })
+            .sheet(isPresented: $showingImagePicker) {
+                TruckImagePicker(image: $imagePickerViewModel.selectedImage) { image in
+                    imagePickerViewModel.uploadImage()
+                }
+            }
+            .onChange(of: imagePickerViewModel.imageURL) { newURL in
+                if let newURL = newURL {
+                    foodTruck.imageURL = newURL
+                }
+            }
         }
+    }
+
+    private func addMenuItem() {
+        foodTruck.menu.append(MenuItem(name: "", price: 0.0, ingredients: ""))
+    }
+
+    private func removeMenuItem(at index: Int) {
+        foodTruck.menu.remove(at: index)
     }
 }
 
-struct FoodTruckEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        let mockMenu = [
-            MenuItem(id: UUID().uuidString, name: "Taco", price: 50, ingredients: "Beef, Lettuce, Cheese, Salsa"),
-            MenuItem(id: UUID().uuidString, name: "Burrito", price: 80, ingredients: "Chicken, Rice, Beans, Cheese, Salsa")
-        ]
-        
-        let mockFoodTruck = FoodTruck(
-            id: UUID().uuidString,
-            name: "Awesome Food Truck",
-            rating: 4.5,
-            foodType: "Mexican",
-            priceRange: "80 - 140kr",
-            openingHours: "10:00 - 20:00",
-            paymentMethods: "Cash, Card",
-            imageURL: "https://example.com/foodtruck.jpg",
-            menu: mockMenu,
-            location: Location(latitude: 59.3293, longitude: 18.0686)
-        )
-        
-        FoodTruckEditView(foodTruck: .constant(mockFoodTruck), onSave: {})
-    }
-}
 
 
 

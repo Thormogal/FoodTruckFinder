@@ -6,12 +6,9 @@
 //
 
 import Foundation
-
-import Foundation
-
-
-import Foundation
 import CoreLocation
+import FirebaseFirestoreSwift
+
 
 struct FoodTruck: Identifiable, Codable {
     var id: String

@@ -152,13 +152,15 @@ struct HomeView: View {
                                 VStack(alignment: .leading) {
                                     Text(foodTruck.openingHours)
                                     Text("Food: \(foodTruck.foodType)")
+
                                     Text("Price: \(foodTruck.priceRange)")
-                                    RtingView(rating: foodTruck.rating)
+                                     RatingView(rating: (foodTruck.rating))
                                     if let userLocation = locationManager.userLocation {
                                         Text("Distance: \(String(format: "%.2f", foodTruck.distance(to: userLocation))) km")
                                     } else {
                                         Text("Distance: Calculating...")
                                     }
+
                                 }
                                 Spacer()
                             }
