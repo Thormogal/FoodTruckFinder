@@ -110,7 +110,7 @@ struct HomeView: View {
                                 VStack(alignment: .leading) {
                                     Text(foodTruck.openingHours)
                                     Text("Food: \(foodTruck.foodType)")
-                                    RtingView(rating: (foodTruck.rating))
+                                    RatingView(rating: (foodTruck.rating))
                                 }
                                 Spacer()
                             }

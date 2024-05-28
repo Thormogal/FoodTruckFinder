@@ -27,7 +27,7 @@ struct FoodTruckProfileView: View {
                 .clipped()
 
                 // Rating bar
-                RtingView(rating: (viewModel.foodTruck.rating))
+                RatingView(rating: viewModel.foodTruck.rating)
 
                 // Location map view
                 LocationMapView(coordinate: CLLocationCoordinate2D(
@@ -37,7 +37,7 @@ struct FoodTruckProfileView: View {
                 .frame(height: 200)
 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Type of Food: \(viewModel.foodTruck.foodType)")
+                    Text("Food: \(viewModel.foodTruck.foodType)")
                     Text("Price Range: \(viewModel.foodTruck.priceRange)")
                     Text("Opening Hours: \(viewModel.foodTruck.openingHours)")
                     Text("Payment Methods: \(viewModel.foodTruck.paymentMethods)")
@@ -86,6 +86,8 @@ struct FoodTruckProfileView: View {
         }
     }
 }
+
+
 
 
 // Preview Provider
