@@ -19,10 +19,9 @@
 		5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2FA2BFB6E4B004B7109 /* SignInView.swift */; };
 		5291D3392BFD3420004B7109 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RatingView.swift */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManager.swift */; };
-		59D2873E2BFE15B400134A21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */; };
+		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */; };
 		CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */; };
-		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */; };
 		CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */; };
 		CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */; };
@@ -38,6 +37,7 @@
 		CEB9EB4B2BF1FE9B0093A288 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9EB4A2BF1FE9B0093A288 /* FirebaseFirestoreSwift */; };
 		CEB9EB4D2BF1FE9B0093A288 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9EB4C2BF1FE9B0093A288 /* FirebaseStorage */; };
 		CEB9EB562BF217840093A288 /* FirebasePlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB552BF217840093A288 /* FirebasePlist.swift */; };
+		CED97DFE2C05D2F90094FD14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */; };
 		E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06B58D12BFDF6A2001D219E /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,10 +52,9 @@
 		5291D2FA2BFB6E4B004B7109 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5291D3382BFD3420004B7109 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckImagePickerViewModel.swift; sourceTree = "<group>"; };
 		CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckImagePicker.swift; sourceTree = "<group>"; };
-		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckModel.swift; sourceTree = "<group>"; };
 		CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckViewModel.swift; sourceTree = "<group>"; };
 		CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckProfileView.swift; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		CEB9EB392BF1F5490093A288 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB9EB3C2BF1F5490093A288 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CEB9EB552BF217840093A288 /* FirebasePlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlist.swift; sourceTree = "<group>"; };
+		CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E06B58D12BFDF6A2001D219E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,11 +132,9 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
-
-				59D2873D2BFE15B400134A21 /* GoogleService-Info.plist */,
+				CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */,
 				CEA4E7D52C052CB600BEDE81 /* Components */,
 				59DB35E92C050E66003655DF /* FoodTruckService.swift */,
-
 				CEA92BDF2BF5F97B00FD159A /* Models */,
 				CEA92BE02BF5F98200FD159A /* Views */,
 				CEA92BE12BF5F98A00FD159A /* ViewModels */,
@@ -258,8 +256,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB9EB3D2BF1F5490093A288 /* Preview Assets.xcassets in Resources */,
-				59DB35E82C04FD69003655DF /* GoogleService-Info.plist in Resources */,
 				CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */,
+				CED97DFE2C05D2F90094FD14 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
