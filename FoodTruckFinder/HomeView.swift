@@ -5,9 +5,23 @@
 //  Created by Irfan Sarac on 2024-05-17.
 //
 
+
+
+// Your HomeView implementation here...
+
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import CoreLocation
+
+enum SortOption: String, CaseIterable, Identifiable {
+    case distance = "Distance"
+    case price = "Price"
+    case rating = "Rating"
+    
+    var id: String { self.rawValue }
+}
+
 extension UIColor {
     static func fromHex(_ hex: String) -> UIColor {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -23,11 +37,8 @@ extension UIColor {
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
-import SwiftUI
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
-struct Category:Equatable, Identifiable {
+struct Category: Equatable, Identifiable {
     var id = UUID()
     var name: String
     var imageName: String
@@ -53,14 +64,11 @@ struct CategoryItemView: View {
     }
 }
 
-
-
-
-
 struct HomeView: View {
     @State private var foodTrucks: [FoodTruck] = []
     @State private var filteredFoodTrucks: [FoodTruck] = []
     @State private var selectedCategory: Category?
+    @State private var selectedSortOption: SortOption = .distance // Default sort option
     @State private var categories: [Category] = [
         Category(name: "All", imageName: "all"),
         Category(name: "Taco", imageName: "taco"),
@@ -72,11 +80,12 @@ struct HomeView: View {
         Category(name: "Kebab", imageName: "kebab"),
         Category(name: "Chicken", imageName: "chicken")
     ]
+    @ObservedObject private var locationManager = LocationManager()
+    
     
     var body: some View {
         NavigationStack {
             VStack {
-                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(categories) { category in
@@ -91,7 +100,40 @@ struct HomeView: View {
                     .padding()
                 }
                 
+                HStack {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(Color(UIColor.fromHex("3D84B7")))
+                            .frame(width: 125, height: 35)
+                        Picker("Sort by", selection: $selectedSortOption) {
+                            ForEach(SortOption.allCases) { option in
+                                Text(option.rawValue).tag(option)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .padding(.horizontal, 10)
+                        .onChange(of: selectedSortOption) { _ in
+                            sortFoodTrucks()
+                        }
+                        .accentColor(.white)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 10)
                 
+                
+//                if let userLocation = locationManager.userLocation {
+//                    Text("Current Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+//                        .padding()
+//                        .onAppear {
+//                            print("User Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+//                        }
+//                } else {
+//                    Text("Current Location: Calculating...")
+//                        .padding()
+//                }
+
                 List(filteredFoodTrucks) { foodTruck in
                     NavigationLink(destination: FoodTruckProfileView(viewModel: FoodTruckViewModel(foodTruck: foodTruck))) {
                         VStack(alignment: .leading) {
@@ -110,7 +152,15 @@ struct HomeView: View {
                                 VStack(alignment: .leading) {
                                     Text(foodTruck.openingHours)
                                     Text("Food: \(foodTruck.foodType)")
-                                    RatingView(rating: (foodTruck.rating))
+
+                                    Text("Price: \(foodTruck.priceRange)")
+                                     RatingView(rating: (foodTruck.rating))
+                                    if let userLocation = locationManager.userLocation {
+                                        Text("Distance: \(String(format: "%.2f", foodTruck.distance(to: userLocation))) km")
+                                    } else {
+                                        Text("Distance: Calculating...")
+                                    }
+
                                 }
                                 Spacer()
                             }
@@ -161,8 +211,34 @@ struct HomeView: View {
         } else {
             filteredFoodTrucks = foodTrucks
         }
+        sortFoodTrucks()
+    }
+    
+    private func sortFoodTrucks() {
+        if let userLocation = locationManager.userLocation {
+            print("User Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+        } else {
+            print("User Location not available")
+        }
+        switch selectedSortOption {
+        case .distance:
+            if let userLocation = locationManager.userLocation {
+                filteredFoodTrucks.sort { $0.distance(to: userLocation) < $1.distance(to: userLocation) }
+                print("Sorted by distance")
+            }
+        case .price:
+            filteredFoodTrucks.sort { $0.priceRange < $1.priceRange }
+            print("Sorted by price")
+        case .rating:
+            filteredFoodTrucks.sort { $0.rating > $1.rating }
+            print("Sorted by rating")
+        }
     }
 }
+
+    
+   
+
 
 
 
