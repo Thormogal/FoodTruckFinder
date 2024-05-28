@@ -36,7 +36,7 @@ struct Location: Codable {
 }
 
 struct MenuItem: Identifiable, Codable {
-    var id: String
+    var id: UUID = UUID()
     var name: String
     var price: Double
     var ingredients: String
