@@ -40,8 +40,8 @@ struct YourApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                 MapView()
-                //ContentView()
+                //MapView()
+                ContentView()
 
 
             }

@@ -73,7 +73,7 @@ struct FoodTruckEditView: View {
     }
 
     private func addMenuItem() {
-        foodTruck.menu.append(MenuItem(id: "", name: "", price: 0.0, ingredients: ""))
+        foodTruck.menu.append(MenuItem(name: "", price: 0.0, ingredients: ""))
     }
 
     private func removeMenuItem(at index: Int) {
