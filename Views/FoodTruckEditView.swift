@@ -12,13 +12,21 @@ struct FoodTruckEditView: View {
     var onSave: () -> Void
     @StateObject private var imagePickerViewModel = TruckImagePickerViewModel()
     @State private var showingImagePicker = false
+    let foodTypes = ["Taco", "Sushi", "Hamburger", "Asian", "Indian", "Pizza", "Kebab", "Chicken"]
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("General")) {
                     TextField("Name", text: $foodTruck.name)
-                    TextField("Food Type", text: $foodTruck.foodType)
+                    
+                    // Food Type Picker
+                    Picker("Food Type", selection: $foodTruck.foodType) {
+                        ForEach(foodTypes, id: \.self) {
+                            Text($0)
+                        }
+                    }
+
                     TextField("Price Range", text: $foodTruck.priceRange)
                     TextField("Opening Hours", text: $foodTruck.openingHours)
                     TextField("Payment Methods", text: $foodTruck.paymentMethods)
@@ -72,3 +80,4 @@ struct FoodTruckEditView: View {
         foodTruck.menu.remove(at: index)
     }
 }
+

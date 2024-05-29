@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreLocation
 
 struct FoodTruckProfileView: View {
     @ObservedObject var viewModel: FoodTruckViewModel
@@ -14,7 +13,11 @@ struct FoodTruckProfileView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 0) {
+                Text(viewModel.foodTruck.name)
+                    .font(.custom("AvenirNext-Bold", size: 24))
+                    .foregroundColor(.primary)
+                    .padding(.top, 10)
                 // Food truck image
                 AsyncImage(url: URL(string: viewModel.foodTruck.imageURL)) { image in
                     image
@@ -25,24 +28,20 @@ struct FoodTruckProfileView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: 200)
                 .clipped()
+                
 
                 // Rating bar
                 RatingView(rating: viewModel.foodTruck.rating)
-
-                // Location map view
-                LocationMapView(coordinate: CLLocationCoordinate2D(
-                    latitude: viewModel.foodTruck.location.latitude,
-                    longitude: viewModel.foodTruck.location.longitude
-                ))
-                .frame(height: 200)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Food: \(viewModel.foodTruck.foodType)")
-                    Text("Price Range: \(viewModel.foodTruck.priceRange)")
-                    Text("Opening Hours: \(viewModel.foodTruck.openingHours)")
-                    Text("Payment Methods: \(viewModel.foodTruck.paymentMethods)")
+                    informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
+                    informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
+                    informationRow(title: "Opening Hours:", value: viewModel.foodTruck.openingHours)
+                    informationRow(title: "Payment Methods:", value: viewModel.foodTruck.paymentMethods)
                 }
-                .padding()
+                .padding(.bottom, 30)
 
                 // Menu
                 Group {
@@ -85,21 +84,18 @@ struct FoodTruckProfileView: View {
             }
         }
     }
-}
-
-
-
-
-// Preview Provider
-struct FoodTruckProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = FoodTruckViewModel()
-        FoodTruckProfileView(viewModel: viewModel)
+    
+    private func informationRow(title: String, value: String) -> some View {
+        HStack(alignment: .top) {
+            Text(title)
+                .bold()
+                .alignmentGuide(.leading) { d in d[.leading] }
+            VStack(alignment: .leading) {
+                ForEach(value.split(separator: ".").map(String.init), id: \.self) { part in
+                    Text(part.trimmingCharacters(in: .whitespacesAndNewlines))
+                        .alignmentGuide(.leading) { d in d[.leading] }
+                }
+            }
+        }
     }
 }
-
-
-
-
-
-

@@ -18,6 +18,8 @@
 		5291D2F92BFB69D7004B7109 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2F82BFB69D7004B7109 /* SignUpView.swift */; };
 		5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2FA2BFB6E4B004B7109 /* SignInView.swift */; };
 		5291D3392BFD3420004B7109 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RatingView.swift */; };
+		594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594965882C05F9D3002F08F1 /* SearchbarView.swift */; };
+		5949658B2C060115002F08F1 /* SearchCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5949658A2C060115002F08F1 /* SearchCompleter.swift */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManager.swift */; };
 		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */; };
@@ -37,6 +39,7 @@
 		CEB9EB4B2BF1FE9B0093A288 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9EB4A2BF1FE9B0093A288 /* FirebaseFirestoreSwift */; };
 		CEB9EB4D2BF1FE9B0093A288 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9EB4C2BF1FE9B0093A288 /* FirebaseStorage */; };
 		CEB9EB562BF217840093A288 /* FirebasePlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB552BF217840093A288 /* FirebasePlist.swift */; };
+		CED97DFE2C05D2F90094FD14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */; };
 		E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06B58D12BFDF6A2001D219E /* ImagePicker.swift */; };
 		E094B49D2C05CCF8008DB773 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */; };
 		E0D87DEB2C05C56300FE1C95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0D87DEA2C05C56300FE1C95 /* GoogleService-Info.plist */; };
@@ -52,6 +55,8 @@
 		5291D2F82BFB69D7004B7109 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpView.swift; path = Views/SignUpView.swift; sourceTree = SOURCE_ROOT; };
 		5291D2FA2BFB6E4B004B7109 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5291D3382BFD3420004B7109 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		594965882C05F9D3002F08F1 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
+		5949658A2C060115002F08F1 /* SearchCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompleter.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckImagePickerViewModel.swift; sourceTree = "<group>"; };
@@ -67,6 +72,7 @@
 		CEB9EB392BF1F5490093A288 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB9EB3C2BF1F5490093A288 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CEB9EB552BF217840093A288 /* FirebasePlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlist.swift; sourceTree = "<group>"; };
+		CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E06B58D12BFDF6A2001D219E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E0D87DEA2C05C56300FE1C95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -94,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */,
+				5949658A2C060115002F08F1 /* SearchCompleter.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -117,6 +124,7 @@
 				CEAB080B2BFA8C70005AE0E9 /* FoodTruckEditView.swift */,
 				CEAB080D2BFA901A005AE0E9 /* LocationMapView.swift */,
 				5291D3382BFD3420004B7109 /* RatingView.swift */,
+				594965882C05F9D3002F08F1 /* SearchbarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,8 +142,9 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
-				E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */,
-				E0D87DEA2C05C56300FE1C95 /* GoogleService-Info.plist */,
+
+				E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */,		
+				CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */,
 				CEA4E7D52C052CB600BEDE81 /* Components */,
 				59DB35E92C050E66003655DF /* FoodTruckService.swift */,
 				CEA92BDF2BF5F97B00FD159A /* Models */,
@@ -260,7 +269,8 @@
 			files = (
 				CEB9EB3D2BF1F5490093A288 /* Preview Assets.xcassets in Resources */,
 				CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */,
-				E0D87DEB2C05C56300FE1C95 /* GoogleService-Info.plist in Resources */,
+				CED97DFE2C05D2F90094FD14 /* GoogleService-Info.plist in Resources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,9 +290,11 @@
 				5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */,
 				CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */,
 				CEAB080C2BFA8C70005AE0E9 /* FoodTruckEditView.swift in Sources */,
+				5949658B2C060115002F08F1 /* SearchCompleter.swift in Sources */,
 				02BC91892BF7350F00221CCB /* SplashView.swift in Sources */,
 				CEAB080E2BFA901A005AE0E9 /* LocationMapView.swift in Sources */,
 				CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */,
+				594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */,
 				CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */,
 				59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */,
 				CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */,
