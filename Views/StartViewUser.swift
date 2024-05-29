@@ -11,7 +11,9 @@ import FirebaseAuth
 
 struct StartViewUser: View {
     @StateObject private var authViewModel = AuthViewModel()
-
+    init() {
+     UserManager.shared.userType = 1
+    }
     var body: some View {
         VStack {
             if authViewModel.isSignedIn {

@@ -24,8 +24,8 @@ struct ContentView: View {
                         FoodTruckViewModelProvider { viewModel in
                             FoodTruckProfileView(viewModel: viewModel)
                         }
-                    } else {
-                        Text("Unknown user type")
+                    } else if UserManager.shared.userType == 1 {
+                        StartViewUser()
                     }
                 } else {
                     Text("Loading...")

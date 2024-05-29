@@ -69,21 +69,24 @@ struct FoodTruckProfileView: View {
                 .padding()
 
                 // Edit button
-                Button(action: {
-                    isEditing = true
-                }) {
-                    Text("Edit Profile")
-                        .foregroundColor(.blue)
-                }
-                .sheet(isPresented: $isEditing) {
-                    FoodTruckEditView(foodTruck: $viewModel.foodTruck) {
-                        viewModel.saveFoodTruckData()
-                        isEditing = false
+                if UserManager.shared.userType != 1 {
+                    Button(action: {
+                        isEditing = true
+                    }) {
+                        Text("Edit Profile")
+                            .foregroundColor(.blue)
+                    }
+                    .sheet(isPresented: $isEditing) {
+                        FoodTruckEditView(foodTruck: $viewModel.foodTruck) {
+                            viewModel.saveFoodTruckData()
+                            isEditing = false
+                        }
                     }
                 }
             }
         }
     }
+    
     
     private func informationRow(title: String, value: String) -> some View {
         HStack(alignment: .top) {
