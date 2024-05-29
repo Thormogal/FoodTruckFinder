@@ -157,6 +157,7 @@ struct ProfileView: View {
     
     private func signOut() {
         do {
+            UserManager.shared.userType = 0
             try Auth.auth().signOut()
             presentationMode.wrappedValue.dismiss()
             
