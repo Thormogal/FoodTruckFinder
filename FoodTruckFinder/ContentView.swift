@@ -11,15 +11,15 @@ import GoogleSignIn
 import FirebaseFirestore
 
 struct ContentView: View {
-    @State private var signedIn = false
+    @StateObject private var authViewModel = AuthViewModel()
     @State private var userType: Int? = nil
 
     var body: some View {
         Group {
-            if signedIn {
+            if authViewModel.isSignedIn {
                 if let userType = userType {
                     if userType == 1 {
-                        StartViewUser(signedIn: $signedIn)
+                        StartViewUser()
                     } else if userType == 2 {
                         FoodTruckViewModelProvider { viewModel in
                             FoodTruckProfileView(viewModel: viewModel)
@@ -31,7 +31,7 @@ struct ContentView: View {
                     Text("Loading...")
                 }
             } else {
-                SignInView(signedIn: $signedIn, userType: $userType)
+                SignInView(signedIn: $authViewModel.isSignedIn, userType: $userType)
             }
         }
         .onAppear {
@@ -41,10 +41,10 @@ struct ContentView: View {
 
     private func checkUserLoggedInStatus() {
         if let user = Auth.auth().currentUser {
-            self.signedIn = true
+            self.authViewModel.isSignedIn = true
             fetchUserType(user: user)
         } else {
-            self.signedIn = false
+            self.authViewModel.isSignedIn = false
         }
     }
 
@@ -73,7 +73,3 @@ struct FoodTruckViewModelProvider<Content: View>: View {
 #Preview {
     ContentView()
 }
-
-
-
-
