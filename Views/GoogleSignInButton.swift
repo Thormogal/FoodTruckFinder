@@ -76,9 +76,9 @@ struct GoogleSignInButton: UIViewRepresentable {
                         let uid = user.uid
                         let email = user.email ?? "No Email"
                         let username = user.displayName ?? "No Name"
-                        let userType = 1 // Assuming a default userType. Adjust as needed.
-                        UserManager.shared.userType = 1
-
+                        let userType = 1
+                        UserManager.shared.userType = 1 
+                        
                         self.saveUserProfile(uid: uid, username: username, email: email, userType: userType)
                     }
                 }
