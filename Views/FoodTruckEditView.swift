@@ -12,26 +12,26 @@ struct FoodTruckEditView: View {
     var onSave: () -> Void
     @StateObject private var imagePickerViewModel = TruckImagePickerViewModel()
     @State private var showingImagePicker = false
+    @Environment(\.presentationMode) var presentationMode
     let foodTypes = ["Taco", "Sushi", "Hamburger", "Asian", "Indian", "Pizza", "Kebab", "Chicken"]
-
+    
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("General")) {
                     TextField("Name", text: $foodTruck.name)
                     
-                    // Food Type Picker
                     Picker("Food Type", selection: $foodTruck.foodType) {
                         ForEach(foodTypes, id: \.self) {
                             Text($0)
                         }
                     }
-
+                    
                     TextField("Price Range", text: $foodTruck.priceRange)
                     TextField("Opening Hours", text: $foodTruck.openingHours)
                     TextField("Payment Methods", text: $foodTruck.paymentMethods)
                 }
-
+                
                 Section(header: Text("Menu")) {
                     ForEach(Array($foodTruck.menu.enumerated()), id: \.element.id) { index, $item in
                         VStack {
@@ -48,6 +48,21 @@ struct FoodTruckEditView: View {
                     }
                     Button(action: addMenuItem) {
                         Text("Add Item")
+                    }
+                }
+                Section {
+                    Button(action: {
+                        AuthManager.shared.signOut(presentationMode: presentationMode) { result in
+                            switch result {
+                            case .success:
+                                print("Signed out successfully")
+                            case .failure(let error):
+                                print("Error signing out: \(error.localizedDescription)")
+                            }
+                        }
+                    }) {
+                        Text("Logout")
+                            .foregroundColor(.red)
                     }
                 }
             }
@@ -71,13 +86,14 @@ struct FoodTruckEditView: View {
             }
         }
     }
-
+    
     private func addMenuItem() {
         foodTruck.menu.append(MenuItem(name: "", price: 0.0, ingredients: ""))
     }
-
+    
     private func removeMenuItem(at index: Int) {
         foodTruck.menu.remove(at: index)
     }
 }
+
 
