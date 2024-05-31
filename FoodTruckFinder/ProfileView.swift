@@ -19,7 +19,7 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top,spacing: 60) {
+            HStack(alignment: .top, spacing: 60) {
                 if let profileImage = profileImage {
                     Image(uiImage: profileImage)
                         .resizable()
@@ -72,7 +72,16 @@ struct ProfileView: View {
             
             Spacer()
             
-            Button(action: signOut) {
+            Button(action: {
+                AuthManager.shared.signOut(presentationMode: presentationMode) { result in
+                    switch result {
+                    case .success:
+                        print("Signed out successfully")
+                    case .failure(let error):
+                        print("Error signing out: \(error.localizedDescription)")
+                    }
+                }
+            }) {
                 Text("Sign Out")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -154,17 +163,8 @@ struct ProfileView: View {
             }
         }
     }
-    
-    private func signOut() {
-        do {
-            try Auth.auth().signOut()
-            presentationMode.wrappedValue.dismiss()
-            
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-    }
 }
+
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {

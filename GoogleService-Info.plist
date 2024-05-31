@@ -6,6 +6,10 @@
 	<string>We need your location to show foodtrucks near you at all times.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show foodtrucks near you.</string>
+	<key>CLIENT_ID</key>
+	<string>292893742509-pfpubpufkmfdcak4909hmqrgbfg2bptv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.292893742509-pfpubpufkmfdcak4909hmqrgbfg2bptv</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCtlouQIxuHDq-BDTLP2B1ROFlIFlQUhcU</string>
 	<key>GCM_SENDER_ID</key>
