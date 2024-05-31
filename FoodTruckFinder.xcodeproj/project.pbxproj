@@ -11,6 +11,8 @@
 		02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC918C2BF78A8500221CCB /* HomeView.swift */; };
 		02BC918F2BF78AA200221CCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC918E2BF78AA200221CCB /* MapView.swift */; };
 		02BC91912BF78AB600221CCB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC91902BF78AB600221CCB /* ProfileView.swift */; };
+		523E29B92C074FC60084F217 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E29B82C074FC60084F217 /* UserManager.swift */; };
+		523E29BB2C0758990084F217 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 523E29BA2C0758990084F217 /* GoogleService-Info.plist */; };
 		5291D2E82BF64EBC004B7109 /* StartViewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2E72BF64EBC004B7109 /* StartViewUser.swift */; };
 		5291D2ED2BF67F16004B7109 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5291D2EC2BF67F16004B7109 /* GoogleSignIn */; };
 		5291D2EF2BF67F16004B7109 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5291D2EE2BF67F16004B7109 /* GoogleSignInSwift */; };
@@ -40,7 +42,6 @@
 		CEB9EB4B2BF1FE9B0093A288 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9EB4A2BF1FE9B0093A288 /* FirebaseFirestoreSwift */; };
 		CEB9EB4D2BF1FE9B0093A288 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9EB4C2BF1FE9B0093A288 /* FirebaseStorage */; };
 		CEB9EB562BF217840093A288 /* FirebasePlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB552BF217840093A288 /* FirebasePlist.swift */; };
-		CED97DFE2C05D2F90094FD14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */; };
 		E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06B58D12BFDF6A2001D219E /* ImagePicker.swift */; };
 		E094B49D2C05CCF8008DB773 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,8 @@
 		02BC918C2BF78A8500221CCB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		02BC918E2BF78AA200221CCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		02BC91902BF78AB600221CCB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		523E29B82C074FC60084F217 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		523E29BA2C0758990084F217 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5291D2E72BF64EBC004B7109 /* StartViewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartViewUser.swift; path = Views/StartViewUser.swift; sourceTree = SOURCE_ROOT; };
 		5291D2F22BF68E7C004B7109 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GoogleSignInButton.swift; path = Views/GoogleSignInButton.swift; sourceTree = SOURCE_ROOT; };
 		5291D2F82BFB69D7004B7109 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpView.swift; path = Views/SignUpView.swift; sourceTree = SOURCE_ROOT; };
@@ -73,7 +76,6 @@
 		CEB9EB392BF1F5490093A288 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB9EB3C2BF1F5490093A288 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CEB9EB552BF217840093A288 /* FirebasePlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlist.swift; sourceTree = "<group>"; };
-		CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E06B58D12BFDF6A2001D219E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */,
+				523E29B82C074FC60084F217 /* UserManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -144,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				E094B49C2C05CCF8008DB773 /* AuthViewModel.swift */,
-				CED97DFD2C05D2F90094FD14 /* GoogleService-Info.plist */,
+				523E29BA2C0758990084F217 /* GoogleService-Info.plist */,
 				CEA4E7D52C052CB600BEDE81 /* Components */,
 				59DB35E92C050E66003655DF /* FoodTruckService.swift */,
 				CEA92BDF2BF5F97B00FD159A /* Models */,
@@ -268,8 +271,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB9EB3D2BF1F5490093A288 /* Preview Assets.xcassets in Resources */,
+				523E29BB2C0758990084F217 /* GoogleService-Info.plist in Resources */,
 				CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */,
-				CED97DFE2C05D2F90094FD14 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +300,7 @@
 				594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */,
 				CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */,
 				59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */,
+				523E29B92C074FC60084F217 /* UserManager.swift in Sources */,
 				CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */,
 				02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */,
 				5291D3392BFD3420004B7109 /* RatingView.swift in Sources */,
