@@ -30,7 +30,7 @@ struct FoodTruck: Identifiable, Codable {
     }
 }
 
-struct Location: Codable {
+struct Location: Codable, Equatable {
     var latitude: Double
     var longitude: Double
 }

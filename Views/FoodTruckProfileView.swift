@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct FoodTruckProfileView: View {
     @ObservedObject var viewModel: FoodTruckViewModel
+    @StateObject private var searchCompleter = SearchCompleter()
     @State private var isEditing = false
+    @State private var showingMap = false
 
     var body: some View {
         ScrollView {
@@ -29,7 +32,6 @@ struct FoodTruckProfileView: View {
                 .frame(width: UIScreen.main.bounds.width, height: 200)
                 .clipped()
                 
-
                 // Rating bar
                 RatingView(rating: viewModel.foodTruck.rating)
                     .padding(.top, 20)
@@ -40,6 +42,19 @@ struct FoodTruckProfileView: View {
                     informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
                     informationRow(title: "Opening Hours:", value: viewModel.foodTruck.openingHours)
                     informationRow(title: "Payment Methods:", value: viewModel.foodTruck.paymentMethods)
+                    
+                    // Current Location
+                    HStack {
+                        Image(systemName: "map")
+                            .foregroundColor(.blue)
+                        Button(action: {
+                            showingMap = true
+                        }) {
+                            Text("Location: \(searchCompleter.currentAddress)")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .padding(.top, 10)
                 }
                 .padding(.bottom, 30)
 
@@ -79,14 +94,32 @@ struct FoodTruckProfileView: View {
                     .sheet(isPresented: $isEditing) {
                         FoodTruckEditView(foodTruck: $viewModel.foodTruck) {
                             viewModel.saveFoodTruckData()
+                            let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
+                            searchCompleter.reverseGeocodeLocation(location: location) { address in
+                                searchCompleter.currentAddress = address
+                            }
                             isEditing = false
                         }
                     }
                 }
             }
         }
+        .sheet(isPresented: $showingMap) {
+            FoodTruckLocationMap(foodTruck: viewModel.foodTruck)
+        }
+        .onAppear {
+            let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
+            searchCompleter.reverseGeocodeLocation(location: location) { address in
+                searchCompleter.currentAddress = address
+            }
+        }
+        .onChange(of: viewModel.foodTruck.location) {
+            let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
+            searchCompleter.reverseGeocodeLocation(location: location) { address in
+                searchCompleter.currentAddress = address
+            }
+        }
     }
-    
     
     private func informationRow(title: String, value: String) -> some View {
         HStack(alignment: .top) {
@@ -102,3 +135,37 @@ struct FoodTruckProfileView: View {
         }
     }
 }
+
+struct FoodTruckLocationMap: View {
+    var foodTruck: FoodTruck
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        NavigationView {
+            Map {
+                Marker(foodTruck.name, coordinate: CLLocationCoordinate2D(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude))
+            }
+            .mapStyle(.standard)
+            .safeAreaInset(edge: .top) {
+                Text("\(foodTruck.name) Location")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.white.opacity(0.8))
+                    .cornerRadius(10)
+            }
+            .navigationTitle("\(foodTruck.name) Location")
+            .navigationBarItems(trailing: Button("Close") {
+                presentationMode.wrappedValue.dismiss()
+            })
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
