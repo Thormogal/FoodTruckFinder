@@ -15,7 +15,7 @@ struct MapView: View {
     @State private var showSuggestions = false
     @StateObject private var searchCompleter = SearchCompleter()
     private let foodTruckService = FoodTruckService()
-
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -57,7 +57,7 @@ struct MapView: View {
                         .padding(.horizontal)
                     }
                     .padding(.top, 10) // Adjust this value to move the search bar higher or lower
-
+                    
                     if showSuggestions && !searchCompleter.results.isEmpty {
                         List(searchCompleter.results, id: \.self) { suggestion in
                             Button(action: {
@@ -77,7 +77,7 @@ struct MapView: View {
                         .padding(.horizontal)
                         .padding(.top, 5)
                     }
-
+                    
                     Spacer()
                 }
             }
@@ -86,18 +86,18 @@ struct MapView: View {
             showSuggestions = true
         }
     }
-
+    
     private func fetchFoodTrucks() {
         foodTruckService.fetchFoodTrucks { trucks in
             foodTrucks = trucks
         }
     }
-
+    
     private func search() {
         guard let firstResult = searchCompleter.results.first else { return }
         selectSuggestion(firstResult)
     }
-
+    
     private func selectSuggestion(_ suggestion: MKLocalSearchCompletion) {
         let searchRequest = MKLocalSearch.Request(completion: suggestion)
         let search = MKLocalSearch(request: searchRequest)
@@ -106,7 +106,7 @@ struct MapView: View {
                 print("Search error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
+            
             if let item = response.mapItems.first {
                 withAnimation {
                     locationManager.region = MKCoordinateRegion(

@@ -9,6 +9,7 @@ import FirebaseAuth
 import GoogleSignIn
 import FirebaseFirestore
 import Foundation
+
 struct SignUpView: View {
     @Binding var signedIn: Bool
     var auth = Auth.auth()
@@ -17,9 +18,9 @@ struct SignUpView: View {
     @State private var email: String = ""
     @State private var username: String = ""
     @State private var selectedRole = "User"  
-
+    
     let roles = ["User", "Food Truck Owner"]
-
+    
     var body: some View {
         VStack {
             Spacer()
@@ -51,7 +52,7 @@ struct SignUpView: View {
                     .padding()
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10)
-
+                
                 Text("Role")
                     .font(.headline)
                 Picker("Select your role", selection: $selectedRole) {
@@ -101,8 +102,8 @@ struct SignUpView: View {
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
     }
-
-   
+    
+    
     func saveUserProfile(uid: String, username: String, email: String, userType: Int) {
         let userData: [String: Any] = [
             "username": username,
@@ -110,7 +111,7 @@ struct SignUpView: View {
             "usertype": userType,
             "uid": uid
         ]
-
+        
         db.collection("users").document(uid).setData(userData) { error in
             if let error = error {
                 print("Error saving user profile: \(error.localizedDescription)")

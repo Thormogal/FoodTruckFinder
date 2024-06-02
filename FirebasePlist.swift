@@ -9,24 +9,15 @@ import Foundation
 import Firebase
 
 func loadAndCombinePlists() -> FirebaseOptions? {
-    let defaultPlist = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")
-    let secretPlist = Bundle.main.path(forResource: "GoogleService-Info-Secrets", ofType: "plist")
-    
-    var defaultOptions: FirebaseOptions?
-    var secretOptions: FirebaseOptions?
-
-    if let defaultPlist = defaultPlist {
-        defaultOptions = FirebaseOptions(contentsOfFile: defaultPlist)
+    guard let defaultPlistPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+        print("Could not find GoogleService-Info.plist")
+        return nil
     }
     
-    if let secretPlist = secretPlist {
-        secretOptions = FirebaseOptions(contentsOfFile: secretPlist)
+    guard let defaultOptions = FirebaseOptions(contentsOfFile: defaultPlistPath) else {
+        print("Could not load Firebase options from GoogleService-Info.plist")
+        return nil
     }
-    
-    // Assume APIKey is in the secrets plist
-    defaultOptions?.apiKey = secretOptions?.apiKey ?? defaultOptions?.apiKey
-
-    // Add other properties if necessary, such as projectID, clientID, etc.
     
     return defaultOptions
 }

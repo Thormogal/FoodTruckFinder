@@ -10,18 +10,17 @@ import SwiftUI
 
 
 struct RatingView: View {
-    
     var rating: Double
-   
-       var body: some View {
-           HStack {
-               ForEach(0..<5) { index in
-                   Image(index < Int(rating) ? "filledburger" : "burger")
-                       .foregroundColor(index < Int(rating) ? .yellow : .gray)
-               }
-           }
-           .padding(.horizontal)
-       }
+    
+    var body: some View {
+        HStack {
+            ForEach(0..<5) { index in
+                Image(index < Int(rating) ? "filledburger" : "burger")
+                    .foregroundColor(index < Int(rating) ? .yellow : .gray)
+            }
+        }
+        .padding(.horizontal)
+    }
 }
 
 struct RatingView_Previews: PreviewProvider {

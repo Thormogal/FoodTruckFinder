@@ -35,7 +35,7 @@ class FoodTruckViewModel: ObservableObject {
         }
         fetchFoodTruckData()
     }
-
+    
     func fetchFoodTruckData() {
         guard let userId = auth.currentUser?.uid else { return }
         db.collection("foodTrucks").document(userId).getDocument { (document, error) in
@@ -51,7 +51,7 @@ class FoodTruckViewModel: ObservableObject {
             }
         }
     }
-
+    
     func saveFoodTruckData() {
         guard let userId = auth.currentUser?.uid else { return }
         do {
@@ -68,9 +68,3 @@ class FoodTruckViewModel: ObservableObject {
         }
     }
 }
-
-
-
-
-
-
