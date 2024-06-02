@@ -55,6 +55,28 @@ struct FoodTruckEditView: View {
                     }
                 }
                 
+                Section(header: Text("Daily Deals")) {
+                    ForEach(Array($foodTruck.dailyDeals.enumerated()), id: \.element.id) { index, $item in
+                        VStack {
+                            TextField("Item Name", text: $item.name)
+                            HStack {
+                                TextField("Original Price", value: $item.originalPrice, formatter: NumberFormatter())
+                                TextField("Deal Price", value: $item.dealPrice, formatter: NumberFormatter())
+                            }
+                            TextField("Ingredients", text: $item.ingredients)
+                            Button(action: {
+                                removeDailyDealItem(at: index)
+                            }) {
+                                Text("Remove Deal")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                    Button(action: addDailyDealItem) {
+                        Text("Add Daily Deal")
+                    }
+                }
+                
                 Section(header: Text("Location")) {
                     Text("Current Location: \(searchCompleter.currentAddress)")
                         .foregroundColor(.gray)
@@ -146,5 +168,13 @@ struct FoodTruckEditView: View {
     
     private func removeMenuItem(at index: Int) {
         foodTruck.menu.remove(at: index)
+    }
+    
+    private func addDailyDealItem() {
+        foodTruck.dailyDeals.append(DailyDealItem(name: "", originalPrice: 0.0, dealPrice: 0.0, ingredients: ""))
+    }
+    
+    private func removeDailyDealItem(at index: Int) {
+        foodTruck.dailyDeals.remove(at: index)
     }
 }

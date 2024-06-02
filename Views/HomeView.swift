@@ -81,7 +81,8 @@ struct HomeView: View {
         Category(name: "Chicken", imageName: "chicken")
     ]
     @ObservedObject private var locationManager = LocationManager()
-    
+    private let foodTruckService = FoodTruckService()
+    @State private var userType: Int = 1  // Assuming a default value, you can set this from parent view or context
     
     var body: some View {
         NavigationStack {
@@ -123,7 +124,7 @@ struct HomeView: View {
                 .padding(.vertical, 10)
                 
                 List(filteredFoodTrucks) { foodTruck in
-                    NavigationLink(destination: FoodTruckProfileView(viewModel: FoodTruckViewModel(foodTruck: foodTruck))) {
+                    NavigationLink(destination: FoodTruckDetailView(foodTruckId: foodTruck.id, userType: userType)) {
                         VStack(alignment: .leading) {
                             Text(foodTruck.name)
                                 .font(.headline)
@@ -168,27 +169,8 @@ struct HomeView: View {
     }
     
     private func fetchFoodTrucks() {
-        let db = Firestore.firestore()
-        db.collection("foodTrucks").getDocuments { snapshot, error in
-            if let error = error {
-                print("Error getting documents: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = snapshot?.documents else {
-                print("No documents found")
-                return
-            }
-            
-            self.foodTrucks = documents.compactMap { document -> FoodTruck? in
-                do {
-                    let foodTruck = try document.data(as: FoodTruck.self)
-                    return foodTruck
-                } catch {
-                    print("Error decoding document into FoodTruck: \(error.localizedDescription)")
-                    return nil
-                }
-            }
+        foodTruckService.fetchFoodTrucks { trucks in
+            foodTrucks = trucks
             filterFoodTrucks()
         }
     }
@@ -223,3 +205,4 @@ struct HomeView: View {
         }
     }
 }
+

@@ -15,13 +15,14 @@ struct MapView: View {
     @State private var showSuggestions = false
     @StateObject private var searchCompleter = SearchCompleter()
     private let foodTruckService = FoodTruckService()
+    @State private var userType: Int = 1  // Assuming a default value, you can set this from parent view or context
     
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
                 Map(coordinateRegion: $locationManager.region, showsUserLocation: true, annotationItems: foodTrucks) { truck in
                     MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: truck.location.latitude, longitude: truck.location.longitude)) {
-                        NavigationLink(destination: FoodTruckProfileView(viewModel: FoodTruckViewModel(foodTruck: truck))) {
+                        NavigationLink(destination: FoodTruckDetailView(foodTruckId: truck.id, userType: userType)) {
                             VStack {
                                 Text(truck.name)
                                     .font(.caption)
@@ -82,7 +83,7 @@ struct MapView: View {
                 }
             }
         }
-        .onChange(of: searchCompleter.queryFragment) { _ in
+        .onChange(of: searchCompleter.queryFragment) {
             showSuggestions = true
         }
     }
@@ -121,8 +122,3 @@ struct MapView: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}

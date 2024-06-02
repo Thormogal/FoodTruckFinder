@@ -19,6 +19,7 @@ struct FoodTruck: Identifiable, Codable {
     var paymentMethods: String
     var imageURL: String
     var menu: [MenuItem]
+    var dailyDeals: [DailyDealItem] = []
     var location: Location
     
     func distance(to userLocation: CLLocation) -> Double {
@@ -38,6 +39,14 @@ struct MenuItem: Identifiable, Codable {
     var id: UUID = UUID()
     var name: String
     var price: Double
+    var ingredients: String
+}
+
+struct DailyDealItem: Identifiable, Codable {
+    var id: UUID = UUID()
+    var name: String
+    var originalPrice: Double
+    var dealPrice: Double
     var ingredients: String
 }
 
