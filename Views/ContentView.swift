@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FirebaseAuth
-import GoogleSignIn
 import FirebaseFirestore
 
 struct ContentView: View {
@@ -22,13 +21,11 @@ struct ContentView: View {
                         StartViewUser()
                     } else if userType == 2 {
                         FoodTruckViewModelProvider { viewModel in
-                            FoodTruckProfileView(viewModel: viewModel)
+                            FoodTruckProfileView(viewModel: viewModel, userType: userType)
                         }
-                    } else if UserManager.shared.userType == 1 {
-                        StartViewUser()
+                    } else {
+                        Text("Loading...")
                     }
-                } else {
-                    Text("Loading...")
                 }
             } else {
                 SignInView(signedIn: $authViewModel.isSignedIn, userType: $userType)
@@ -67,9 +64,15 @@ struct FoodTruckViewModelProvider<Content: View>: View {
     
     var body: some View {
         content(viewModel)
+            .onAppear {
+                if let userId = Auth.auth().currentUser?.uid {
+                    viewModel.fetchFoodTruckData(by: userId)
+                }
+            }
     }
 }
 
 #Preview {
     ContentView()
 }
+

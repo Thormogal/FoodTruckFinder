@@ -13,6 +13,7 @@ struct FoodTruckProfileView: View {
     @StateObject private var searchCompleter = SearchCompleter()
     @State private var isEditing = false
     @State private var showingMap = false
+    var userType: Int
     
     var body: some View {
         ScrollView {
@@ -34,8 +35,8 @@ struct FoodTruckProfileView: View {
                 
                 // Rating bar
                 RatingView(rating: viewModel.foodTruck.rating)
-                    .padding(.top, 20)
-                    .padding(.bottom, 20)
+                    .padding(.top, 10)
+                    .padding(.bottom, 30)
                 
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
@@ -58,33 +59,80 @@ struct FoodTruckProfileView: View {
                 }
                 .padding(.bottom, 30)
                 
+                // Daily Deals
+                Group {
+                    VStack(alignment: .leading) {
+                        Text("🎉 Daily Deals 🎉")
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.red)
+                            .padding(.vertical, 10)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        ForEach(viewModel.foodTruck.dailyDeals) { deal in
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(deal.name)
+                                        .font(.headline)
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Text("\(deal.originalPrice, specifier: "%.2f") kr")
+                                        .strikethrough()
+                                        .foregroundColor(.gray)
+                                    Text("\(deal.dealPrice, specifier: "%.2f") kr")
+                                        .foregroundColor(.red)
+                                        .font(.headline)
+                                }
+                                .padding(.horizontal)
+                                
+                                Text("Ingredients: \(deal.ingredients)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                    .padding(.horizontal)
+                            }
+                            .padding(.vertical, 5)
+                        }
+                    }
+                    .padding()
+                    .background(Color.yellow.opacity(0.3))
+                    .cornerRadius(10)
+                    .shadow(radius: 2)
+                }
+                .padding([.horizontal, .bottom])
+
                 // Menu
                 Group {
-                    Text("Menu")
-                        .font(.title)
-                        .bold()
-                    
-                    ForEach(viewModel.foodTruck.menu) { item in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(item.name)
-                                Spacer()
-                                Text("\(item.price, specifier: "%.2f") kr")
-                            }
-                            .padding(.horizontal)
-                            
-                            Text("Ingredients: \(item.ingredients)")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                    VStack(alignment: .leading) {
+                        Text("Menu")
+                            .font(.title)
+                            .bold()
+                            .padding(.vertical, 10)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        ForEach(viewModel.foodTruck.menu) { item in
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(item.name)
+                                    Spacer()
+                                    Text("\(item.price, specifier: "%.2f") kr")
+                                }
                                 .padding(.horizontal)
+                                
+                                Text("Ingredients: \(item.ingredients)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                    .padding(.horizontal)
+                            }
+                            .padding(.vertical, 5)
                         }
-                        .padding(.vertical, 5)
                     }
+                    .padding(.top)
                 }
-                .padding()
+                .padding([.horizontal, .top])
+
                 
-                // Edit button
-                if UserManager.shared.userType != 1 {
+                // Edit button for usertype 2 (owner)
+                if userType == 2 {
                     Button(action: {
                         isEditing = true
                     }) {
@@ -136,27 +184,31 @@ struct FoodTruckProfileView: View {
     }
 }
 
+
 struct FoodTruckLocationMap: View {
     var foodTruck: FoodTruck
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        NavigationView {
-            Map {
-                Marker(foodTruck.name, coordinate: CLLocationCoordinate2D(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude))
+            NavigationView {
+                Map {
+                    Marker(foodTruck.name, coordinate: CLLocationCoordinate2D(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude))
+                }
+                .mapStyle(.standard)
+                .navigationTitle("\(foodTruck.name) Location")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("\(foodTruck.name) Location")
+                            .font(.largeTitle) // Anpassa storleken här
+                            .foregroundColor(.primary)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Close") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
             }
-            .mapStyle(.standard)
-            .safeAreaInset(edge: .top) {
-                Text("\(foodTruck.name) Location")
-                    .font(.headline)
-                    .padding()
-                    .background(Color.white.opacity(0.8))
-                    .cornerRadius(10)
-            }
-            .navigationTitle("\(foodTruck.name) Location")
-            .navigationBarItems(trailing: Button("Close") {
-                presentationMode.wrappedValue.dismiss()
-            })
         }
     }
-}
