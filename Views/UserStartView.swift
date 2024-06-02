@@ -12,7 +12,7 @@ import FirebaseAuth
 struct StartViewUser: View {
     @StateObject private var authViewModel = AuthViewModel()
     init() {
-     UserManager.shared.userType = 1
+        UserManager.shared.userType = 1
     }
     var body: some View {
         VStack {
@@ -23,13 +23,13 @@ struct StartViewUser: View {
                             Image(systemName: "house")
                             Text("Home")
                         }
-
+                    
                     MapView()
                         .tabItem {
                             Image(systemName: "map")
                             Text("Map")
                         }
-
+                    
                     ProfileView()
                         .tabItem {
                             Image(systemName: "person")

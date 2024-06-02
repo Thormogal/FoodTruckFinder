@@ -13,7 +13,7 @@ import FirebaseFirestore
 struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModel()
     @State private var userType: Int? = nil
-
+    
     var body: some View {
         Group {
             if authViewModel.isSignedIn {
@@ -38,7 +38,7 @@ struct ContentView: View {
             checkUserLoggedInStatus()
         }
     }
-
+    
     private func checkUserLoggedInStatus() {
         if let user = Auth.auth().currentUser {
             self.authViewModel.isSignedIn = true
@@ -47,7 +47,7 @@ struct ContentView: View {
             self.authViewModel.isSignedIn = false
         }
     }
-
+    
     private func fetchUserType(user: User) {
         let userId = user.uid
         let db = Firestore.firestore()
@@ -64,7 +64,7 @@ struct ContentView: View {
 struct FoodTruckViewModelProvider<Content: View>: View {
     @StateObject private var viewModel = FoodTruckViewModel()
     let content: (FoodTruckViewModel) -> Content
-
+    
     var body: some View {
         content(viewModel)
     }

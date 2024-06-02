@@ -18,24 +18,24 @@ struct FoodTruckEditView: View {
     @State private var address: String = ""
     @StateObject private var searchCompleter = SearchCompleter()
     @State private var showSuggestions = false
-
+    
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("General")) {
                     TextField("Name", text: $foodTruck.name)
-
+                    
                     Picker("Food Type", selection: $foodTruck.foodType) {
                         ForEach(foodTypes, id: \.self) {
                             Text($0)
                         }
                     }
-
+                    
                     TextField("Price Range", text: $foodTruck.priceRange)
                     TextField("Opening Hours", text: $foodTruck.openingHours)
                     TextField("Payment Methods", text: $foodTruck.paymentMethods)
                 }
-
+                
                 Section(header: Text("Menu")) {
                     ForEach(Array($foodTruck.menu.enumerated()), id: \.element.id) { index, $item in
                         VStack {
@@ -54,7 +54,7 @@ struct FoodTruckEditView: View {
                         Text("Add Item")
                     }
                 }
-
+                
                 Section(header: Text("Location")) {
                     Text("Current Location: \(searchCompleter.currentAddress)")
                         .foregroundColor(.gray)
@@ -65,7 +65,7 @@ struct FoodTruckEditView: View {
                             searchCompleter.queryFragment = address
                             showSuggestions = true
                         }
-
+                    
                     if showSuggestions && !searchCompleter.results.isEmpty {
                         List(searchCompleter.results, id: \.self) { suggestion in
                             Button(action: {
@@ -92,7 +92,7 @@ struct FoodTruckEditView: View {
                         .frame(maxHeight: 200)
                     }
                 }
-
+                
                 Section {
                     Button(action: {
                         AuthManager.shared.signOut(presentationMode: presentationMode) { result in
@@ -139,22 +139,12 @@ struct FoodTruckEditView: View {
             }
         }
     }
-
+    
     private func addMenuItem() {
         foodTruck.menu.append(MenuItem(name: "", price: 0.0, ingredients: ""))
     }
-
+    
     private func removeMenuItem(at index: Int) {
         foodTruck.menu.remove(at: index)
     }
 }
-
-
-
-
-
-
-
-
-
-

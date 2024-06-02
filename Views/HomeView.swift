@@ -26,14 +26,14 @@ extension UIColor {
     static func fromHex(_ hex: String) -> UIColor {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-
+        
         var rgb: UInt64 = 0
         Scanner(string: hexSanitized).scanHexInt64(&rgb)
-
+        
         let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
         let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
         let blue = CGFloat(rgb & 0x0000FF) / 255.0
-
+        
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
@@ -70,7 +70,7 @@ struct HomeView: View {
     @State private var selectedCategory: Category?
     @State private var selectedSortOption: SortOption = .distance // Default sort option
     @State private var categories: [Category] = [
-        Category(name: "All", imageName: "all"),
+        Category(name: "All", imageName: "everything"),
         Category(name: "Taco", imageName: "taco"),
         Category(name: "Sushi", imageName: "sushi"),
         Category(name: "Hamburger", imageName: "hamburger"),
@@ -112,7 +112,7 @@ struct HomeView: View {
                         }
                         .pickerStyle(MenuPickerStyle())
                         .padding(.horizontal, 10)
-                        .onChange(of: selectedSortOption) { _ in
+                        .onChange(of: selectedSortOption) {
                             sortFoodTrucks()
                         }
                         .accentColor(.white)
@@ -122,18 +122,6 @@ struct HomeView: View {
                 .padding(.horizontal, 10)
                 .padding(.vertical, 10)
                 
-                
-//                if let userLocation = locationManager.userLocation {
-//                    Text("Current Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
-//                        .padding()
-//                        .onAppear {
-//                            print("User Location: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
-//                        }
-//                } else {
-//                    Text("Current Location: Calculating...")
-//                        .padding()
-//                }
-
                 List(filteredFoodTrucks) { foodTruck in
                     NavigationLink(destination: FoodTruckProfileView(viewModel: FoodTruckViewModel(foodTruck: foodTruck))) {
                         VStack(alignment: .leading) {
@@ -152,15 +140,15 @@ struct HomeView: View {
                                 VStack(alignment: .leading) {
                                     Text(foodTruck.openingHours)
                                     Text("Food: \(foodTruck.foodType)")
-
+                                    
                                     Text("Price: \(foodTruck.priceRange)")
-                                     RatingView(rating: (foodTruck.rating))
+                                    RatingView(rating: (foodTruck.rating))
                                     if let userLocation = locationManager.userLocation {
                                         Text("Distance: \(String(format: "%.2f", foodTruck.distance(to: userLocation))) km")
                                     } else {
                                         Text("Distance: Calculating...")
                                     }
-
+                                    
                                 }
                                 Spacer()
                             }
@@ -235,18 +223,3 @@ struct HomeView: View {
         }
     }
 }
-
-    
-   
-
-
-
-
-
-
-//struct HomeView_Previews: PreviewProvider {
-////    static var previews: some View {
-////        //HomeView()
-////    }
-//}
-

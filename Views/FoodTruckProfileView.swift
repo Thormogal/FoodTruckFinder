@@ -13,7 +13,7 @@ struct FoodTruckProfileView: View {
     @StateObject private var searchCompleter = SearchCompleter()
     @State private var isEditing = false
     @State private var showingMap = false
-
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -36,7 +36,7 @@ struct FoodTruckProfileView: View {
                 RatingView(rating: viewModel.foodTruck.rating)
                     .padding(.top, 20)
                     .padding(.bottom, 20)
-
+                
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
                     informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
@@ -57,13 +57,13 @@ struct FoodTruckProfileView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 30)
-
+                
                 // Menu
                 Group {
                     Text("Menu")
                         .font(.title)
                         .bold()
-
+                    
                     ForEach(viewModel.foodTruck.menu) { item in
                         VStack(alignment: .leading) {
                             HStack {
@@ -72,7 +72,7 @@ struct FoodTruckProfileView: View {
                                 Text("\(item.price, specifier: "%.2f") kr")
                             }
                             .padding(.horizontal)
-
+                            
                             Text("Ingredients: \(item.ingredients)")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
@@ -82,7 +82,7 @@ struct FoodTruckProfileView: View {
                     }
                 }
                 .padding()
-
+                
                 // Edit button
                 if UserManager.shared.userType != 1 {
                     Button(action: {
@@ -139,7 +139,7 @@ struct FoodTruckProfileView: View {
 struct FoodTruckLocationMap: View {
     var foodTruck: FoodTruck
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         NavigationView {
             Map {
@@ -160,12 +160,3 @@ struct FoodTruckLocationMap: View {
         }
     }
 }
-
-
-
-
-
-
-
-
-

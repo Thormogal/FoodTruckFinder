@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-import FirebaseFirestoreSwift
 
 
 struct FoodTruck: Identifiable, Codable {
@@ -47,19 +46,17 @@ func calculateDistance(from location1: Location, to location2: Location) -> Doub
     let lon1 = location1.longitude
     let lat2 = location2.latitude
     let lon2 = location2.longitude
-
+    
     let earthRadius = 6371.0 // Earth's radius in kilometers
-
+    
     let dLat = (lat2 - lat1) * .pi / 180.0
     let dLon = (lon2 - lon1) * .pi / 180.0
-
+    
     let a = sin(dLat / 2) * sin(dLat / 2) +
-            cos(lat1 * .pi / 180) * cos(lat2 * .pi / 180) *
-            sin(dLon / 2) * sin(dLon / 2)
+    cos(lat1 * .pi / 180) * cos(lat2 * .pi / 180) *
+    sin(dLon / 2) * sin(dLon / 2)
     
     let c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
+    
     return earthRadius * c
 }
-
-

@@ -20,7 +20,7 @@ struct SearchBar: UIViewRepresentable {
         var onSearchButtonClicked: () -> Void
         var onSuggestionSelected: (MKLocalSearchCompletion) -> Void
         var parent: SearchBar
-
+        
         init(parent: SearchBar, text: Binding<String>, onSearchButtonClicked: @escaping () -> Void, onSuggestionSelected: @escaping (MKLocalSearchCompletion) -> Void) {
             self.parent = parent
             _text = text
