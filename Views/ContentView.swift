@@ -7,13 +7,12 @@
 
 import SwiftUI
 import FirebaseAuth
-import GoogleSignIn
 import FirebaseFirestore
 
 struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModel()
     @State private var userType: Int? = nil
-
+    
     var body: some View {
         Group {
             if authViewModel.isSignedIn {
@@ -22,13 +21,13 @@ struct ContentView: View {
                         StartViewUser()
                     } else if userType == 2 {
                         FoodTruckViewModelProvider { viewModel in
-                            FoodTruckProfileView(viewModel: viewModel)
+                            FoodTruckProfileView(viewModel: viewModel, userType: userType)
                         }
-                    } else if UserManager.shared.userType == 1 {
-                        StartViewUser()
+                    } else {
+                        Text("Loading...")
                     }
                 } else {
-                    Text("Loading...")
+                    Text("Loading user type...")
                 }
             } else {
                 SignInView(signedIn: $authViewModel.isSignedIn, userType: $userType)
@@ -38,7 +37,7 @@ struct ContentView: View {
             checkUserLoggedInStatus()
         }
     }
-
+    
     private func checkUserLoggedInStatus() {
         if let user = Auth.auth().currentUser {
             self.authViewModel.isSignedIn = true
@@ -47,7 +46,7 @@ struct ContentView: View {
             self.authViewModel.isSignedIn = false
         }
     }
-
+    
     private func fetchUserType(user: User) {
         let userId = user.uid
         let db = Firestore.firestore()
@@ -64,9 +63,14 @@ struct ContentView: View {
 struct FoodTruckViewModelProvider<Content: View>: View {
     @StateObject private var viewModel = FoodTruckViewModel()
     let content: (FoodTruckViewModel) -> Content
-
+    
     var body: some View {
         content(viewModel)
+            .onAppear {
+                if let userId = Auth.auth().currentUser?.uid {
+                    viewModel.fetchFoodTruckData(by: userId)
+                }
+            }
     }
 }
 

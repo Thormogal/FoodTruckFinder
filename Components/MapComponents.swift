@@ -15,13 +15,13 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
     @Published var currentAddress: String = "Loading current location..."
     private var completer: MKLocalSearchCompleter
     private var cancellables = Set<AnyCancellable>()
-
+    
     override init() {
         self.completer = MKLocalSearchCompleter()
         super.init()
         self.completer.delegate = self
         self.completer.resultTypes = .address
-
+        
         $queryFragment
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .sink { [weak self] fragment in
@@ -29,15 +29,15 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
             }
             .store(in: &cancellables)
     }
-
+    
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         self.results = completer.results
     }
-
+    
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print("Failed to find search suggestions: \(error.localizedDescription)")
     }
-
+    
     func searchAddress(_ address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = address
@@ -51,7 +51,7 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
             completion(item.placemark.coordinate)
         }
     }
-
+    
     func selectSuggestion(_ suggestion: MKLocalSearchCompletion, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
         let searchRequest = MKLocalSearch.Request(completion: suggestion)
         let search = MKLocalSearch(request: searchRequest)
@@ -64,7 +64,7 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
             completion(item.placemark.coordinate)
         }
     }
-
+    
     func reverseGeocodeLocation(location: CLLocation, completion: @escaping (String) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
@@ -80,6 +80,3 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
         }
     }
 }
-
-
-

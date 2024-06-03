@@ -12,7 +12,7 @@ import FirebaseAuth
 class TruckImagePickerViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var imageURL: String?
-
+    
     func uploadImage() {
         guard let userId = Auth.auth().currentUser?.uid, let image = selectedImage else { return }
         let storageRef = Storage.storage().reference().child("foodTruckImages/\(userId).jpg")
@@ -39,6 +39,3 @@ class TruckImagePickerViewModel: ObservableObject {
         }
     }
 }
-
-
-

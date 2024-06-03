@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SplashView: View {
     @State private var isActive = false
-
+    
     var body: some View {
         if isActive {
             ContentView() 
@@ -34,4 +34,3 @@ struct SplashView_Previews: PreviewProvider {
         SplashView()
     }
 }
-

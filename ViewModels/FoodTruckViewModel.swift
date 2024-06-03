@@ -13,8 +13,7 @@ import FirebaseFirestoreSwift
 
 class FoodTruckViewModel: ObservableObject {
     @Published var foodTruck: FoodTruck
-    private var db = Firestore.firestore()
-    var auth = Auth.auth()
+    private var foodTruckService = FoodTruckService()
     
     init(foodTruck: FoodTruck? = nil) {
         if let foodTruck = foodTruck {
@@ -31,12 +30,13 @@ class FoodTruckViewModel: ObservableObject {
                 paymentMethods: "",
                 imageURL: "",
                 menu: [],
+                dailyDeals: [],
                 location: Location(latitude: 0.0, longitude: 0.0)
             )
         }
-        fetchFoodTruckData()
     }
     
+
     func addRating(_ rating: Double) {
 // Maybe use later
 //        guard let foodTruckId = foodTruck.id else {
@@ -105,41 +105,45 @@ class FoodTruckViewModel: ObservableObject {
            return averageRating
        }
     
-    func fetchFoodTruckData() {
-        guard let userId = auth.currentUser?.uid else { return }
-        db.collection("foodTrucks").document(userId).getDocument { (document, error) in
-            if let document = document, document.exists {
-                do {
-                    let foodTruck = try document.data(as: FoodTruck.self)
-                    self.foodTruck = foodTruck
-                } catch {
-                    print("Error decoding food truck: \(error)")
+   
+
+    func fetchFoodTruckData(by truckId: String) {
+        print("Fetching food truck data for ID: \(truckId)")
+        foodTruckService.fetchFoodTruck(by: truckId) { [weak self] foodTruck in
+            DispatchQueue.main.async {
+                if let foodTruck = foodTruck {
+                    print("Successfully fetched food truck: \(foodTruck)")
+                    self?.foodTruck = foodTruck
+                } else {
+                    print("Food truck not found, initializing new food truck.")
+                    self?.foodTruck = FoodTruck(
+                        id: truckId,
+                        name: "",
+                        rating: 0.0,
+                        ratings: [],
+                        foodType: "",
+                        priceRange: "",
+                        openingHours: "",
+                        paymentMethods: "",
+                        imageURL: "",
+                        menu: [],
+                        dailyDeals: [],
+                        location: Location(latitude: 0.0, longitude: 0.0)
+                    )
+
                 }
-            } else {
-                print("Document does not exist")
             }
         }
     }
-
+    
     func saveFoodTruckData() {
-        guard let userId = auth.currentUser?.uid else { return }
-        do {
-            print("Saving food truck: \(foodTruck)")
-            try db.collection("foodTrucks").document(userId).setData(from: foodTruck) { error in
-                if let error = error {
-                    print("Error saving food truck: \(error)")
-                } else {
-                    print("Food truck successfully saved.")
-                }
+        print("Saving food truck data for ID: \(foodTruck.id)")
+        foodTruckService.saveFoodTruck(foodTruck) { error in
+            if let error = error {
+                print("Error saving food truck: \(error)")
+            } else {
+                print("Food truck successfully saved.")
             }
-        } catch {
-            print("Error saving food truck: \(error)")
         }
     }
 }
-
-
-
-
-
-
