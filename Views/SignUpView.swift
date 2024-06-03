@@ -6,9 +6,7 @@
 //
 import SwiftUI
 import FirebaseAuth
-import GoogleSignIn
 import FirebaseFirestore
-import Foundation
 
 struct SignUpView: View {
     @Binding var signedIn: Bool
@@ -17,7 +15,7 @@ struct SignUpView: View {
     @State private var password: String = ""
     @State private var email: String = ""
     @State private var username: String = ""
-    @State private var selectedRole = "User"  
+    @State private var selectedRole = "User"
     
     let roles = ["User", "Food Truck Owner"]
     
@@ -103,7 +101,6 @@ struct SignUpView: View {
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
     }
     
-    
     func saveUserProfile(uid: String, username: String, email: String, userType: Int) {
         let userData: [String: Any] = [
             "username": username,
@@ -117,6 +114,7 @@ struct SignUpView: View {
                 print("Error saving user profile: \(error.localizedDescription)")
             } else {
                 print("User profile saved successfully")
+                signedIn = true
             }
         }
     }
