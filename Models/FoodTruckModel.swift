@@ -13,6 +13,7 @@ struct FoodTruck: Identifiable, Codable {
     var id: String
     var name: String
     var rating: Double
+    var ratings: [Double]
     var foodType: String
     var priceRange: String
     var openingHours: String
