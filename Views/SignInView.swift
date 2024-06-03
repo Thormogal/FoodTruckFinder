@@ -7,8 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
-import GoogleSignIn
-import Firebase
+import FirebaseFirestore
 
 struct SignInView: View {
     @Binding var signedIn: Bool
@@ -88,23 +87,11 @@ struct SignInView: View {
             
             Spacer()
         }
-        //                .onAppear {
-        //                    if Auth.auth().currentUser != nil {
-        //                        signInAndFetchUserType { type in
-        //                            if let type = type {
-        //                                self.userType = type
-        //                                self.signedIn = true
-        //                            } else {
-        //                                // Handle the error or unknown user type
-        //                            }
-        //                        }
-        //                    }
-        //                }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
     }
     
     func signInAndFetchUserType(completion: @escaping (Int?) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        auth.signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 self.errorMessage = error.localizedDescription
                 completion(nil)

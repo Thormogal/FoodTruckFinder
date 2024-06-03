@@ -26,6 +26,8 @@ struct ContentView: View {
                     } else {
                         Text("Loading...")
                     }
+                } else {
+                    Text("Loading user type...")
                 }
             } else {
                 SignInView(signedIn: $authViewModel.isSignedIn, userType: $userType)
@@ -75,4 +77,3 @@ struct FoodTruckViewModelProvider<Content: View>: View {
 #Preview {
     ContentView()
 }
-
