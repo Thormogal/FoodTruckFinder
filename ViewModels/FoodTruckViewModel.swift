@@ -14,6 +14,9 @@ import FirebaseFirestoreSwift
 class FoodTruckViewModel: ObservableObject {
     @Published var foodTruck: FoodTruck
     private var foodTruckService = FoodTruckService()
+    private var db = Firestore.firestore()
+    var auth = Auth.auth()
+    
     
     init(foodTruck: FoodTruck? = nil) {
         if let foodTruck = foodTruck {

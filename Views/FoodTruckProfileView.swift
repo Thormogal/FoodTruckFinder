@@ -37,12 +37,12 @@ struct FoodTruckProfileView: View {
                 .clipped()
                 
                 // Rating bar
-
-                    .padding(.top, 10)
-                    .padding(.bottom, 30)
-                    .onTapGesture {
-                        isRatingPresented = true
-                    }
+                RatingView(rating: viewModel.foodTruck.rating)
+                                  .padding(.top, 10)
+                                  .padding(.bottom, 30)
+                                  .onTapGesture {
+                                      isRatingPresented = true
+                                  }
 
                 
                 VStack(alignment: .leading, spacing: 10) {
