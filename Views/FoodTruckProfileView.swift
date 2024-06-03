@@ -13,7 +13,8 @@ struct FoodTruckProfileView: View {
     @StateObject private var searchCompleter = SearchCompleter()
     @State private var isEditing = false
     @State private var showingMap = false
-
+    @State private var isRatingPresented = false
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -36,7 +37,10 @@ struct FoodTruckProfileView: View {
                 RatingView(rating: viewModel.foodTruck.rating)
                     .padding(.top, 20)
                     .padding(.bottom, 20)
-
+                    .onTapGesture {
+                        isRatingPresented = true
+                    }
+                
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
                     informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
@@ -119,6 +123,11 @@ struct FoodTruckProfileView: View {
                 searchCompleter.currentAddress = address
             }
         }
+        .sheet(isPresented: $isRatingPresented) {
+            RatingInputView(isPresented: $isRatingPresented) { newRating in
+                viewModel.addRating(newRating)
+            }
+        }
     }
     
     private func informationRow(title: String, value: String) -> some View {
@@ -160,7 +169,6 @@ struct FoodTruckLocationMap: View {
         }
     }
 }
-
 
 
 
