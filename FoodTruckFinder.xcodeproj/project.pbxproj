@@ -21,6 +21,8 @@
 		5291D3392BFD3420004B7109 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RatingView.swift */; };
 		594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594965882C05F9D3002F08F1 /* SearchbarView.swift */; };
 		5949658B2C060115002F08F1 /* MapComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5949658A2C060115002F08F1 /* MapComponents.swift */; };
+		594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */; };
+		594E240F2C0DFBFC00DAE503 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 594E240E2C0DFBFC00DAE503 /* FirebaseMessaging */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */; };
 		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CE4482322C0A975800742CC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */; };
@@ -60,6 +62,7 @@
 		5291D3382BFD3420004B7109 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		594965882C05F9D3002F08F1 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		5949658A2C060115002F08F1 /* MapComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponents.swift; sourceTree = "<group>"; };
+		594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
 		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				594E240F2C0DFBFC00DAE503 /* FirebaseMessaging in Frameworks */,
 				CEB9EB492BF1FE9B0093A288 /* FirebaseDatabaseSwift in Frameworks */,
 				CEB9EB452BF1FE9B0093A288 /* FirebaseAnalyticsSwift in Frameworks */,
 				5291D2EF2BF67F16004B7109 /* GoogleSignInSwift in Frameworks */,
@@ -100,6 +104,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		594E240D2C0DFBFC00DAE503 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CEA4E7D52C052CB600BEDE81 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +168,7 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
+				594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */,
 				CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */,
 				CEB9EB552BF217840093A288 /* FirebasePlist.swift */,
 				CEB9EB352BF1F5450093A288 /* FoodTruckFinderApp.swift */,
@@ -166,6 +178,7 @@
 				CEA92BE12BF5F98A00FD159A /* ViewModels */,
 				CEB9EB342BF1F5450093A288 /* FoodTruckFinder */,
 				CEB9EB332BF1F5450093A288 /* Products */,
+				594E240D2C0DFBFC00DAE503 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,6 +231,7 @@
 				CEB9EB4C2BF1FE9B0093A288 /* FirebaseStorage */,
 				5291D2EC2BF67F16004B7109 /* GoogleSignIn */,
 				5291D2EE2BF67F16004B7109 /* GoogleSignInSwift */,
+				594E240E2C0DFBFC00DAE503 /* FirebaseMessaging */,
 			);
 			productName = FoodTruckFinder;
 			productReference = CEB9EB322BF1F5450093A288 /* FoodTruckFinder.app */;
@@ -279,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02BC91912BF78AB600221CCB /* ProfileView.swift in Sources */,
+				594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */,
 				59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */,
 				02BC918F2BF78AA200221CCB /* MapView.swift in Sources */,
 				CEA40DA62C09FBFD00B77027 /* AuthManager.swift in Sources */,
@@ -543,6 +558,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5291D2EB2BF67F16004B7109 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		594E240E2C0DFBFC00DAE503 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEB9EB432BF1FE9B0093A288 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		CEB9EB442BF1FE9B0093A288 /* FirebaseAnalyticsSwift */ = {
 			isa = XCSwiftPackageProductDependency;
