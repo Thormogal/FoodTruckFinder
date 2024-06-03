@@ -38,6 +38,7 @@ class FoodTruckViewModel: ObservableObject {
     }
     
     func addRating(_ rating: Double) {
+// Maybe use later
 //        guard let foodTruckId = foodTruck.id else {
 //            print("Error: foodTruck.id is nil")
 //            return
