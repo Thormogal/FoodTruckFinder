@@ -6,6 +6,17 @@
 	<string>We need your location to show foodtrucks near you at all times.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show foodtrucks near you.</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.292893742509-pfpubpufkmfdcak4909hmqrgbfg2bptv</string>
+            </array>
+        </dict>
+    </array>
 	<key>CLIENT_ID</key>
 	<string>292893742509-pfpubpufkmfdcak4909hmqrgbfg2bptv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>

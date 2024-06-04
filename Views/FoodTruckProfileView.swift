@@ -159,13 +159,16 @@ struct FoodTruckProfileView: View {
                         }
                     }
                 }
-                Button(action: {
-                            isReviewPresented = true
-                        }) {
-                            Text("Write a Review")
-                                .foregroundColor(.blue)
-                        }
-                        .padding()
+                // Review button for usertype 1 (user)
+                if userType == 1 {
+                    Button(action: {
+                        isReviewPresented = true
+                    }) {
+                        Text("Write a Review")
+                            .foregroundColor(.blue)
+                    }
+                    .padding()
+                }
                         
                         Group {
                             Text("Reviews")
