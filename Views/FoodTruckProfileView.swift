@@ -15,9 +15,7 @@ struct FoodTruckProfileView: View {
     @State private var showingMap = false
     @State private var isRatingPresented = false
     @State private var isReviewPresented = false
-
     var userType: Int
-
     
     var body: some View {
         ScrollView {
@@ -39,12 +37,12 @@ struct FoodTruckProfileView: View {
                 
                 // Rating bar
                 RatingView(rating: viewModel.foodTruck.rating)
-                                  .padding(.top, 10)
-                                  .padding(.bottom, 30)
-                                  .onTapGesture {
-                                      isRatingPresented = true
-                                  }
-
+                    .padding(.top, 10)
+                    .padding(.bottom, 30)
+                    .onTapGesture {
+                        isRatingPresented = true
+                    }
+                
                 
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
@@ -109,7 +107,6 @@ struct FoodTruckProfileView: View {
                     }
                     .padding([.horizontal, .bottom])
                 }
-
                 // Menu
                 Group {
                     VStack(alignment: .leading) {
@@ -139,7 +136,7 @@ struct FoodTruckProfileView: View {
                     .padding(.top, viewModel.foodTruck.dailyDeals.isEmpty ? 0 : 20) // Adjust padding based on daily deals
                 }
                 .padding([.horizontal, .top])
-
+                
                 // Edit button for usertype 2 (owner)
                 if userType == 2 {
                     Button(action: {
@@ -159,33 +156,32 @@ struct FoodTruckProfileView: View {
                         }
                     }
                 }
-                Button(action: {
-                            isReviewPresented = true
-                        }) {
-                            Text("Write a Review")
-                                .foregroundColor(.blue)
+                if userType == 1 {
+                    Button(action: {
+                        isReviewPresented = true
+                    }) {
+                        Text("Write a Review")
+                            .foregroundColor(.blue)
+                    }
+                    .padding()
+                }
+                
+                Group {
+                    Text("Reviews")
+                        .font(.title)
+                        .bold()
+                    
+                    ForEach(viewModel.foodTruck.reviews) { review in
+                        VStack(alignment: .leading) {
+                            Text("\(review.userName) - \(review.rating, specifier: "%.1f") burgers")
+                                .font(.headline)
+                            Text(review.text)
+                                .font(.subheadline)
                         }
-                        .padding()
-                        
-                        Group {
-                            Text("Reviews")
-                                .font(.title)
-                                .bold()
-                            
-                            ForEach(viewModel.foodTruck.reviews) { review in
-                                VStack(alignment: .leading) {
-                                    Text("\(review.userName) - \(review.rating, specifier: "%.1f") burgers")
-                                        .font(.headline)
-                                    Text(review.text)
-                                        .font(.subheadline)
-//                                    Text("\(review.date, formatter: DateFormatter())")
-//                                        .font(.caption)
-//                                        .foregroundColor(.gray)
-                                }
-                                .padding(.vertical, 5)
-                            }
-                        }
-                        .padding()
+                        .padding(.vertical, 5)
+                    }
+                }
+                .padding()
             }
         }
         .sheet(isPresented: $showingMap) {
@@ -210,9 +206,9 @@ struct FoodTruckProfileView: View {
             
         }
         .sheet(isPresented: $isReviewPresented) {
-                     SubmitReviewView(viewModels: viewModel, isPresented: $isReviewPresented)
-                 }
-                 .padding()
+            SubmitReviewView(viewModels: viewModel, isPresented: $isReviewPresented)
+        }
+        .padding()
     }
     
     private func informationRow(title: String, value: String) -> some View {
@@ -257,5 +253,3 @@ struct FoodTruckLocationMap: View {
         }
     }
 }
-
-
