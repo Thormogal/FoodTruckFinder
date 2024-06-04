@@ -34,10 +34,27 @@ class FoodTruckViewModel: ObservableObject {
                 imageURL: "",
                 menu: [],
                 dailyDeals: [],
-                location: Location(latitude: 0.0, longitude: 0.0)
+                location: Location(latitude: 0.0, longitude: 0.0),
+                reviews: []
             )
         }
     }
+    func addReview(_ review: Review) {
+        let foodTruckId = foodTruck.id
+         
+         let foodTruckRef = db.collection("foodTrucks").document(foodTruckId)
+         
+         foodTruckRef.updateData([
+             "reviews": FieldValue.arrayUnion([review.dictionary])
+         ]) { error in
+             if let error = error {
+                 print("Error updating reviews: \(error)")
+             } else {
+                 print("Review added successfully")
+                 self.foodTruck.reviews.append(review)
+             }
+         }
+     }
     
 
     func addRating(_ rating: Double) {
@@ -131,7 +148,8 @@ class FoodTruckViewModel: ObservableObject {
                         imageURL: "",
                         menu: [],
                         dailyDeals: [],
-                        location: Location(latitude: 0.0, longitude: 0.0)
+                        location: Location(latitude: 0.0, longitude: 0.0),
+                        reviews: []
                     )
 
                 }
@@ -148,5 +166,18 @@ class FoodTruckViewModel: ObservableObject {
                 print("Food truck successfully saved.")
             }
         }
+    }
+}
+
+extension Review {
+    var dictionary: [String: Any] {
+        return [
+            "id": id,
+            "userId": userId,
+            "userName": userName,
+            "text": text,
+            "rating": rating
+            //"date": date
+        ]
     }
 }
