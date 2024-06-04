@@ -20,6 +20,8 @@
 		5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2FA2BFB6E4B004B7109 /* SignInView.swift */; };
 		5291D3392BFD3420004B7109 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RatingView.swift */; };
 		52F5B5072C0DB50600B11E2A /* RatingInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B5062C0DB50600B11E2A /* RatingInputView.swift */; };
+		52F5B5092C0E1AC200B11E2A /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B5082C0E1AC200B11E2A /* ReviewModel.swift */; };
+		52F5B50D2C0E1CEB00B11E2A /* SubmitReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */; };
 		594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594965882C05F9D3002F08F1 /* SearchbarView.swift */; };
 		5949658B2C060115002F08F1 /* MapComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5949658A2C060115002F08F1 /* MapComponents.swift */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */; };
@@ -60,6 +62,8 @@
 		5291D2FA2BFB6E4B004B7109 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5291D3382BFD3420004B7109 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		52F5B5062C0DB50600B11E2A /* RatingInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInputView.swift; sourceTree = "<group>"; };
+		52F5B5082C0E1AC200B11E2A /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitReviewView.swift; sourceTree = "<group>"; };
 		594965882C05F9D3002F08F1 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		5949658A2C060115002F08F1 /* MapComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponents.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 			children = (
 				CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */,
 				523E29B82C074FC60084F217 /* UserManagerModel.swift */,
+				52F5B5082C0E1AC200B11E2A /* ReviewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -142,7 +147,7 @@
 				5291D2F82BFB69D7004B7109 /* SignUpView.swift */,
 				02BC91882BF7350F00221CCB /* SplashView.swift */,
 				5291D2E72BF64EBC004B7109 /* UserStartView.swift */,
-
+				52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 				59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */,
 				02BC918F2BF78AA200221CCB /* MapView.swift in Sources */,
 				CEA40DA62C09FBFD00B77027 /* AuthManager.swift in Sources */,
+				52F5B5092C0E1AC200B11E2A /* ReviewModel.swift in Sources */,
 				E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */,
 				CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */,
 				CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */,
@@ -294,6 +300,7 @@
 				CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */,
 				CEAB080C2BFA8C70005AE0E9 /* FoodTruckEditView.swift in Sources */,
 				5949658B2C060115002F08F1 /* MapComponents.swift in Sources */,
+				52F5B50D2C0E1CEB00B11E2A /* SubmitReviewView.swift in Sources */,
 				CE9EE95B2C0CDB06008F0728 /* FoodTruckDetailView.swift in Sources */,
 				02BC91892BF7350F00221CCB /* SplashView.swift in Sources */,
 				CEAB080E2BFA901A005AE0E9 /* LocationMapView.swift in Sources */,

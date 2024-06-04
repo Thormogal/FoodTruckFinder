@@ -22,6 +22,7 @@ struct FoodTruck: Identifiable, Codable {
     var menu: [MenuItem]
     var dailyDeals: [DailyDealItem] = []
     var location: Location
+    var reviews: [Review]
     
     func distance(to userLocation: CLLocation) -> Double {
         let truckLocation = CLLocation(latitude: self.location.latitude, longitude: self.location.longitude)
