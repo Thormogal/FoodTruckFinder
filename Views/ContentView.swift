@@ -12,6 +12,7 @@ import FirebaseFirestore
 struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModel()
     @State private var userType: Int? = nil
+    @State private var errorMessage: String?
     
     var body: some View {
         Group {
@@ -23,14 +24,18 @@ struct ContentView: View {
                         FoodTruckViewModelProvider { viewModel in
                             FoodTruckProfileView(viewModel: viewModel, userType: userType)
                         }
+
                     } else if UserManager.shared.userType == 1 {
                         StartViewUser()
                     }
                 } else {
                     Text("Loading user type...")
+                        .onAppear {
+                            self.authViewModel.isSignedIn = false
+                        }
                 }
             } else {
-                SignInView(signedIn: $authViewModel.isSignedIn, userType: $userType)
+                SignInView(signedIn: $authViewModel.isSignedIn, userType: $userType, errorMessage: $errorMessage)
             }
         }
         .onAppear {
@@ -54,7 +59,7 @@ struct ContentView: View {
             if let document = document, document.exists {
                 self.userType = document.data()?["usertype"] as? Int
             } else {
-                print("User does not exist or error fetching user data: \(error?.localizedDescription ?? "Unknown error")")
+                self.errorMessage = "User does not exist or error fetching user data: \(error?.localizedDescription ?? "Unknown error")"
             }
         }
     }
