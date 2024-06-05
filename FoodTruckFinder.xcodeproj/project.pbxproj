@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02BA0DE42C107E92009AAA42 /* DailyDealsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BA0DE32C107E92009AAA42 /* DailyDealsView.swift */; };
 		02BC91892BF7350F00221CCB /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC91882BF7350F00221CCB /* SplashView.swift */; };
 		02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC918C2BF78A8500221CCB /* HomeView.swift */; };
 		02BC918F2BF78AA200221CCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC918E2BF78AA200221CCB /* MapView.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02BA0DE32C107E92009AAA42 /* DailyDealsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDealsView.swift; sourceTree = "<group>"; };
 		02BC91882BF7350F00221CCB /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		02BC918C2BF78A8500221CCB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		02BC918E2BF78AA200221CCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				02BC91882BF7350F00221CCB /* SplashView.swift */,
 				5291D2E72BF64EBC004B7109 /* UserStartView.swift */,
 				52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */,
+				02BA0DE32C107E92009AAA42 /* DailyDealsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */,
 				59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */,
 				523E29B92C074FC60084F217 /* UserManagerModel.swift in Sources */,
+				02BA0DE42C107E92009AAA42 /* DailyDealsView.swift in Sources */,
 				CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */,
 				02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */,
 				5291D3392BFD3420004B7109 /* RatingView.swift in Sources */,

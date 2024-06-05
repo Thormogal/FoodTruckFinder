@@ -37,6 +37,14 @@ struct StartViewUser: View {
                             Image(systemName: "person")
                             Text("Profile")
                         }
+                    
+                    DailyDealsView() // new button 
+                                            .tabItem {
+                                                Image(systemName: "tag")
+                                                Text("Deals")
+                                            }
+                    
+                    
                 }
             } else {
                 SignInView(signedIn: $authViewModel.isSignedIn, userType: .constant(nil), errorMessage: $errorMessage)

@@ -75,4 +75,36 @@ class FoodTruckService {
             completion(error)
         }
     }
-}
+    
+    // New function for fetching daily deals irre 
+    func fetchAllDailyDeals(completion: @escaping ([DailyDealItem]) -> Void) {
+            db.collection("foodTrucks").getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion([])
+                    return
+                }
+                
+                var allDailyDeals: [DailyDealItem] = []
+                for document in querySnapshot!.documents {
+                    let foodTruckName = document.data()["name"] as? String ?? "Unknown"
+                    if let data = document.data()["dailyDeals"] as? [[String: Any]] {
+                        for dealData in data {
+                            var dealDataWithTruckName = dealData
+                            dealDataWithTruckName["foodTruckName"] = foodTruckName
+                            do {
+                                let jsonData = try JSONSerialization.data(withJSONObject: dealDataWithTruckName, options: [])
+                                let dailyDeal = try JSONDecoder().decode(DailyDealItem.self, from: jsonData)
+                                allDailyDeals.append(dailyDeal)
+                            } catch {
+                                print("Error decoding daily deal: \(error)")
+                            }
+                        }
+                    }
+                }
+                completion(allDailyDeals)
+            }
+        }
+    }
+    
+
