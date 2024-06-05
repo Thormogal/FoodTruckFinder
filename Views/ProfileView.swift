@@ -8,6 +8,8 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -16,6 +18,7 @@ struct ProfileView: View {
     @State private var profileImage: UIImage? = nil
     @State private var showingImagePicker = false
     @State private var profileImageUrl: URL? = nil
+    @State private var userReviews: [Review] = []
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -67,10 +70,27 @@ struct ProfileView: View {
                 }
                 .padding(.leading)
                 Spacer()
+                Spacer()
+
+                ScrollView {
+                    ForEach(userReviews) { review in
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(review.foodTruckName ?? "Unknown Food Truck") 
+                                .font(.headline)
+                            Text(review.text)
+                                .font(.body)
+                            RatingView(rating: review.rating)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                    }
+                }
             }
             .frame(maxHeight: .infinity)
             
             Spacer()
+        
             
             Button(action: {
                 AuthManager.shared.signOut(presentationMode: presentationMode) { result in
@@ -96,6 +116,7 @@ struct ProfileView: View {
         .onAppear {
             fetchUserEmail()
             fetchProfileImage()
+            fetchUserReviews()
         }
         .sheet(isPresented: $showingImagePicker, onDismiss: uploadProfileImage) {
             ImagePicker(image: $profileImage)
@@ -163,8 +184,43 @@ struct ProfileView: View {
             }
         }
     }
-}
+    
+    func fetchUserReviews() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
 
+        let db = Firestore.firestore()
+        db.collection("foodTrucks").getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching user reviews: \(error.localizedDescription)")
+                return
+            }
+
+            var userReviews: [Review] = []
+            for document in querySnapshot!.documents {
+                if let reviews = document.data()["reviews"] as? [[String: Any]] {
+                    for reviewData in reviews {
+                        if reviewData["userId"] as? String == userId {
+                            do {
+                                let jsonData = try JSONSerialization.data(withJSONObject: reviewData, options: [])
+                                var review = try JSONDecoder().decode(Review.self, from: jsonData)
+                                review.foodTruckName = review.foodTruckName ?? "Unknown Food Truck"
+                                userReviews.append(review)
+                            } catch {
+                                print("Error decoding review: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.userReviews = userReviews
+            }
+        }
+    }
+}
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {

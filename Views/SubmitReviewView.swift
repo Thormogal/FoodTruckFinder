@@ -33,7 +33,8 @@ struct SubmitReviewView: View {
                     userId: Auth.auth().currentUser?.uid ?? "",
                     userName: Auth.auth().currentUser?.displayName ?? "Anonymous",
                     text: reviewText,
-                    rating: rating
+                    rating: rating, 
+                    foodTruckName: viewModels.foodTruck.name
                 )
                 viewModels.addReview(review)
                 viewModels.addRating(review.rating)
