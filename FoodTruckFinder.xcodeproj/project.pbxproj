@@ -29,6 +29,7 @@
 		59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */; };
 		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CE4482322C0A975800742CC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */; };
+		CE89230B2C0FDFB200D229D2 /* GreatVibes-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE89230A2C0FDFB100D229D2 /* GreatVibes-Regular.ttf */; };
 		CE9EE95B2C0CDB06008F0728 /* FoodTruckDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EE95A2C0CDB06008F0728 /* FoodTruckDetailView.swift */; };
 		CEA40DA62C09FBFD00B77027 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA40DA52C09FBFD00B77027 /* AuthManager.swift */; };
 		CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */; };
@@ -72,6 +73,7 @@
 		59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
 		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE89230A2C0FDFB100D229D2 /* GreatVibes-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GreatVibes-Regular.ttf"; sourceTree = "<group>"; };
 		CE9EE95A2C0CDB06008F0728 /* FoodTruckDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckDetailView.swift; sourceTree = "<group>"; };
 		CEA40DA52C09FBFD00B77027 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckImagePickerViewModel.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
+				CE89230A2C0FDFB100D229D2 /* GreatVibes-Regular.ttf */,
 				594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */,
 				CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */,
 				CEB9EB552BF217840093A288 /* FirebasePlist.swift */,
@@ -288,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE89230B2C0FDFB200D229D2 /* GreatVibes-Regular.ttf in Resources */,
 				CEB9EB3D2BF1F5490093A288 /* Preview Assets.xcassets in Resources */,
 				CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */,
 				CE4482322C0A975800742CC2 /* GoogleService-Info.plist in Resources */,

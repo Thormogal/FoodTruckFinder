@@ -14,15 +14,36 @@ import FirebaseFirestore
 struct GoogleSignInButton: UIViewRepresentable {
     @Binding var signedIn: Bool
     
-    func makeUIView(context: Context) -> GIDSignInButton {
-        let button = GIDSignInButton()
-        button.style = .wide
-        button.colorScheme = .dark
+    func makeUIView(context: Context) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle("Sign in with Google", for: .normal)
+        button.setTitleColor(.black, for: .normal) // Black text for classic Google button
+        button.backgroundColor = .white // White background for classic Google button
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(context.coordinator, action: #selector(Coordinator.signInWithGoogle), for: .touchUpInside)
+        
+        let googleIcon = UIImageView(image: UIImage(named: "google_logo")) // Replace with your Google logo image name
+        googleIcon.contentMode = .scaleAspectFit
+        googleIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addSubview(googleIcon)
+        button.bringSubviewToFront(googleIcon)
+        
+        NSLayoutConstraint.activate([
+            googleIcon.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 12),
+            googleIcon.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            googleIcon.widthAnchor.constraint(equalToConstant: 24),
+            googleIcon.heightAnchor.constraint(equalToConstant: 24),
+            
+            button.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
         return button
     }
     
-    func updateUIView(_ uiView: GIDSignInButton, context: Context) {}
+    func updateUIView(_ uiView: UIButton, context: Context) {}
     
     func makeCoordinator() -> Coordinator {
         return Coordinator(signedIn: $signedIn)
@@ -104,4 +125,3 @@ struct GoogleSignInButton: UIViewRepresentable {
         }
     }
 }
-
