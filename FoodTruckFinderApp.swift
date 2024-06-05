@@ -35,7 +35,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             UNUserNotificationCenter.current().delegate = self
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { granted, error in
-                print("Permission granted: \(granted)")
+                print("Push notifications permission granted: \(granted)")
             }
         } else {
             let settings: UIUserNotificationSettings =
@@ -68,9 +68,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     // UNUserNotificationCenterDelegate
     @available(iOS 10, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
+    func userNotificationCenter(_ center: UNUserNotificationCenter, 
+                                willPresent notification: UNNotification, 
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .badge, .sound])
+        } else {
+            completionHandler([.alert, .badge, .sound])
+        }
     }
+
 
     // MessagingDelegate
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
