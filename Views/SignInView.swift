@@ -30,11 +30,11 @@ struct SignInView: View {
                     VStack {
                         GeometryReader { geo in
                             Text("FoodTruckFinder")
-                                .font(.custom("GreatVibes-Regular", size: min(geo.size.width * 0.5, 50)))
-                                .fontWeight(.semibold)
+                                .font(.system(size: 50, weight: .semibold))
                                 .frame(maxWidth: geo.size.width)
                                 .lineLimit(1)
-                                .minimumScaleFactor(0.5)
+                                .minimumScaleFactor(0.1)
+                                .scaledToFit()
                         }
                         .frame(height: 60)
                         .padding(.bottom, 20)
