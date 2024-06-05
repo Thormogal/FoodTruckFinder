@@ -156,6 +156,10 @@ struct FoodTruckProfileView: View {
                         }
                     }
                 }
+
+                // Review button for usertype 1 (user)
+
+
                 if userType == 1 {
                     Button(action: {
                         isReviewPresented = true
@@ -165,6 +169,7 @@ struct FoodTruckProfileView: View {
                     }
                     .padding()
                 }
+
                 
                 Group {
                     Text("Reviews")
@@ -177,6 +182,7 @@ struct FoodTruckProfileView: View {
                                 .font(.headline)
                             Text(review.text)
                                 .font(.subheadline)
+
                         }
                         .padding(.vertical, 5)
                     }
