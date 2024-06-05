@@ -50,6 +50,7 @@ struct DailyDealItem: Identifiable, Codable {
     var originalPrice: Double
     var dealPrice: Double
     var ingredients: String
+    var foodTruckName: String
 }
 
 func calculateDistance(from location1: Location, to location2: Location) -> Double {
