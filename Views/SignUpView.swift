@@ -17,6 +17,8 @@ struct SignUpView: View {
     @State private var username: String = ""
     @State private var selectedRole = "User"
     
+    @State private var errorMessage: String? = nil
+    
     let roles = ["User", "Food Truck Owner"]
     
     var body: some View {
@@ -27,6 +29,12 @@ struct SignUpView: View {
                 Text("Create Account")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
+                
+                if let errorMessage = errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .font(.subheadline)
+                }
                 
                 Text("Username")
                     .font(.headline)
@@ -66,23 +74,11 @@ struct SignUpView: View {
             .padding(.horizontal, 20)
             
             Button(action: {
-                auth.createUser(withEmail: email, password: password) { authResult, error in
-                    if let error = error {
-                        print("Error creating account: \(error.localizedDescription)")
+                checkIfUserExists { exists in
+                    if exists {
+                        errorMessage = "Username or email already exists."
                     } else {
-                        if let user = authResult?.user {
-                            let changeRequest = user.createProfileChangeRequest()
-                            changeRequest.displayName = username
-                            changeRequest.commitChanges { error in
-                                if let error = error {
-                                    print("Error setting username: \(error.localizedDescription)")
-                                } else {
-                                    let userType = selectedRole == "User" ? 1 : 2
-                                    saveUserProfile(uid: user.uid, username: username, email: email, userType: userType)
-                                    signedIn = true
-                                }
-                            }
-                        }
+                        signUpUser()
                     }
                 }
             }, label: {
@@ -99,6 +95,61 @@ struct SignUpView: View {
             Spacer()
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
+    }
+    
+    func checkIfUserExists(completion: @escaping (Bool) -> Void) {
+        let usersRef = db.collection("users")
+        
+        usersRef.whereField("username", isEqualTo: username).getDocuments { usernameQuerySnapshot, error in
+            if let error = error {
+                print("Error checking username: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let usernameDocs = usernameQuerySnapshot?.documents, !usernameDocs.isEmpty {
+                completion(true)
+                return
+            }
+            
+            usersRef.whereField("email", isEqualTo: email).getDocuments { emailQuerySnapshot, error in
+                if let error = error {
+                    print("Error checking email: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                if let emailDocs = emailQuerySnapshot?.documents, !emailDocs.isEmpty {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    func signUpUser() {
+        auth.createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error creating account: \(error.localizedDescription)")
+                errorMessage = error.localizedDescription
+            } else {
+                if let user = authResult?.user {
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.displayName = username
+                    changeRequest.commitChanges { error in
+                        if let error = error {
+                            print("Error setting username: \(error.localizedDescription)")
+                            errorMessage = error.localizedDescription
+                        } else {
+                            let userType = selectedRole == "User" ? 1 : 2
+                            saveUserProfile(uid: user.uid, username: username, email: email, userType: userType)
+                            signedIn = true
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func saveUserProfile(uid: String, username: String, email: String, userType: Int) {
