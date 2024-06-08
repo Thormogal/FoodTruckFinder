@@ -22,42 +22,44 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 60) {
+            VStack {
                 if let profileImage = profileImage {
                     Image(uiImage: profileImage)
                         .resizable()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 100, height: 100)
                         .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-                        .padding(.leading)
+                        .overlay(Circle().stroke(Color.white, lineWidth: 2))
                         .onTapGesture {
                             self.showingImagePicker = true
                         }
                 } else {
                     Image(systemName: "person.crop.circle")
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 100, height: 100)
                         .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-                        .padding(.leading)
+                        .overlay(Circle().stroke(Color.white, lineWidth: 2))
                         .onTapGesture {
                             self.showingImagePicker = true
                         }
                 }
                 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .center, spacing: 8) {
                     Text(Auth.auth().currentUser?.displayName ?? "Username not available")
                         .font(.title)
                         .fontWeight(.bold)
+                        .foregroundColor(.white)
                     Text(userEmail)
                         .font(.title2)
                         .fontWeight(.light)
+                        .foregroundColor(.white)
                 }
-                .padding(.leading)
+                .padding(.top, 8)
             }
-            .padding(.top)
-            Spacer()
-            Spacer()
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color(UIColor.fromHex("3D84B7")))
+            .cornerRadius(10)
+            .padding([.top, .horizontal])
             
             VStack(alignment: .leading) {
                 HStack {
@@ -68,49 +70,61 @@ struct ProfileView: View {
                         .font(.title2)
                         .fontWeight(.semibold)
                 }
-                .padding(.leading)
-                Spacer()
-                Spacer()
-
+                .padding(.leading, 45)
+                .padding(.top)
+                
                 ScrollView {
-                    ForEach(userReviews) { review in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(review.foodTruckName ?? "Unknown Food Truck") 
-                                .font(.headline)
-                            Text(review.text)
-                                .font(.body)
-                            RatingView(rating: review.rating)
+                    if userReviews.isEmpty {
+                        Text("No reviews yet...")
+                            .font(.body)
+                            .padding(.leading, 45)
+                            .padding(.top, 20)
+                    } else {
+                        ForEach(userReviews) { review in
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(review.foodTruckName ?? "Unknown Food Truck")
+                                    .font(.headline)
+                                Text(review.text)
+                                    .font(.body)
+                                RatingView(rating: review.rating)
+                            }
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                            .padding(.leading, 20)
                         }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
                     }
                 }
+                .padding(.leading, 20)
             }
             .frame(maxHeight: .infinity)
             
-            Spacer()
-        
-            
-            Button(action: {
-                AuthManager.shared.signOut(presentationMode: presentationMode) { result in
-                    switch result {
-                    case .success:
-                        print("Signed out successfully")
-                    case .failure(let error):
-                        print("Error signing out: \(error.localizedDescription)")
+            HStack {
+                Spacer()
+                Button(action: {
+                    AuthManager.shared.signOut(presentationMode: presentationMode) { result in
+                        switch result {
+                        case .success:
+                            print("Signed out successfully")
+                        case .failure(let error):
+                            print("Error signing out: \(error.localizedDescription)")
+                        }
                     }
+                }) {
+                    Text("Sign Out")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color(UIColor.fromHex("3D84B7")))
+                        .cornerRadius(10)
+                        .padding(.bottom)
                 }
-            }) {
-                Text("Sign Out")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(.bottom)
+                Spacer()
             }
+            .padding(.horizontal)
         }
+        .frame(width: 450, height: 700)
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -189,14 +203,14 @@ struct ProfileView: View {
         guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
-
+        
         let db = Firestore.firestore()
         db.collection("foodTrucks").getDocuments { querySnapshot, error in
             if let error = error {
                 print("Error fetching user reviews: \(error.localizedDescription)")
                 return
             }
-
+            
             var userReviews: [Review] = []
             for document in querySnapshot!.documents {
                 if let reviews = document.data()["reviews"] as? [[String: Any]] {
@@ -214,7 +228,7 @@ struct ProfileView: View {
                     }
                 }
             }
-
+            
             DispatchQueue.main.async {
                 self.userReviews = userReviews
             }
@@ -227,3 +241,4 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView()
     }
 }
+
