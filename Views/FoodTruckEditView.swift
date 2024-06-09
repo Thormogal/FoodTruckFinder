@@ -113,6 +113,9 @@ struct FoodTruckEditView: View {
                         }
                         .frame(maxHeight: 200)
                     }
+
+                    TextField("Location Period (e.g., 9 June - 16 June)", text: $foodTruck.locationPeriod)
+                        .padding(.top, 10)
                 }
 
                 Section {

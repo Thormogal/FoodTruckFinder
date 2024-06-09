@@ -65,8 +65,15 @@ struct FoodTruckProfileView: View {
                         Button(action: {
                             showingMap = true
                         }) {
-                            Text("Location: \(searchCompleter.currentAddress)")
-                                .foregroundColor(.blue)
+                            VStack(alignment: .leading) {
+                                Text("Location: \(searchCompleter.currentAddress)")
+                                    .foregroundColor(.blue)
+                                if !viewModel.foodTruck.locationPeriod.isEmpty {
+                                    Text(viewModel.foodTruck.locationPeriod)
+                                        .foregroundColor(.gray)
+                                        .font(.footnote)
+                                }
+                            }
                         }
                     }
                     .padding(.top, 5)
