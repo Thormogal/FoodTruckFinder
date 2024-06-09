@@ -18,6 +18,9 @@ struct FoodTruckEditView: View {
     @State private var address: String = ""
     @StateObject private var searchCompleter = SearchCompleter()
     @State private var showSuggestions = false
+    @State private var showingDeleteAlert = false
+    @State private var showingPasswordAlert = false
+    @State private var password: String = ""
 
     var body: some View {
         NavigationView {
@@ -83,8 +86,8 @@ struct FoodTruckEditView: View {
                         .italic()
 
                     TextField("New Address", text: $address)
-                        .onChange(of: address) {
-                            searchCompleter.queryFragment = address
+                        .onChange(of: address) { oldAddress, newAddress in
+                            searchCompleter.queryFragment = newAddress
                             showSuggestions = true
                         }
 
@@ -133,6 +136,19 @@ struct FoodTruckEditView: View {
                             .foregroundColor(.red)
                     }
                 }
+                
+                Section {
+                    Button(action: {
+                        self.showingPasswordAlert = true
+                    }) {
+                        Text("Delete Account")
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red)
+                            .cornerRadius(10)
+                    }
+                }
             }
             .navigationBarTitle("Edit Foodtruck")
             .navigationBarItems(leading: Button(action: {
@@ -156,11 +172,57 @@ struct FoodTruckEditView: View {
                     imagePickerViewModel.uploadImage()
                 }
             }
+            .onChange(of: imagePickerViewModel.imageURL) { oldURL, newURL in
+                if let newURL = newURL {
+                    foodTruck.imageURL = newURL
+                }
+            }
             .onAppear {
                 let location = CLLocation(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude)
                 searchCompleter.reverseGeocodeLocation(location: location) { address in
                     searchCompleter.currentAddress = address
                 }
+            }
+            .overlay(
+                DeleteAccountAlertView(
+                    isPresented: $showingPasswordAlert,
+                    password: $password,
+                    title: "Confirm Password",
+                    message: "Please enter your password to confirm",
+                    onConfirm: reauthenticateAndDeleteAccount
+                )
+                .opacity(showingPasswordAlert ? 1 : 0)
+            )
+            .alert(isPresented: $showingDeleteAlert) {
+                Alert(
+                    title: Text("Delete Account"),
+                    message: Text("Are you sure you want to delete your account?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        ProfileService.shared.deleteUserAccount { result in
+                            switch result {
+                            case .success:
+                                print("User account deleted successfully")
+                                self.presentationMode.wrappedValue.dismiss()
+                            case .failure(let error):
+                                print("Error deleting user account: \(error.localizedDescription)")
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
+        }
+    }
+
+    private func reauthenticateAndDeleteAccount() {
+        ProfileService.shared.reauthenticateUser(password: password) { result in
+            switch result {
+            case .success:
+                self.showingPasswordAlert = false
+                self.showingDeleteAlert = true
+            case .failure(let error):
+                print("Error reauthenticating: \(error.localizedDescription)")
+                // Show error message to user
             }
         }
     }
@@ -181,3 +243,5 @@ struct FoodTruckEditView: View {
         foodTruck.dailyDeals.remove(at: index)
     }
 }
+
+
