@@ -138,7 +138,15 @@ struct ProfileView: View {
                         title: Text("Delete Account"),
                         message: Text("Are you sure you want to delete your account?"),
                         primaryButton: .destructive(Text("Delete")) {
-                            deleteUserAccount()
+                            ProfileService.shared.deleteUserAccount { result in
+                                switch result {
+                                case .success:
+                                    print("User account deleted successfully")
+                                    self.presentationMode.wrappedValue.dismiss()
+                                case .failure(let error):
+                                    print("Error deleting user account: \(error.localizedDescription)")
+                                }
+                            }
                         },
                         secondaryButton: .cancel()
                     )
@@ -254,50 +262,6 @@ struct ProfileView: View {
             
             DispatchQueue.main.async {
                 self.userReviews = userReviews
-            }
-        }
-    }
-
-    private func deleteUserAccount() {
-        guard let user = Auth.auth().currentUser else { return }
-
-        let db = Firestore.firestore()
-        let userRef = db.collection("users").document(user.uid)
-
-        // Delete user data from Firestore
-        userRef.delete { error in
-            if let error = error {
-                print("Error deleting user data: \(error.localizedDescription)")
-                return
-            }
-            
-            // Delete user reviews from Firestore
-            db.collection("foodTrucks").getDocuments { querySnapshot, error in
-                if let error = error {
-                    print("Error fetching food trucks: \(error.localizedDescription)")
-                    return
-                }
-                
-                for document in querySnapshot!.documents {
-                    var reviews = document.data()["reviews"] as? [[String: Any]] ?? []
-                    reviews.removeAll { $0["userId"] as? String == user.uid }
-                    
-                    db.collection("foodTrucks").document(document.documentID).updateData(["reviews": reviews]) { error in
-                        if let error = error {
-                            print("Error updating reviews: \(error.localizedDescription)")
-                        }
-                    }
-                }
-                
-                // Delete user from Firebase Authentication
-                user.delete { error in
-                    if let error = error {
-                        print("Error deleting user: \(error.localizedDescription)")
-                    } else {
-                        print("User account deleted successfully")
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
             }
         }
     }

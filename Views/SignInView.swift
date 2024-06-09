@@ -139,6 +139,9 @@ struct SignInView: View {
                 .frame(maxWidth: geometry.size.width * 0.9)
             }
         }
+        .onAppear {
+            self.errorMessage = nil
+        }
     }
     
     func signInAndFetchUserType(completion: @escaping (Int?) -> Void) {
