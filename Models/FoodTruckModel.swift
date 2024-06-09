@@ -8,7 +8,6 @@
 import Foundation
 import CoreLocation
 
-
 struct FoodTruck: Identifiable, Codable {
     var id: String
     var name: String
@@ -22,6 +21,7 @@ struct FoodTruck: Identifiable, Codable {
     var menu: [MenuItem]
     var dailyDeals: [DailyDealItem] = []
     var location: Location
+    var locationPeriod: String
     var reviews: [Review]
     
     func distance(to userLocation: CLLocation) -> Double {

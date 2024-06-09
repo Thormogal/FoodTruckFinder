@@ -23,6 +23,10 @@ class FoodTruckService {
                     if data["menu"] == nil {
                         data["menu"] = []
                     }
+                    // Ensure locationPeriod is handled
+                    if data["locationPeriod"] == nil {
+                        data["locationPeriod"] = ""
+                    }
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                     let foodTruck = try JSONDecoder().decode(FoodTruck.self, from: jsonData)
                     completion(foodTruck)
@@ -54,6 +58,9 @@ class FoodTruckService {
                     if data["menu"] == nil {
                         data["menu"] = []
                     }
+                    if data["locationPeriod"] == nil {
+                        data["locationPeriod"] = ""
+                    }
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                     let foodTruck = try JSONDecoder().decode(FoodTruck.self, from: jsonData)
                     return foodTruck
@@ -76,35 +83,35 @@ class FoodTruckService {
         }
     }
     
-    // New function for fetching daily deals irre 
+    // New function for fetching daily deals
     func fetchAllDailyDeals(completion: @escaping ([DailyDealItem]) -> Void) {
-            db.collection("foodTrucks").getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    print("Error getting documents: \(error)")
-                    completion([])
-                    return
-                }
-                
-                var allDailyDeals: [DailyDealItem] = []
-                for document in querySnapshot!.documents {
-                    let foodTruckName = document.data()["name"] as? String ?? "Unknown"
-                    if let data = document.data()["dailyDeals"] as? [[String: Any]] {
-                        for dealData in data {
-                            var dealDataWithTruckName = dealData
-                            dealDataWithTruckName["foodTruckName"] = foodTruckName
-                            do {
-                                let jsonData = try JSONSerialization.data(withJSONObject: dealDataWithTruckName, options: [])
-                                let dailyDeal = try JSONDecoder().decode(DailyDealItem.self, from: jsonData)
-                                allDailyDeals.append(dailyDeal)
-                            } catch {
-                                print("Error decoding daily deal: \(error)")
-                            }
+        db.collection("foodTrucks").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion([])
+                return
+            }
+            
+            var allDailyDeals: [DailyDealItem] = []
+            for document in querySnapshot!.documents {
+                let foodTruckName = document.data()["name"] as? String ?? "Unknown"
+                if let data = document.data()["dailyDeals"] as? [[String: Any]] {
+                    for dealData in data {
+                        var dealDataWithTruckName = dealData
+                        dealDataWithTruckName["foodTruckName"] = foodTruckName
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: dealDataWithTruckName, options: [])
+                            let dailyDeal = try JSONDecoder().decode(DailyDealItem.self, from: jsonData)
+                            allDailyDeals.append(dailyDeal)
+                        } catch {
+                            print("Error decoding daily deal: \(error)")
                         }
                     }
                 }
-                completion(allDailyDeals)
             }
+            completion(allDailyDeals)
         }
     }
+}
     
 

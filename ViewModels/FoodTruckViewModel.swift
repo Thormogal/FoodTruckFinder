@@ -36,6 +36,7 @@ class FoodTruckViewModel: ObservableObject {
                 menu: [],
                 dailyDeals: [],
                 location: Location(latitude: 0.0, longitude: 0.0),
+                locationPeriod: "",
                 reviews: []
             )
         }
@@ -205,6 +206,7 @@ class FoodTruckViewModel: ObservableObject {
                         menu: [],
                         dailyDeals: [],
                         location: Location(latitude: 0.0, longitude: 0.0),
+                        locationPeriod: "",
                         reviews: []
                     )
                 }
