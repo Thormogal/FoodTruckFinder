@@ -40,19 +40,57 @@ class FoodTruckViewModel: ObservableObject {
     }
     
     func addReview(_ review: Review) {
-        var review = review
-        review.foodTruckName = foodTruck.name
+        // Kontrollera om användaren redan har en recension för denna foodtruck
+        if let userId = auth.currentUser?.uid,
+           let existingReview = foodTruck.reviews.first(where: { $0.userId == userId }) {
+            // Uppdatera befintlig recension
+            updateReview(review)
+        } else {
+            // Lägg till ny recension
+            var review = review
+            review.foodTruckName = foodTruck.name
+            let foodTruckId = foodTruck.id
+            let foodTruckRef = db.collection("foodTrucks").document(foodTruckId)
+            
+            foodTruckRef.updateData([
+                "reviews": FieldValue.arrayUnion([review.dictionary])
+            ]) { error in
+                if let error = error {
+                    print("Error updating reviews: \(error)")
+                } else {
+                    print("Review added successfully")
+                    self.foodTruck.reviews.append(review)
+                }
+            }
+        }
+    }
+
+    func updateReview(_ review: Review) {
+        var updatedReview = review
+        updatedReview.foodTruckName = foodTruck.name
         let foodTruckId = foodTruck.id
         let foodTruckRef = db.collection("foodTrucks").document(foodTruckId)
         
-        foodTruckRef.updateData([
-            "reviews": FieldValue.arrayUnion([review.dictionary])
-        ]) { error in
-            if let error = error {
-                print("Error updating reviews: \(error)")
-            } else {
-                print("Review added successfully")
-                self.foodTruck.reviews.append(review)
+        // Hitta index för den befintliga recensionen
+        if let existingReviewIndex = foodTruck.reviews.firstIndex(where: { $0.userId == review.userId }) {
+            // Ta bort den gamla recensionen och lägg till den uppdaterade
+            foodTruckRef.updateData([
+                "reviews": FieldValue.arrayRemove([foodTruck.reviews[existingReviewIndex].dictionary])
+            ]) { error in
+                if let error = error {
+                    print("Error removing old review: \(error)")
+                } else {
+                    foodTruckRef.updateData([
+                        "reviews": FieldValue.arrayUnion([updatedReview.dictionary])
+                    ]) { error in
+                        if let error = error {
+                            print("Error updating review: \(error)")
+                        } else {
+                            print("Review updated successfully")
+                            self.foodTruck.reviews[existingReviewIndex] = updatedReview
+                        }
+                    }
+                }
             }
         }
     }

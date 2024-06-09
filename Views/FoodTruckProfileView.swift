@@ -14,7 +14,7 @@ struct FoodTruckProfileView: View {
     @State private var isEditing = false
     @State private var showingMap = false
     @State private var isRatingPresented = false
-    @State private var isReviewPresented = false
+    @State private var isReviewListPresented = false
     var userType: Int
     
     var body: some View {
@@ -24,6 +24,7 @@ struct FoodTruckProfileView: View {
                     .font(.custom("AvenirNext-Bold", size: 24))
                     .foregroundColor(.primary)
                     .padding(.top, 10)
+                
                 // Food truck image
                 AsyncImage(url: URL(string: viewModel.foodTruck.imageURL)) { image in
                     image
@@ -38,11 +39,18 @@ struct FoodTruckProfileView: View {
                 // Rating bar
                 RatingView(rating: viewModel.foodTruck.rating)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
                     .onTapGesture {
                         isRatingPresented = true
                     }
                 
+                // Reviews Count
+                Text("(\(viewModel.foodTruck.reviews.count) reviews)")
+                    .foregroundColor(.blue)
+                    .font(.footnote)
+                    .padding(.bottom, 30)
+                    .onTapGesture {
+                        isReviewListPresented = true
+                    }
                 
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
@@ -156,42 +164,18 @@ struct FoodTruckProfileView: View {
                         }
                     }
                 }
-
-                // Review button for usertype 1 (user)
-
-
-                if userType == 1 {
-                    Button(action: {
-                        isReviewPresented = true
-                    }) {
-                        Text("Write a Review")
-                            .foregroundColor(.blue)
-                    }
-                    .padding()
-                }
-
-                
-                Group {
-                    Text("Reviews")
-                        .font(.title)
-                        .bold()
-                    
-                    ForEach(viewModel.foodTruck.reviews) { review in
-                        VStack(alignment: .leading) {
-                            Text("\(review.userName) - \(review.rating, specifier: "%.1f") burgers")
-                                .font(.headline)
-                            Text(review.text)
-                                .font(.subheadline)
-
-                        }
-                        .padding(.vertical, 5)
-                    }
-                }
-                .padding()
             }
         }
         .sheet(isPresented: $showingMap) {
             FoodTruckLocationMap(foodTruck: viewModel.foodTruck)
+        }
+        .sheet(isPresented: $isRatingPresented) {
+            RatingInputView(isPresented: $isRatingPresented) { newRating in
+                viewModel.addRating(newRating)
+            }
+        }
+        .sheet(isPresented: $isReviewListPresented) {
+            ReviewsListView(viewModel: viewModel, userType: userType)
         }
         .onAppear {
             let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
@@ -204,15 +188,6 @@ struct FoodTruckProfileView: View {
             searchCompleter.reverseGeocodeLocation(location: location) { address in
                 searchCompleter.currentAddress = address
             }
-        }
-        .sheet(isPresented: $isRatingPresented) {
-            RatingInputView(isPresented: $isRatingPresented) { newRating in
-                viewModel.addRating(newRating)
-            }
-            
-        }
-        .sheet(isPresented: $isReviewPresented) {
-            SubmitReviewView(viewModels: viewModel, isPresented: $isReviewPresented)
         }
         .padding()
     }
@@ -247,7 +222,7 @@ struct FoodTruckLocationMap: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("\(foodTruck.name) Location")
-                        .font(.largeTitle) // Anpassa storleken här
+                        .font(.largeTitle)
                         .foregroundColor(.primary)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
