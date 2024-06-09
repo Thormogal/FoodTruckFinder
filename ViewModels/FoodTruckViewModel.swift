@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 
 class FoodTruckViewModel: ObservableObject {
     @Published var foodTruck: FoodTruck
+    @Published var averageRating: Double = 0.0
     private var foodTruckService = FoodTruckService()
     private var db = Firestore.firestore()
     var auth = Auth.auth()
@@ -20,6 +21,7 @@ class FoodTruckViewModel: ObservableObject {
     init(foodTruck: FoodTruck? = nil) {
         if let foodTruck = foodTruck {
             self.foodTruck = foodTruck
+            fetchAverageRating()
         } else {
             self.foodTruck = FoodTruck(
                 id: UUID().uuidString,
@@ -40,13 +42,13 @@ class FoodTruckViewModel: ObservableObject {
     }
     
     func addReview(_ review: Review) {
-        // Kontrollera om användaren redan har en recension för denna foodtruck
+        // check for if the user already has an existing review for the food truck.
         if let userId = auth.currentUser?.uid,
            let existingReview = foodTruck.reviews.first(where: { $0.userId == userId }) {
-            // Uppdatera befintlig recension
+            // update existing review
             updateReview(review)
         } else {
-            // Lägg till ny recension
+            // add new review
             var review = review
             review.foodTruckName = foodTruck.name
             let foodTruckId = foodTruck.id
@@ -60,6 +62,7 @@ class FoodTruckViewModel: ObservableObject {
                 } else {
                     print("Review added successfully")
                     self.foodTruck.reviews.append(review)
+                    self.updateAverageRatingInFirestore() // update rating when adding a new review
                 }
             }
         }
@@ -71,9 +74,9 @@ class FoodTruckViewModel: ObservableObject {
         let foodTruckId = foodTruck.id
         let foodTruckRef = db.collection("foodTrucks").document(foodTruckId)
         
-        // Hitta index för den befintliga recensionen
+        // find the index for existing review
         if let existingReviewIndex = foodTruck.reviews.firstIndex(where: { $0.userId == review.userId }) {
-            // Ta bort den gamla recensionen och lägg till den uppdaterade
+            // remove old review and add the updated one.
             foodTruckRef.updateData([
                 "reviews": FieldValue.arrayRemove([foodTruck.reviews[existingReviewIndex].dictionary])
             ]) { error in
@@ -88,6 +91,7 @@ class FoodTruckViewModel: ObservableObject {
                         } else {
                             print("Review updated successfully")
                             self.foodTruck.reviews[existingReviewIndex] = updatedReview
+                            self.updateAverageRatingInFirestore()
                         }
                     }
                 }
@@ -138,14 +142,16 @@ class FoodTruckViewModel: ObservableObject {
     }
 
     func updateAverageRatingInFirestore() {
+        let averageRating = calculateAverageRating()
         let foodTruckId = foodTruck.id
         db.collection("foodTrucks").document(foodTruckId).updateData([
-            "rating": foodTruck.rating
+            "rating": averageRating
         ]) { error in
             if let error = error {
                 print("Error updating average rating: \(error)")
             } else {
                 print("Average rating updated successfully in Firestore")
+                self.averageRating = averageRating
             }
         }
     }
@@ -157,6 +163,25 @@ class FoodTruckViewModel: ObservableObject {
         return averageRating
     }
 
+    func fetchAverageRating() {
+        let foodTruckRef = db.collection("foodTrucks").document(foodTruck.id)
+        foodTruckRef.getDocument { document, error in
+            if let document = document, document.exists {
+                if let data = document.data(), let rating = data["rating"] as? Double {
+                    DispatchQueue.main.async {
+                        self.averageRating = rating
+                    }
+                }
+            } else {
+                if let error = error {
+                    print("Error fetching average rating: \(error.localizedDescription)")
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        }
+    }
+
     func fetchFoodTruckData(by truckId: String) {
         print("Fetching food truck data for ID: \(truckId)")
         foodTruckService.fetchFoodTruck(by: truckId) { [weak self] foodTruck in
@@ -164,6 +189,7 @@ class FoodTruckViewModel: ObservableObject {
                 if let foodTruck = foodTruck {
                     print("Successfully fetched food truck: \(foodTruck)")
                     self?.foodTruck = foodTruck
+                    self?.fetchAverageRating()
                 } else {
                     print("Food truck not found, initializing new food truck.")
                     self?.foodTruck = FoodTruck(

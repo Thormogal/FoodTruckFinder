@@ -62,16 +62,17 @@ struct ReviewRow: View {
     var review: Review
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(review.userName)
                     .font(.headline)
-                Spacer()
                 RatingView(rating: review.rating)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
             Text(review.text)
                 .font(.subheadline)
+                .padding(.top, 5)
         }
-        .padding(.vertical, 5)
+        .padding(.vertical, 10)
     }
 }

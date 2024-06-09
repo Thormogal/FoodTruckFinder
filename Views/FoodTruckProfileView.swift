@@ -43,15 +43,15 @@ struct FoodTruckProfileView: View {
                         isRatingPresented = true
                     }
                 
-                // Reviews Count
-                Text("(\(viewModel.foodTruck.reviews.count) reviews)")
-                    .foregroundColor(.blue)
-                    .font(.footnote)
-                    .padding(.bottom, 30)
-                    .onTapGesture {
-                        isReviewListPresented = true
-                    }
-                
+                // Reviews Count and Average Rating
+                Text("(\(viewModel.foodTruck.ratings.count) ratings and \(viewModel.foodTruck.reviews.count) reviews)")
+                                    .foregroundColor(.blue)
+                                    .font(.footnote)
+                                    .padding(.bottom, 30)
+                                    .onTapGesture {
+                                        isReviewListPresented = true
+                                    }
+
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
                     informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
