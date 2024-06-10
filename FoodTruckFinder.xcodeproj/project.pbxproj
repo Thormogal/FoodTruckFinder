@@ -46,9 +46,10 @@
 		CEA0DED32C1755C50081F6A5 /* FTMenuSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED22C1755C50081F6A5 /* FTMenuSectionView.swift */; };
 		CEA0DED52C1755E70081F6A5 /* FTDrinksSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED42C1755E70081F6A5 /* FTDrinksSectionView.swift */; };
 		CEA0DED72C1756280081F6A5 /* FTLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED62C1756280081F6A5 /* FTLocationMapView.swift */; };
+		CEA0DED92C1799A20081F6A5 /* SettingsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED82C1799A10081F6A5 /* SettingsEditView.swift */; };
 		CEA40DA62C09FBFD00B77027 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA40DA52C09FBFD00B77027 /* AuthManager.swift */; };
 		CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */; };
-		CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */; };
+		CEA4E7D72C052CED00BEDE81 /* TruckImagePickerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D62C052CED00BEDE81 /* TruckImagePickerEditView.swift */; };
 		CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */; };
 		CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */; };
 		CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */; };
@@ -104,9 +105,10 @@
 		CEA0DED22C1755C50081F6A5 /* FTMenuSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTMenuSectionView.swift; sourceTree = "<group>"; };
 		CEA0DED42C1755E70081F6A5 /* FTDrinksSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDrinksSectionView.swift; sourceTree = "<group>"; };
 		CEA0DED62C1756280081F6A5 /* FTLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTLocationMapView.swift; sourceTree = "<group>"; };
+		CEA0DED82C1799A10081F6A5 /* SettingsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditView.swift; sourceTree = "<group>"; };
 		CEA40DA52C09FBFD00B77027 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckImagePickerViewModel.swift; sourceTree = "<group>"; };
-		CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckImagePicker.swift; sourceTree = "<group>"; };
+		CEA4E7D62C052CED00BEDE81 /* TruckImagePickerEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckImagePickerEditView.swift; sourceTree = "<group>"; };
 		CEAB08052BFA6484005AE0E9 /* FoodTruckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckModel.swift; sourceTree = "<group>"; };
 		CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckViewModel.swift; sourceTree = "<group>"; };
 		CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckProfileView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,8 @@
 				CEA0DEC72C174EE60081F6A5 /* LocationEditView.swift */,
 				CEA0DEC92C174F090081F6A5 /* LogoutEditView.swift */,
 				CEA0DEC12C174E880081F6A5 /* MenuEditView.swift */,
+				CEA0DED82C1799A10081F6A5 /* SettingsEditView.swift */,
+				CEA4E7D62C052CED00BEDE81 /* TruckImagePickerEditView.swift */,
 			);
 			name = FoodTruckEditViews;
 			sourceTree = "<group>";
@@ -186,7 +190,6 @@
 				E06B58D12BFDF6A2001D219E /* ImagePicker.swift */,
 				5949658A2C060115002F08F1 /* MapComponents.swift */,
 				CE61CBB92C1658170039FB5F /* ProfileService.swift */,
-				CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				52F5B5072C0DB50600B11E2A /* FTRatingInputView.swift in Sources */,
 				CEA0DED32C1755C50081F6A5 /* FTMenuSectionView.swift in Sources */,
 				CEA0DED52C1755E70081F6A5 /* FTDrinksSectionView.swift in Sources */,
+				CEA0DED92C1799A20081F6A5 /* SettingsEditView.swift in Sources */,
 				02BC91912BF78AB600221CCB /* ProfileView.swift in Sources */,
 				594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */,
 				CE61CBBC2C1660540039FB5F /* DeleteAccountAlertView.swift in Sources */,
@@ -375,7 +379,7 @@
 				52F5B5092C0E1AC200B11E2A /* ReviewModel.swift in Sources */,
 				E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */,
 				CEA0DEC62C174EC40081F6A5 /* DailyDealsEditView.swift in Sources */,
-				CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */,
+				CEA4E7D72C052CED00BEDE81 /* TruckImagePickerEditView.swift in Sources */,
 				CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */,
 				5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */,
 				CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */,

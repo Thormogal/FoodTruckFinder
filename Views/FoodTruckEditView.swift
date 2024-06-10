@@ -16,6 +16,7 @@ struct FoodTruckEditView: View {
     @State private var showingImagePicker = false
     @State private var address: String = ""
     @State private var showSuggestions = false
+    @State private var showingSettings = false
     var onSave: () -> Void
     let foodTypes = ["Taco", "Sushi", "Hamburger", "Asian", "Indian", "Pizza", "Kebab", "Chicken"]
     
@@ -39,13 +40,23 @@ struct FoodTruckEditView: View {
                     Image(systemName: "photo")
                     Text("Truck Picture")
                 }
-            }, trailing: Button("Done") {
-                saveAddressAndComplete()
+            }, trailing: HStack {
+                Button(action: {
+                    showingSettings = true
+                }) {
+                    Image(systemName: "gear")
+                }
+                Button("Done") {
+                    saveAddressAndComplete()
+                }
             })
             .sheet(isPresented: $showingImagePicker) {
-                TruckImagePicker(image: $imagePickerViewModel.selectedImage) { image in
+                TruckImagePickerEditView(image: $imagePickerViewModel.selectedImage) { image in
                     imagePickerViewModel.uploadImage()
                 }
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsEditView()
             }
             .onChange(of: imagePickerViewModel.imageURL) { oldURL, newURL in
                 if let newURL = newURL {
@@ -90,17 +101,24 @@ struct FoodTruckEditView: View {
     }
     
     private func saveAddressAndComplete() {
-        searchCompleter.searchAddress(address) { coordinate in
-            if let coordinate = coordinate {
-                viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                searchCompleter.reverseGeocodeLocation(location: location) { address in
-                    searchCompleter.currentAddress = address
+        // Check if address needs to be updated
+        if !address.isEmpty {
+            searchCompleter.searchAddress(address) { coordinate in
+                if let coordinate = coordinate {
+                    viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                    searchCompleter.reverseGeocodeLocation(location: location) { address in
+                        searchCompleter.currentAddress = address
+                    }
                 }
+                viewModel.saveFoodTruckData()
+                onSave()
             }
+        } else {
             viewModel.saveFoodTruckData()
             onSave()
         }
     }
 }
+
 

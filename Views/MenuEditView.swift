@@ -9,16 +9,24 @@ import SwiftUI
 
 struct MenuEditView: View {
     @ObservedObject var viewModel: FoodTruckViewModel
+    @State private var showingAlert = false
+    @State private var indexToRemove: Int?
+    @AppStorage("confirmationEnabled") private var confirmationEnabled: Bool = true
     
     var body: some View {
         Section(header: Text("Menu")) {
-            ForEach(Array(viewModel.foodTruck.menu.enumerated()), id: \.element.id) { index, item in
+            ForEach(Array(viewModel.foodTruck.menu.enumerated()), id: \.element.id) { index, _ in
                 VStack {
                     TextField("Item Name", text: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.name))
                     TextField("Item Price", value: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.price), formatter: NumberFormatter())
                     TextField("Ingredients", text: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.ingredients))
                     Button(action: {
-                        viewModel.removeMenuItem(at: index)
+                        if confirmationEnabled {
+                            indexToRemove = index
+                            showingAlert = true
+                        } else {
+                            viewModel.removeMenuItem(at: index)
+                        }
                     }) {
                         Text("Remove Item")
                             .foregroundColor(.red)
@@ -28,6 +36,18 @@ struct MenuEditView: View {
             Button(action: viewModel.addMenuItem) {
                 Text("Add Item")
             }
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Confirm Removal"),
+                message: Text("Are you sure you want to remove this menu item?"),
+                primaryButton: .destructive(Text("Remove")) {
+                    if let index = indexToRemove {
+                        viewModel.removeMenuItem(at: index)
+                    }
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
     

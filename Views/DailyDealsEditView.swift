@@ -9,6 +9,9 @@ import SwiftUI
 
 struct DailyDealsEditView: View {
     @ObservedObject var viewModel: FoodTruckViewModel
+    @State private var showingAlert = false
+    @State private var indexToRemove: Int?
+    @AppStorage("confirmationEnabled") private var confirmationEnabled: Bool = true
     
     var body: some View {
         Section(header: Text("Daily Deals")) {
@@ -21,7 +24,12 @@ struct DailyDealsEditView: View {
                     }
                     TextField("Ingredients", text: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.ingredients))
                     Button(action: {
-                        viewModel.removeDailyDealItem(at: index)
+                        if confirmationEnabled {
+                            indexToRemove = index
+                            showingAlert = true
+                        } else {
+                            viewModel.removeDailyDealItem(at: index)
+                        }
                     }) {
                         Text("Remove Deal")
                             .foregroundColor(.red)
@@ -31,6 +39,18 @@ struct DailyDealsEditView: View {
             Button(action: viewModel.addDailyDealItem) {
                 Text("Add Daily Deal")
             }
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Confirm Removal"),
+                message: Text("Are you sure you want to remove this daily deal?"),
+                primaryButton: .destructive(Text("Remove")) {
+                    if let index = indexToRemove {
+                        viewModel.removeDailyDealItem(at: index)
+                    }
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
     
