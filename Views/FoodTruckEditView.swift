@@ -279,7 +279,7 @@ struct FoodTruckEditView_Previews: PreviewProvider {
         paymentMethods: "Cash, Credit",
         imageURL: "https://example.com/image.jpg",
         menu: [MenuItem(name: "Taco", price: 5.0, ingredients: "Beef, Cheese, Lettuce")],
-        drinks: [DrinkItem(name: "Soda", price: 2.0)], // Exempel på drink
+        drinks: [DrinkItem(name: "Soda", price: 2.0)],
         dailyDeals: [DailyDealItem(name: "Discount Taco", originalPrice: 5.0, dealPrice: 3.0, ingredients: "Beef, Cheese, Lettuce", foodTruckName: "Sample Truck")],
         location: Location(latitude: 37.7749, longitude: -122.4194),
         locationPeriod: "9 June - 16 June",
