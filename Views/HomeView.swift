@@ -124,7 +124,7 @@ struct HomeView: View {
                 .padding(.vertical, 10)
                 
                 List(filteredFoodTrucks) { foodTruck in
-                    NavigationLink(destination: FoodTruckDetailView(foodTruckId: foodTruck.id, userType: userType)) {
+                    ZStack {
                         VStack(alignment: .leading) {
                             Text(foodTruck.name)
                                 .font(.headline)
@@ -159,6 +159,11 @@ struct HomeView: View {
                         .foregroundColor(Color.white)
                         .cornerRadius(10)
                         .padding(.vertical, 5)
+                        
+                        NavigationLink(destination: FoodTruckDetailView(foodTruckId: foodTruck.id, userType: userType)) {
+                            EmptyView()
+                        }
+                        .opacity(0)
                     }
                 }
                 .onAppear {
