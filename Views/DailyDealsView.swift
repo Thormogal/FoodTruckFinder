@@ -12,29 +12,47 @@ struct DailyDealsView: View {
     private let foodTruckService = FoodTruckService()
 
     var body: some View {
-        NavigationView {
-            List(dailyDeals) { deal in
-                VStack(alignment: .leading) {
-                    Text(deal.name)
-                        .font(.headline)
-                    Text("Food Truck: \(deal.foodTruckName)") // lägga till namn food truck-a
-                        .font(.subheadline)
-                        .foregroundColor(.blue)
-                    Text("Original Price: \(deal.originalPrice, specifier: "%.2f")")
-                        .strikethrough()
-                    Text("Deal Price: \(deal.dealPrice, specifier: "%.2f")")
-                        .foregroundColor(.red)
-                    Text("Ingredients: \(deal.ingredients)")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+        VStack {
+            Text("🎉 Daily Deals 🎉")
+                .font(.title)
+                .fontWeight(.heavy)
+                .foregroundColor(.red)
+                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .shadow(color: .black, radius: 1)
+
+            NavigationView {
+                List {
+                    ForEach(groupedDeals.keys.sorted(), id: \.self) { key in
+                        Section(header: Text(key).font(.headline)) {
+                            ForEach(groupedDeals[key] ?? []) { deal in
+                                VStack(alignment: .leading) {
+                                    Text(deal.name)
+                                        .font(.headline)
+                                    Text("Original Price: \(deal.originalPrice, specifier: "%.2f")")
+                                        .strikethrough()
+                                    Text("Deal Price: \(deal.dealPrice, specifier: "%.2f")")
+                                        .foregroundColor(.red)
+                                    Text("Ingredients: \(deal.ingredients)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                            }
+                        }
+                    }
                 }
-                .padding()
+                .navigationTitle("")
+                .navigationBarHidden(true)
             }
-            .navigationTitle("Dagens Deals")
+            .onAppear {
+                fetchAllDailyDeals()
+            }
         }
-        .onAppear {
-            fetchAllDailyDeals()
-        }
+    }
+
+    private var groupedDeals: [String: [DailyDealItem]] {
+        Dictionary(grouping: dailyDeals, by: { $0.foodTruckName })
     }
 
     private func fetchAllDailyDeals() {

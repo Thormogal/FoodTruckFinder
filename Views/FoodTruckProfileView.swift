@@ -26,15 +26,17 @@ struct FoodTruckProfileView: View {
                     .padding(.top, 10)
                 
                 // Food truck image
-                AsyncImage(url: URL(string: viewModel.foodTruck.imageURL)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                } placeholder: {
-                    Color.gray
+                if let imageURL = URL(string: viewModel.foodTruck.imageURL) {
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: UIScreen.main.bounds.width, height: 200)
+                            .clipped()
+                    } placeholder: {
+                        EmptyView()
+                    }
                 }
-                .frame(width: UIScreen.main.bounds.width, height: 200)
-                .clipped()
                 
                 // Rating bar
                 RatingView(rating: viewModel.foodTruck.rating)
@@ -45,13 +47,14 @@ struct FoodTruckProfileView: View {
                 
                 // Reviews Count and Average Rating
                 Text("(\(viewModel.foodTruck.ratings.count) ratings and \(viewModel.foodTruck.reviews.count) reviews)")
-                                    .foregroundColor(.blue)
-                                    .font(.footnote)
-                                    .padding(.bottom, 30)
-                                    .onTapGesture {
-                                        isReviewListPresented = true
-                                    }
-
+                    .foregroundColor(.blue)
+                    .font(.footnote)
+                    .padding(.bottom, 30)
+                    .onTapGesture {
+                        isReviewListPresented = true
+                    }
+                
+                // Information about the food truck.
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
                     informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
@@ -122,6 +125,7 @@ struct FoodTruckProfileView: View {
                     }
                     .padding([.horizontal, .bottom])
                 }
+                
                 // Menu
                 Group {
                     VStack(alignment: .leading) {
