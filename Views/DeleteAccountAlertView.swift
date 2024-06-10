@@ -29,6 +29,13 @@ struct DeleteAccountAlertView: View {
                 }) {
                     Text("Cancel")
                         .foregroundColor(.blue)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 1)
+                        )
                 }
                 Spacer()
                 Button(action: {
@@ -36,7 +43,10 @@ struct DeleteAccountAlertView: View {
                     onConfirm()
                 }) {
                     Text("Confirm")
-                        .foregroundColor(.blue)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
             }
         }

@@ -148,13 +148,17 @@ struct FoodTruckEditView: View {
                             .background(Color.red)
                             .cornerRadius(10)
                     }
+                    .listRowBackground(Color.clear)  // Remove the default white background of the Form
                 }
             }
             .navigationBarTitle("Edit Foodtruck")
             .navigationBarItems(leading: Button(action: {
                 showingImagePicker = true
             }) {
-                Image(systemName: "photo")
+                HStack {
+                    Image(systemName: "photo")
+                    Text("Truck Picture")
+                }
             }, trailing: Button("Done") {
                 searchCompleter.searchAddress(address) { coordinate in
                     if let coordinate = coordinate {
@@ -222,7 +226,6 @@ struct FoodTruckEditView: View {
                 self.showingDeleteAlert = true
             case .failure(let error):
                 print("Error reauthenticating: \(error.localizedDescription)")
-                // Show error message to user
             }
         }
     }
@@ -244,4 +247,31 @@ struct FoodTruckEditView: View {
     }
 }
 
+struct FoodTruckEditView_Previews: PreviewProvider {
+    @State static var sampleFoodTruck = FoodTruck(
+        id: UUID().uuidString,
+        name: "Sample Truck",
+        rating: 4.5,
+        ratings: [4.5, 5.0, 4.0],
+        foodType: "Taco",
+        priceRange: "$$",
+        openingHours: "9 AM - 5 PM",
+        paymentMethods: "Cash, Credit",
+        imageURL: "https://example.com/image.jpg",
+        menu: [MenuItem(name: "Taco", price: 5.0, ingredients: "Beef, Cheese, Lettuce")],
+        dailyDeals: [DailyDealItem(name: "Discount Taco", originalPrice: 5.0, dealPrice: 3.0, ingredients: "Beef, Cheese, Lettuce", foodTruckName: "Sample Truck")],
+        location: Location(latitude: 37.7749, longitude: -122.4194),
+        locationPeriod: "9 June - 16 June",
+        reviews: [Review(userId: "123", userName: "John Doe", text: "Great food!", rating: 5.0)]
+    )
+
+    static var previews: some View {
+        FoodTruckEditView(
+            foodTruck: $sampleFoodTruck,
+            onSave: {
+                print("Save action")
+            }
+        )
+    }
+}
 
