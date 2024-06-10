@@ -15,6 +15,7 @@ struct FoodTruckProfileView: View {
     @State private var showingMap = false
     @State private var isRatingPresented = false
     @State private var isReviewListPresented = false
+    @StateObject private var locationManager = LocationManager()
     var userType: Int
     
     var body: some View {
@@ -178,7 +179,7 @@ struct FoodTruckProfileView: View {
             }
         }
         .sheet(isPresented: $showingMap) {
-            FoodTruckLocationMap(foodTruck: viewModel.foodTruck)
+            FoodTruckLocationMap(foodTruck: viewModel.foodTruck, userLocation: locationManager.userLocation?.coordinate)
         }
         .sheet(isPresented: $isRatingPresented) {
             RatingInputView(isPresented: $isRatingPresented) { newRating in
@@ -220,12 +221,16 @@ struct FoodTruckProfileView: View {
 
 struct FoodTruckLocationMap: View {
     var foodTruck: FoodTruck
+    var userLocation: CLLocationCoordinate2D?
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
             Map {
                 Marker(foodTruck.name, coordinate: CLLocationCoordinate2D(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude))
+                if let userLocation = userLocation {
+                    Marker("Your Location", coordinate: userLocation)
+                }
             }
             .mapStyle(.standard)
             .navigationTitle("\(foodTruck.name) Location")
