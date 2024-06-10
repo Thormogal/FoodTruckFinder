@@ -10,8 +10,8 @@ import UIKit
 
 struct TruckImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
-    var onImagePicked: ((UIImage) -> Void)?
     @Environment(\.presentationMode) var presentationMode
+    var onImagePicked: ((UIImage) -> Void)?
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: TruckImagePicker

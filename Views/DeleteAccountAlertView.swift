@@ -13,7 +13,7 @@ struct DeleteAccountAlertView: View {
     var title: String
     var message: String
     var onConfirm: () -> Void
-
+    
     var body: some View {
         VStack(spacing: 20) {
             Text(title)

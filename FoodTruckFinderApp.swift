@@ -15,7 +15,7 @@ import SwiftUI
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Kontrollera om GoogleService-Info.plist kan hittas
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") {
@@ -39,18 +39,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             }
         } else {
             let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
         }
         application.registerForRemoteNotifications()
-
+        
         Messaging.messaging().delegate = self
-
+        
         return true
     }
     
     override init() {
-        UserManager.shared.userType = 0
+        UserManagerModel.shared.userType = 0
     }
     
     @available(iOS 9.0, *)
@@ -61,11 +61,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return GIDSignIn.sharedInstance.handle(url)
     }
-
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
-
+    
     // UNUserNotificationCenterDelegate
     @available(iOS 10, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, 
@@ -77,8 +77,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             completionHandler([.alert, .badge, .sound])
         }
     }
-
-
+    
+    
     // MessagingDelegate
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(String(describing: fcmToken))")

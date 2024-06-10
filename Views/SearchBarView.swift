@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import MapKit
 
-struct SearchBar: UIViewRepresentable {
+struct SearchBarView: UIViewRepresentable {
     @Binding var text: String
     @Binding var suggestions: [MKLocalSearchCompletion]
     var onSearchButtonClicked: () -> Void
@@ -19,9 +19,9 @@ struct SearchBar: UIViewRepresentable {
         @Binding var text: String
         var onSearchButtonClicked: () -> Void
         var onSuggestionSelected: (MKLocalSearchCompletion) -> Void
-        var parent: SearchBar
+        var parent: SearchBarView
         
-        init(parent: SearchBar, text: Binding<String>, onSearchButtonClicked: @escaping () -> Void, onSuggestionSelected: @escaping (MKLocalSearchCompletion) -> Void) {
+        init(parent: SearchBarView, text: Binding<String>, onSearchButtonClicked: @escaping () -> Void, onSuggestionSelected: @escaping (MKLocalSearchCompletion) -> Void) {
             self.parent = parent
             _text = text
             self.onSearchButtonClicked = onSearchButtonClicked

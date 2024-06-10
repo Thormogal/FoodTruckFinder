@@ -8,7 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 
-struct ReviewsListView: View {
+struct FTReviewsListView: View {
     @ObservedObject var viewModel: FoodTruckViewModel
     @State private var isReviewPresented = false
     var userType: Int
@@ -20,7 +20,7 @@ struct ReviewsListView: View {
                 if userType == 1 {
                     let userId = Auth.auth().currentUser?.uid
                     let hasReview = viewModel.foodTruck.reviews.contains { $0.userId == userId }
-
+                    
                     Button(action: {
                         isReviewPresented = true
                     }) {
@@ -29,7 +29,7 @@ struct ReviewsListView: View {
                     }
                     .padding()
                 }
-
+                
                 List {
                     // My Review Section
                     if let userId = Auth.auth().currentUser?.uid,
@@ -38,7 +38,7 @@ struct ReviewsListView: View {
                             ReviewRow(review: myReview)
                         }
                     }
-
+                    
                     // Other Reviews Section
                     Section(header: Text("All Reviews").font(.headline)) {
                         ForEach(viewModel.foodTruck.reviews.filter { $0.userId != Auth.auth().currentUser?.uid }) { review in
@@ -59,8 +59,8 @@ struct ReviewsListView: View {
 }
 
 struct ReviewRow: View {
-    var review: Review
-
+    var review: ReviewModel
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {

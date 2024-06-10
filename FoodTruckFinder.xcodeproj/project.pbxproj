@@ -20,20 +20,32 @@
 		5291D2F92BFB69D7004B7109 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2F82BFB69D7004B7109 /* SignUpView.swift */; };
 		5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D2FA2BFB6E4B004B7109 /* SignInView.swift */; };
 		5291D3392BFD3420004B7109 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5291D3382BFD3420004B7109 /* RatingView.swift */; };
-		52F5B5072C0DB50600B11E2A /* RatingInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B5062C0DB50600B11E2A /* RatingInputView.swift */; };
+		52F5B5072C0DB50600B11E2A /* FTRatingInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B5062C0DB50600B11E2A /* FTRatingInputView.swift */; };
 		52F5B5092C0E1AC200B11E2A /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B5082C0E1AC200B11E2A /* ReviewModel.swift */; };
 		52F5B50D2C0E1CEB00B11E2A /* SubmitReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */; };
-		594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594965882C05F9D3002F08F1 /* SearchbarView.swift */; };
+		594965892C05F9D3002F08F1 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594965882C05F9D3002F08F1 /* SearchBarView.swift */; };
 		5949658B2C060115002F08F1 /* MapComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5949658A2C060115002F08F1 /* MapComponents.swift */; };
 		594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */; };
 		594E240F2C0DFBFC00DAE503 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 594E240E2C0DFBFC00DAE503 /* FirebaseMessaging */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */; };
 		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
 		CE4482322C0A975800742CC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */; };
-		CE61CBB82C16263B0039FB5F /* ReviewsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61CBB72C16263B0039FB5F /* ReviewsListView.swift */; };
+		CE61CBB82C16263B0039FB5F /* FTReviewsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61CBB72C16263B0039FB5F /* FTReviewsListView.swift */; };
 		CE61CBBA2C1658170039FB5F /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61CBB92C1658170039FB5F /* ProfileService.swift */; };
 		CE61CBBC2C1660540039FB5F /* DeleteAccountAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61CBBB2C1660540039FB5F /* DeleteAccountAlertView.swift */; };
 		CE9EE95B2C0CDB06008F0728 /* FoodTruckDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EE95A2C0CDB06008F0728 /* FoodTruckDetailView.swift */; };
+		CEA0DEC02C174E5E0081F6A5 /* GeneralEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DEBF2C174E5E0081F6A5 /* GeneralEditView.swift */; };
+		CEA0DEC22C174E880081F6A5 /* MenuEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DEC12C174E880081F6A5 /* MenuEditView.swift */; };
+		CEA0DEC42C174EA60081F6A5 /* DrinksEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DEC32C174EA60081F6A5 /* DrinksEditView.swift */; };
+		CEA0DEC62C174EC40081F6A5 /* DailyDealsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DEC52C174EC40081F6A5 /* DailyDealsEditView.swift */; };
+		CEA0DEC82C174EE60081F6A5 /* LocationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DEC72C174EE60081F6A5 /* LocationEditView.swift */; };
+		CEA0DECA2C174F090081F6A5 /* LogoutEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DEC92C174F090081F6A5 /* LogoutEditView.swift */; };
+		CEA0DECC2C174F210081F6A5 /* DeleteAccountSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DECB2C174F210081F6A5 /* DeleteAccountSectionView.swift */; };
+		CEA0DECF2C1755000081F6A5 /* FTInfoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DECE2C1755000081F6A5 /* FTInfoSectionView.swift */; };
+		CEA0DED12C1755450081F6A5 /* FTDailyDealsSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED02C1755450081F6A5 /* FTDailyDealsSectionsView.swift */; };
+		CEA0DED32C1755C50081F6A5 /* FTMenuSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED22C1755C50081F6A5 /* FTMenuSectionView.swift */; };
+		CEA0DED52C1755E70081F6A5 /* FTDrinksSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED42C1755E70081F6A5 /* FTDrinksSectionView.swift */; };
+		CEA0DED72C1756280081F6A5 /* FTLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0DED62C1756280081F6A5 /* FTLocationMapView.swift */; };
 		CEA40DA62C09FBFD00B77027 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA40DA52C09FBFD00B77027 /* AuthManager.swift */; };
 		CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */; };
 		CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */; };
@@ -41,7 +53,6 @@
 		CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */; };
 		CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */; };
 		CEAB080C2BFA8C70005AE0E9 /* FoodTruckEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB080B2BFA8C70005AE0E9 /* FoodTruckEditView.swift */; };
-		CEAB080E2BFA901A005AE0E9 /* LocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB080D2BFA901A005AE0E9 /* LocationMapView.swift */; };
 		CEB9EB362BF1F5450093A288 /* FoodTruckFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB352BF1F5450093A288 /* FoodTruckFinderApp.swift */; };
 		CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EB372BF1F5460093A288 /* ContentView.swift */; };
 		CEB9EB3A2BF1F5490093A288 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB9EB392BF1F5490093A288 /* Assets.xcassets */; };
@@ -68,19 +79,31 @@
 		5291D2F82BFB69D7004B7109 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpView.swift; path = Views/SignUpView.swift; sourceTree = SOURCE_ROOT; };
 		5291D2FA2BFB6E4B004B7109 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5291D3382BFD3420004B7109 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
-		52F5B5062C0DB50600B11E2A /* RatingInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInputView.swift; sourceTree = "<group>"; };
+		52F5B5062C0DB50600B11E2A /* FTRatingInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTRatingInputView.swift; sourceTree = "<group>"; };
 		52F5B5082C0E1AC200B11E2A /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitReviewView.swift; sourceTree = "<group>"; };
-		594965882C05F9D3002F08F1 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
+		594965882C05F9D3002F08F1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		5949658A2C060115002F08F1 /* MapComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponents.swift; sourceTree = "<group>"; };
 		594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
 		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CE61CBB72C16263B0039FB5F /* ReviewsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsListView.swift; sourceTree = "<group>"; };
+		CE61CBB72C16263B0039FB5F /* FTReviewsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTReviewsListView.swift; sourceTree = "<group>"; };
 		CE61CBB92C1658170039FB5F /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		CE61CBBB2C1660540039FB5F /* DeleteAccountAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountAlertView.swift; sourceTree = "<group>"; };
 		CE9EE95A2C0CDB06008F0728 /* FoodTruckDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckDetailView.swift; sourceTree = "<group>"; };
+		CEA0DEBF2C174E5E0081F6A5 /* GeneralEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralEditView.swift; sourceTree = "<group>"; };
+		CEA0DEC12C174E880081F6A5 /* MenuEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuEditView.swift; sourceTree = "<group>"; };
+		CEA0DEC32C174EA60081F6A5 /* DrinksEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksEditView.swift; sourceTree = "<group>"; };
+		CEA0DEC52C174EC40081F6A5 /* DailyDealsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDealsEditView.swift; sourceTree = "<group>"; };
+		CEA0DEC72C174EE60081F6A5 /* LocationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditView.swift; sourceTree = "<group>"; };
+		CEA0DEC92C174F090081F6A5 /* LogoutEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutEditView.swift; sourceTree = "<group>"; };
+		CEA0DECB2C174F210081F6A5 /* DeleteAccountSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountSectionView.swift; sourceTree = "<group>"; };
+		CEA0DECE2C1755000081F6A5 /* FTInfoSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTInfoSectionView.swift; sourceTree = "<group>"; };
+		CEA0DED02C1755450081F6A5 /* FTDailyDealsSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDailyDealsSectionsView.swift; sourceTree = "<group>"; };
+		CEA0DED22C1755C50081F6A5 /* FTMenuSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTMenuSectionView.swift; sourceTree = "<group>"; };
+		CEA0DED42C1755E70081F6A5 /* FTDrinksSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTDrinksSectionView.swift; sourceTree = "<group>"; };
+		CEA0DED62C1756280081F6A5 /* FTLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTLocationMapView.swift; sourceTree = "<group>"; };
 		CEA40DA52C09FBFD00B77027 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		CEA4E7D32C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckImagePickerViewModel.swift; sourceTree = "<group>"; };
 		CEA4E7D62C052CED00BEDE81 /* TruckImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckImagePicker.swift; sourceTree = "<group>"; };
@@ -88,7 +111,6 @@
 		CEAB08072BFA6571005AE0E9 /* FoodTruckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckViewModel.swift; sourceTree = "<group>"; };
 		CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckProfileView.swift; sourceTree = "<group>"; };
 		CEAB080B2BFA8C70005AE0E9 /* FoodTruckEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckEditView.swift; sourceTree = "<group>"; };
-		CEAB080D2BFA901A005AE0E9 /* LocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapView.swift; sourceTree = "<group>"; };
 		CEB9EB322BF1F5450093A288 /* FoodTruckFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTruckFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB9EB352BF1F5450093A288 /* FoodTruckFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckFinderApp.swift; sourceTree = "<group>"; };
 		CEB9EB372BF1F5460093A288 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +147,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CEA0DEBE2C174E380081F6A5 /* FoodTruckEditViews */ = {
+			isa = PBXGroup;
+			children = (
+				CEAB080B2BFA8C70005AE0E9 /* FoodTruckEditView.swift */,
+				CEA0DEC52C174EC40081F6A5 /* DailyDealsEditView.swift */,
+				CE61CBBB2C1660540039FB5F /* DeleteAccountAlertView.swift */,
+				CEA0DECB2C174F210081F6A5 /* DeleteAccountSectionView.swift */,
+				CEA0DEC32C174EA60081F6A5 /* DrinksEditView.swift */,
+				CEA0DEBF2C174E5E0081F6A5 /* GeneralEditView.swift */,
+				CEA0DEC72C174EE60081F6A5 /* LocationEditView.swift */,
+				CEA0DEC92C174F090081F6A5 /* LogoutEditView.swift */,
+				CEA0DEC12C174E880081F6A5 /* MenuEditView.swift */,
+			);
+			name = FoodTruckEditViews;
+			sourceTree = "<group>";
+		};
+		CEA0DECD2C1754C70081F6A5 /* FoodTruckProfileViews */ = {
+			isa = PBXGroup;
+			children = (
+				CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */,
+				CEA0DED02C1755450081F6A5 /* FTDailyDealsSectionsView.swift */,
+				CEA0DED42C1755E70081F6A5 /* FTDrinksSectionView.swift */,
+				CEA0DECE2C1755000081F6A5 /* FTInfoSectionView.swift */,
+				CEA0DED62C1756280081F6A5 /* FTLocationMapView.swift */,
+				CEA0DED22C1755C50081F6A5 /* FTMenuSectionView.swift */,
+				52F5B5062C0DB50600B11E2A /* FTRatingInputView.swift */,
+				CE61CBB72C16263B0039FB5F /* FTReviewsListView.swift */,
+			);
+			name = FoodTruckProfileViews;
+			sourceTree = "<group>";
+		};
 		CEA4E7D52C052CB600BEDE81 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,21 +204,17 @@
 		CEA92BE02BF5F98200FD159A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEA0DECD2C1754C70081F6A5 /* FoodTruckProfileViews */,
+				CEA0DEBE2C174E380081F6A5 /* FoodTruckEditViews */,
 				CEB9EB372BF1F5460093A288 /* ContentView.swift */,
 				02BA0DE32C107E92009AAA42 /* DailyDealsView.swift */,
-				CE61CBBB2C1660540039FB5F /* DeleteAccountAlertView.swift */,
 				CE9EE95A2C0CDB06008F0728 /* FoodTruckDetailView.swift */,
-				CEAB080B2BFA8C70005AE0E9 /* FoodTruckEditView.swift */,
-				CEAB08092BFA6621005AE0E9 /* FoodTruckProfileView.swift */,
 				5291D2F22BF68E7C004B7109 /* GoogleSignInButtonView.swift */,
 				02BC918C2BF78A8500221CCB /* HomeView.swift */,
-				CEAB080D2BFA901A005AE0E9 /* LocationMapView.swift */,
 				02BC918E2BF78AA200221CCB /* MapView.swift */,
 				02BC91902BF78AB600221CCB /* ProfileView.swift */,
 				5291D3382BFD3420004B7109 /* RatingView.swift */,
-				52F5B5062C0DB50600B11E2A /* RatingInputView.swift */,
-				CE61CBB72C16263B0039FB5F /* ReviewsListView.swift */,
-				594965882C05F9D3002F08F1 /* SearchbarView.swift */,
+				594965882C05F9D3002F08F1 /* SearchBarView.swift */,
 				5291D2FA2BFB6E4B004B7109 /* SignInView.swift */,
 				5291D2F82BFB69D7004B7109 /* SignUpView.swift */,
 				02BC91882BF7350F00221CCB /* SplashView.swift */,
@@ -313,41 +362,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52F5B5072C0DB50600B11E2A /* RatingInputView.swift in Sources */,
+				52F5B5072C0DB50600B11E2A /* FTRatingInputView.swift in Sources */,
+				CEA0DED32C1755C50081F6A5 /* FTMenuSectionView.swift in Sources */,
+				CEA0DED52C1755E70081F6A5 /* FTDrinksSectionView.swift in Sources */,
 				02BC91912BF78AB600221CCB /* ProfileView.swift in Sources */,
 				594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */,
 				CE61CBBC2C1660540039FB5F /* DeleteAccountAlertView.swift in Sources */,
+				CEA0DEC42C174EA60081F6A5 /* DrinksEditView.swift in Sources */,
 				59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */,
 				02BC918F2BF78AA200221CCB /* MapView.swift in Sources */,
 				CEA40DA62C09FBFD00B77027 /* AuthManager.swift in Sources */,
 				52F5B5092C0E1AC200B11E2A /* ReviewModel.swift in Sources */,
 				E06B58D22BFDF6A2001D219E /* ImagePicker.swift in Sources */,
+				CEA0DEC62C174EC40081F6A5 /* DailyDealsEditView.swift in Sources */,
 				CEA4E7D72C052CED00BEDE81 /* TruckImagePicker.swift in Sources */,
 				CEB9EB382BF1F5460093A288 /* ContentView.swift in Sources */,
 				5291D2FB2BFB6E4B004B7109 /* SignInView.swift in Sources */,
 				CEA4E7D42C0529B300BEDE81 /* FoodTruckImagePickerViewModel.swift in Sources */,
 				CEAB080C2BFA8C70005AE0E9 /* FoodTruckEditView.swift in Sources */,
 				5949658B2C060115002F08F1 /* MapComponents.swift in Sources */,
+				CEA0DED12C1755450081F6A5 /* FTDailyDealsSectionsView.swift in Sources */,
+				CEA0DEC82C174EE60081F6A5 /* LocationEditView.swift in Sources */,
 				52F5B50D2C0E1CEB00B11E2A /* SubmitReviewView.swift in Sources */,
 				CE9EE95B2C0CDB06008F0728 /* FoodTruckDetailView.swift in Sources */,
 				02BC91892BF7350F00221CCB /* SplashView.swift in Sources */,
-				CEAB080E2BFA901A005AE0E9 /* LocationMapView.swift in Sources */,
+				CEA0DECF2C1755000081F6A5 /* FTInfoSectionView.swift in Sources */,
 				CEAB08062BFA6484005AE0E9 /* FoodTruckModel.swift in Sources */,
-				594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */,
+				594965892C05F9D3002F08F1 /* SearchBarView.swift in Sources */,
 				CEAB080A2BFA6621005AE0E9 /* FoodTruckProfileView.swift in Sources */,
 				59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */,
+				CEA0DECA2C174F090081F6A5 /* LogoutEditView.swift in Sources */,
+				CEA0DEC22C174E880081F6A5 /* MenuEditView.swift in Sources */,
 				523E29B92C074FC60084F217 /* UserManagerModel.swift in Sources */,
 				02BA0DE42C107E92009AAA42 /* DailyDealsView.swift in Sources */,
 				CEAB08082BFA6571005AE0E9 /* FoodTruckViewModel.swift in Sources */,
 				02BC918D2BF78A8500221CCB /* HomeView.swift in Sources */,
 				5291D3392BFD3420004B7109 /* RatingView.swift in Sources */,
+				CEA0DEC02C174E5E0081F6A5 /* GeneralEditView.swift in Sources */,
+				CEA0DECC2C174F210081F6A5 /* DeleteAccountSectionView.swift in Sources */,
 				E094B49D2C05CCF8008DB773 /* AuthViewModel.swift in Sources */,
 				CEB9EB362BF1F5450093A288 /* FoodTruckFinderApp.swift in Sources */,
 				5291D2F32BF68E7C004B7109 /* GoogleSignInButtonView.swift in Sources */,
-				CE61CBB82C16263B0039FB5F /* ReviewsListView.swift in Sources */,
+				CE61CBB82C16263B0039FB5F /* FTReviewsListView.swift in Sources */,
 				5291D2E82BF64EBC004B7109 /* UserStartView.swift in Sources */,
 				5291D2F92BFB69D7004B7109 /* SignUpView.swift in Sources */,
 				CEB9EB562BF217840093A288 /* FirebasePlist.swift in Sources */,
+				CEA0DED72C1756280081F6A5 /* FTLocationMapView.swift in Sources */,
 				CE61CBBA2C1658170039FB5F /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

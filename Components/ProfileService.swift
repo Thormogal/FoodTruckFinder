@@ -12,9 +12,9 @@ import FirebaseStorage
 
 class ProfileService {
     static let shared = ProfileService()
-
+    
     private init() {}
-
+    
     func deleteUserAccount(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let user = Auth.auth().currentUser else {
             completion(.failure(NSError(domain: "No user signed in", code: -1, userInfo: nil)))
@@ -22,24 +22,19 @@ class ProfileService {
         }
         
         let userId = user.uid
-
-        // Step 1: Delete user data from Firestore
+        
         deleteUserData(userId: userId) { result in
             switch result {
             case .success:
-                // Step 2: Delete food truck data from Firestore
                 self.deleteFoodTruckData(userId: userId) { result in
                     switch result {
                     case .success:
-                        // Step 3: Delete user reviews from Firestore
                         self.deleteUserReviews(userId: userId) { result in
                             switch result {
                             case .success:
-                                // Step 4: Delete user images from Storage
                                 self.deleteUserImages(userId: userId) { result in
                                     switch result {
                                     case .success:
-                                        // Step 5: Delete user from Firebase Authentication
                                         self.deleteUserFromAuth(user: user, completion: completion)
                                     case .failure(let error):
                                         completion(.failure(error))
@@ -58,7 +53,7 @@ class ProfileService {
             }
         }
     }
-
+    
     private func deleteUserData(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(userId)
@@ -70,7 +65,7 @@ class ProfileService {
             }
         }
     }
-
+    
     private func deleteFoodTruckData(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let foodTruckRef = db.collection("foodTrucks").document(userId)
@@ -82,7 +77,7 @@ class ProfileService {
             }
         }
     }
-
+    
     private func deleteUserReviews(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("foodTrucks").getDocuments { querySnapshot, error in
@@ -93,7 +88,7 @@ class ProfileService {
             
             let dispatchGroup = DispatchGroup()
             var encounteredError: Error?
-
+            
             for document in querySnapshot!.documents {
                 dispatchGroup.enter()
                 var reviews = document.data()["reviews"] as? [[String: Any]] ?? []
@@ -106,7 +101,7 @@ class ProfileService {
                     dispatchGroup.leave()
                 }
             }
-
+            
             dispatchGroup.notify(queue: .main) {
                 if let error = encounteredError {
                     completion(.failure(error))
@@ -116,11 +111,11 @@ class ProfileService {
             }
         }
     }
-
+    
     private func deleteUserImages(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let dispatchGroup = DispatchGroup()
         var encounteredError: Error?
-
+        
         // Delete profile image
         let profileImageRef = Storage.storage().reference().child("profile_images/\(userId).jpg")
         dispatchGroup.enter()
@@ -130,7 +125,7 @@ class ProfileService {
             }
             dispatchGroup.leave()
         }
-
+        
         // Delete food truck image
         let foodTruckImageRef = Storage.storage().reference().child("foodTruckImages/\(userId).jpg")
         dispatchGroup.enter()
@@ -140,7 +135,7 @@ class ProfileService {
             }
             dispatchGroup.leave()
         }
-
+        
         dispatchGroup.notify(queue: .main) {
             if let error = encounteredError {
                 completion(.failure(error))
@@ -149,7 +144,7 @@ class ProfileService {
             }
         }
     }
-
+    
     private func deleteUserFromAuth(user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         user.delete { error in
             if let error = error {
@@ -159,13 +154,13 @@ class ProfileService {
             }
         }
     }
-
+    
     func reauthenticateUser(password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let user = Auth.auth().currentUser else {
             completion(.failure(NSError(domain: "No user signed in", code: -1, userInfo: nil)))
             return
         }
-
+        
         let credential = EmailAuthProvider.credential(withEmail: user.email!, password: password)
         user.reauthenticate(with: credential) { _, error in
             if let error = error {
