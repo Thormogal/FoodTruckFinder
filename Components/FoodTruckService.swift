@@ -94,13 +94,15 @@ class FoodTruckService {
             
             var allDailyDeals: [DailyDealItem] = []
             for document in querySnapshot!.documents {
+                let foodTruckId = document.documentID
                 let foodTruckName = document.data()["name"] as? String ?? "Unknown"
                 if let data = document.data()["dailyDeals"] as? [[String: Any]] {
                     for dealData in data {
-                        var dealDataWithTruckName = dealData
-                        dealDataWithTruckName["foodTruckName"] = foodTruckName
+                        var dealDataWithTruckInfo = dealData
+                        dealDataWithTruckInfo["foodTruckName"] = foodTruckName
+                        dealDataWithTruckInfo["foodTruckId"] = foodTruckId
                         do {
-                            let jsonData = try JSONSerialization.data(withJSONObject: dealDataWithTruckName, options: [])
+                            let jsonData = try JSONSerialization.data(withJSONObject: dealDataWithTruckInfo, options: [])
                             let dailyDeal = try JSONDecoder().decode(DailyDealItem.self, from: jsonData)
                             allDailyDeals.append(dailyDeal)
                         } catch {

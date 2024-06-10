@@ -236,7 +236,7 @@ struct FoodTruckEditView: View {
     }
 
     private func addDailyDealItem() {
-        foodTruck.dailyDeals.append(DailyDealItem(name: "", originalPrice: 0.0, dealPrice: 0.0, ingredients: "", foodTruckName: foodTruck.name))
+        foodTruck.dailyDeals.append(DailyDealItem(name: "", originalPrice: 0.0, dealPrice: 0.0, ingredients: "", foodTruckName: foodTruck.name, foodTruckId: foodTruck.id))
     }
 
     private func removeDailyDealItem(at index: Int) {
