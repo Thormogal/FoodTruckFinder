@@ -98,7 +98,9 @@ struct FoodTruckEditView: View {
                     searchCompleter.currentAddress = address
                 }
             }
+            viewModel.saveFoodTruckData()
             onSave()
         }
     }
 }
+

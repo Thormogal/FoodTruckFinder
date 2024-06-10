@@ -83,9 +83,8 @@ struct FoodTruckProfileView: View {
                     }
                     .sheet(isPresented: $isEditing) {
                         FoodTruckEditView(
-                            viewModel: FoodTruckViewModel(foodTruck: viewModel.foodTruck),
+                            viewModel: viewModel,
                             onSave: {
-                                viewModel.saveFoodTruckData()
                                 let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
                                 searchCompleter.reverseGeocodeLocation(location: location) { address in
                                     searchCompleter.currentAddress = address
