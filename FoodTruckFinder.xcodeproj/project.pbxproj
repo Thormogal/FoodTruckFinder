@@ -25,7 +25,6 @@
 		52F5B50D2C0E1CEB00B11E2A /* SubmitReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */; };
 		594965892C05F9D3002F08F1 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594965882C05F9D3002F08F1 /* SearchbarView.swift */; };
 		5949658B2C060115002F08F1 /* MapComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5949658A2C060115002F08F1 /* MapComponents.swift */; };
-		594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */; };
 		594E240F2C0DFBFC00DAE503 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 594E240E2C0DFBFC00DAE503 /* FirebaseMessaging */; };
 		59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */; };
 		59DB35EA2C050E66003655DF /* FoodTruckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB35E92C050E66003655DF /* FoodTruckService.swift */; };
@@ -73,7 +72,6 @@
 		52F5B50C2C0E1CEB00B11E2A /* SubmitReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitReviewView.swift; sourceTree = "<group>"; };
 		594965882C05F9D3002F08F1 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		5949658A2C060115002F08F1 /* MapComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponents.swift; sourceTree = "<group>"; };
-		594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		59CF165C2BFD20E600ABBA67 /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
 		59DB35E92C050E66003655DF /* FoodTruckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTruckService.swift; sourceTree = "<group>"; };
 		CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 		CEB9EB292BF1F5450093A288 = {
 			isa = PBXGroup;
 			children = (
-				594E240B2C0DFA1400DAE503 /* PushNotificationsManager.swift */,
 				CE4482302C0A8CBC00742CC2 /* GoogleService-Info.plist */,
 				CEB9EB552BF217840093A288 /* FirebasePlist.swift */,
 				CEB9EB352BF1F5450093A288 /* FoodTruckFinderApp.swift */,
@@ -315,7 +312,6 @@
 			files = (
 				52F5B5072C0DB50600B11E2A /* RatingInputView.swift in Sources */,
 				02BC91912BF78AB600221CCB /* ProfileView.swift in Sources */,
-				594E240C2C0DFA1400DAE503 /* PushNotificationsManager.swift in Sources */,
 				CE61CBBC2C1660540039FB5F /* DeleteAccountAlertView.swift in Sources */,
 				59CF165D2BFD20E600ABBA67 /* LocationManagerViewModel.swift in Sources */,
 				02BC918F2BF78AA200221CCB /* MapView.swift in Sources */,
