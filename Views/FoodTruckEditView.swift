@@ -9,94 +9,110 @@ import SwiftUI
 import MapKit
 
 struct FoodTruckEditView: View {
-    @Binding var foodTruck: FoodTruck
-    var onSave: () -> Void
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewModel: FoodTruckViewModel
+    @StateObject private var searchCompleter = SearchCompleter()
     @StateObject private var imagePickerViewModel = TruckImagePickerViewModel()
     @State private var showingImagePicker = false
-    @Environment(\.presentationMode) var presentationMode
-    let foodTypes = ["Taco", "Sushi", "Hamburger", "Asian", "Indian", "Pizza", "Kebab", "Chicken"]
     @State private var address: String = ""
-    @StateObject private var searchCompleter = SearchCompleter()
     @State private var showSuggestions = false
-    @State private var showingDeleteAlert = false
-    @State private var showingPasswordAlert = false
-    @State private var password: String = ""
-
+    var onSave: () -> Void
+    let foodTypes = ["Taco", "Sushi", "Hamburger", "Asian", "Indian", "Pizza", "Kebab", "Chicken"]
+    
+    
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("General")) {
-                    TextField("Name", text: $foodTruck.name)
-
-                    Picker("Food Type", selection: $foodTruck.foodType) {
+                    TextField("Name", text: $viewModel.foodTruck.name)
+                    
+                    Picker("Food Type", selection: $viewModel.foodTruck.foodType) {
                         ForEach(foodTypes, id: \.self) {
                             Text($0)
                         }
                     }
-
-                    TextField("Price Range", text: $foodTruck.priceRange)
-                    TextField("Opening Hours", text: $foodTruck.openingHours)
-                    TextField("Payment Methods", text: $foodTruck.paymentMethods)
+                    
+                    TextField("Price Range", text: $viewModel.foodTruck.priceRange)
+                    TextField("Opening Hours", text: $viewModel.foodTruck.openingHours)
+                    TextField("Payment Methods", text: $viewModel.foodTruck.paymentMethods)
                 }
-
+                
                 Section(header: Text("Menu")) {
-                    ForEach(Array($foodTruck.menu.enumerated()), id: \.element.id) { index, $item in
+                    ForEach(Array(viewModel.foodTruck.menu.enumerated()), id: \.element.id) { index, item in
                         VStack {
-                            TextField("Item Name", text: $item.name)
-                            TextField("Item Price", value: $item.price, formatter: NumberFormatter())
-                            TextField("Ingredients", text: $item.ingredients)
+                            TextField("Item Name", text: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.name))
+                            TextField("Item Price", value: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.price), formatter: NumberFormatter())
+                            TextField("Ingredients", text: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.ingredients))
                             Button(action: {
-                                removeMenuItem(at: index)
+                                viewModel.removeMenuItem(at: index)
                             }) {
                                 Text("Remove Item")
                                     .foregroundColor(.red)
                             }
                         }
                     }
-                    Button(action: addMenuItem) {
+                    Button(action: viewModel.addMenuItem) {
                         Text("Add Item")
                     }
                 }
-
-                Section(header: Text("Daily Deals")) {
-                    ForEach(Array($foodTruck.dailyDeals.enumerated()), id: \.element.id) { index, $item in
+                
+                Section(header: Text("Drinks")) {
+                    ForEach(Array(viewModel.foodTruck.drinks.enumerated()), id: \.element.id) { index, item in
                         VStack {
-                            TextField("Item Name", text: $item.name)
-                            HStack {
-                                TextField("Original Price", value: $item.originalPrice, formatter: NumberFormatter())
-                                TextField("Deal Price", value: $item.dealPrice, formatter: NumberFormatter())
-                            }
-                            TextField("Ingredients", text: $item.ingredients)
+                            TextField("Drink Name", text: binding(for: $viewModel.foodTruck.drinks, index: index, keyPath: \.name))
+                            TextField("Drink Price", value: binding(for: $viewModel.foodTruck.drinks, index: index, keyPath: \.price), formatter: NumberFormatter())
                             Button(action: {
-                                removeDailyDealItem(at: index)
+                                viewModel.removeDrinkItem(at: index)
+                            }) {
+                                Text("Remove Drink")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                    Button(action: viewModel.addDrinkItem) {
+                        Text("Add Drink")
+                    }
+                }
+                
+                Section(header: Text("Daily Deals")) {
+                    ForEach(Array(viewModel.foodTruck.dailyDeals.enumerated()), id: \.element.id) { index, item in
+                        VStack {
+                            TextField("Item Name", text: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.name))
+                            HStack {
+                                TextField("Original Price", value: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.originalPrice), formatter: NumberFormatter())
+                                TextField("Deal Price", value: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.dealPrice), formatter: NumberFormatter())
+                            }
+                            TextField("Ingredients", text: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.ingredients))
+                            Button(action: {
+                                viewModel.removeDailyDealItem(at: index)
                             }) {
                                 Text("Remove Deal")
                                     .foregroundColor(.red)
                             }
                         }
                     }
-                    Button(action: addDailyDealItem) {
+                    Button(action: viewModel.addDailyDealItem) {
                         Text("Add Daily Deal")
                     }
                 }
-
+                
                 Section(header: Text("Location")) {
                     Text("Current Location: \(searchCompleter.currentAddress)")
                         .foregroundColor(.gray)
                         .italic()
-
+                    
                     TextField("New Address", text: $address)
                         .onChange(of: address) { oldAddress, newAddress in
                             searchCompleter.queryFragment = newAddress
                             showSuggestions = true
                         }
-
+                    
                     if showSuggestions && !searchCompleter.results.isEmpty {
                         List(searchCompleter.results, id: \.self) { suggestion in
                             Button(action: {
                                 searchCompleter.selectSuggestion(suggestion) { coordinate in
                                     if let coordinate = coordinate {
-                                        foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                                        viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
                                         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
                                         searchCompleter.reverseGeocodeLocation(location: location) { address in
                                             searchCompleter.currentAddress = address
@@ -116,11 +132,11 @@ struct FoodTruckEditView: View {
                         }
                         .frame(maxHeight: 200)
                     }
-
-                    TextField("Location Period (e.g., 9 June - 16 June)", text: $foodTruck.locationPeriod)
+                    
+                    TextField("Location Period (e.g., 9 June - 16 June)", text: $viewModel.foodTruck.locationPeriod)
                         .padding(.top, 10)
                 }
-
+                
                 Section {
                     Button(action: {
                         AuthManager.shared.signOut(presentationMode: presentationMode) { result in
@@ -139,7 +155,7 @@ struct FoodTruckEditView: View {
                 
                 Section {
                     Button(action: {
-                        self.showingPasswordAlert = true
+                        viewModel.showingPasswordAlert = true
                     }) {
                         Text("Delete Account")
                             .foregroundColor(.white)
@@ -148,7 +164,7 @@ struct FoodTruckEditView: View {
                             .background(Color.red)
                             .cornerRadius(10)
                     }
-                    .listRowBackground(Color.clear)  // Remove the default white background of the Form
+                    .listRowBackground(Color.clear)
                 }
             }
             .navigationBarTitle("Edit Foodtruck")
@@ -162,7 +178,7 @@ struct FoodTruckEditView: View {
             }, trailing: Button("Done") {
                 searchCompleter.searchAddress(address) { coordinate in
                     if let coordinate = coordinate {
-                        foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                        viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
                         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
                         searchCompleter.reverseGeocodeLocation(location: location) { address in
                             searchCompleter.currentAddress = address
@@ -178,26 +194,26 @@ struct FoodTruckEditView: View {
             }
             .onChange(of: imagePickerViewModel.imageURL) { oldURL, newURL in
                 if let newURL = newURL {
-                    foodTruck.imageURL = newURL
+                    viewModel.foodTruck.imageURL = newURL
                 }
             }
             .onAppear {
-                let location = CLLocation(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude)
+                let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
                 searchCompleter.reverseGeocodeLocation(location: location) { address in
                     searchCompleter.currentAddress = address
                 }
             }
             .overlay(
                 DeleteAccountAlertView(
-                    isPresented: $showingPasswordAlert,
-                    password: $password,
+                    isPresented: $viewModel.showingPasswordAlert,
+                    password: $viewModel.password,
                     title: "Confirm Password",
                     message: "Please enter your password to confirm",
-                    onConfirm: reauthenticateAndDeleteAccount
+                    onConfirm: viewModel.reauthenticateAndDeleteAccount
                 )
-                .opacity(showingPasswordAlert ? 1 : 0)
+                .opacity(viewModel.showingPasswordAlert ? 1 : 0)
             )
-            .alert(isPresented: $showingDeleteAlert) {
+            .alert(isPresented: $viewModel.showingDeleteAlert) {
                 Alert(
                     title: Text("Delete Account"),
                     message: Text("Are you sure you want to delete your account?"),
@@ -217,33 +233,37 @@ struct FoodTruckEditView: View {
             }
         }
     }
-
-    private func reauthenticateAndDeleteAccount() {
-        ProfileService.shared.reauthenticateUser(password: password) { result in
-            switch result {
-            case .success:
-                self.showingPasswordAlert = false
-                self.showingDeleteAlert = true
-            case .failure(let error):
-                print("Error reauthenticating: \(error.localizedDescription)")
+    
+    private func binding<Value>(for array: Binding<[Value]>, index: Int, keyPath: WritableKeyPath<Value, String>) -> Binding<String> {
+        return Binding<String>(
+            get: {
+                if array.wrappedValue.indices.contains(index) {
+                    return array.wrappedValue[index][keyPath: keyPath]
+                }
+                return ""
+            },
+            set: { newValue in
+                if array.wrappedValue.indices.contains(index) {
+                    array.wrappedValue[index][keyPath: keyPath] = newValue
+                }
             }
-        }
+        )
     }
-
-    private func addMenuItem() {
-        foodTruck.menu.append(MenuItem(name: "", price: 0.0, ingredients: ""))
-    }
-
-    private func removeMenuItem(at index: Int) {
-        foodTruck.menu.remove(at: index)
-    }
-
-    private func addDailyDealItem() {
-        foodTruck.dailyDeals.append(DailyDealItem(name: "", originalPrice: 0.0, dealPrice: 0.0, ingredients: "", foodTruckName: foodTruck.name))
-    }
-
-    private func removeDailyDealItem(at index: Int) {
-        foodTruck.dailyDeals.remove(at: index)
+    
+    private func binding<Value>(for array: Binding<[Value]>, index: Int, keyPath: WritableKeyPath<Value, Double>) -> Binding<Double> {
+        return Binding<Double>(
+            get: {
+                if array.wrappedValue.indices.contains(index) {
+                    return array.wrappedValue[index][keyPath: keyPath]
+                }
+                return 0.0
+            },
+            set: { newValue in
+                if array.wrappedValue.indices.contains(index) {
+                    array.wrappedValue[index][keyPath: keyPath] = newValue
+                }
+            }
+        )
     }
 }
 
@@ -259,19 +279,19 @@ struct FoodTruckEditView_Previews: PreviewProvider {
         paymentMethods: "Cash, Credit",
         imageURL: "https://example.com/image.jpg",
         menu: [MenuItem(name: "Taco", price: 5.0, ingredients: "Beef, Cheese, Lettuce")],
+        drinks: [DrinkItem(name: "Soda", price: 2.0)],
         dailyDeals: [DailyDealItem(name: "Discount Taco", originalPrice: 5.0, dealPrice: 3.0, ingredients: "Beef, Cheese, Lettuce", foodTruckName: "Sample Truck")],
         location: Location(latitude: 37.7749, longitude: -122.4194),
         locationPeriod: "9 June - 16 June",
         reviews: [Review(userId: "123", userName: "John Doe", text: "Great food!", rating: 5.0)]
     )
-
+    
     static var previews: some View {
         FoodTruckEditView(
-            foodTruck: $sampleFoodTruck,
+            viewModel: FoodTruckViewModel(foodTruck: sampleFoodTruck),
             onSave: {
                 print("Save action")
             }
         )
     }
 }
-
