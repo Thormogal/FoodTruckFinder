@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 class FoodTruckService {
     private var db = Firestore.firestore()
     
-    func fetchFoodTruck(by truckId: String, completion: @escaping (FoodTruck?) -> Void) {
+    func fetchFoodTruck(by truckId: String, completion: @escaping (FoodTruckModel?) -> Void) {
         db.collection("foodTrucks").document(truckId).getDocument { (document, error) in
             if let document = document, document.exists {
                 do {
@@ -23,12 +23,15 @@ class FoodTruckService {
                     if data["menu"] == nil {
                         data["menu"] = []
                     }
-                    // Ensure locationPeriod is handled
+                    if data["drinks"] == nil {
+                        data["drinks"] = []
+                    }
+                    
                     if data["locationPeriod"] == nil {
                         data["locationPeriod"] = ""
                     }
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let foodTruck = try JSONDecoder().decode(FoodTruck.self, from: jsonData)
+                    let foodTruck = try JSONDecoder().decode(FoodTruckModel.self, from: jsonData)
                     completion(foodTruck)
                 } catch {
                     print("Error decoding food truck: \(error)")
@@ -41,7 +44,7 @@ class FoodTruckService {
         }
     }
     
-    func fetchFoodTrucks(completion: @escaping ([FoodTruck]) -> Void) {
+    func fetchFoodTrucks(completion: @escaping ([FoodTruckModel]) -> Void) {
         db.collection("foodTrucks").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -49,7 +52,7 @@ class FoodTruckService {
                 return
             }
             
-            let foodTrucks = querySnapshot?.documents.compactMap { document -> FoodTruck? in
+            let foodTrucks = querySnapshot?.documents.compactMap { document -> FoodTruckModel? in
                 do {
                     var data = document.data()
                     if data["dailyDeals"] == nil {
@@ -58,11 +61,14 @@ class FoodTruckService {
                     if data["menu"] == nil {
                         data["menu"] = []
                     }
+                    if data["drinks"] == nil {
+                        data["drinks"] = []
+                    }
                     if data["locationPeriod"] == nil {
                         data["locationPeriod"] = ""
                     }
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let foodTruck = try JSONDecoder().decode(FoodTruck.self, from: jsonData)
+                    let foodTruck = try JSONDecoder().decode(FoodTruckModel.self, from: jsonData)
                     return foodTruck
                 } catch {
                     print("Error decoding food truck: \(error)")
@@ -73,9 +79,17 @@ class FoodTruckService {
         }
     }
     
-    func saveFoodTruck(_ foodTruck: FoodTruck, completion: @escaping (Error?) -> Void) {
+    func saveFoodTruck(_ foodTruck: FoodTruckModel, completion: @escaping (Error?) -> Void) {
         do {
-            try db.collection("foodTrucks").document(foodTruck.id).setData(from: foodTruck) { error in
+            let jsonData = try JSONEncoder().encode(foodTruck)
+            let data = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
+            print("Saving food truck data: \(data)") // Log the data being saved
+            db.collection("foodTrucks").document(foodTruck.id).setData(data) { error in
+                if let error = error {
+                    print("Error saving food truck: \(error)")
+                } else {
+                    print("Food truck data successfully saved.")
+                }
                 completion(error)
             }
         } catch {
@@ -83,7 +97,6 @@ class FoodTruckService {
         }
     }
     
-    // New function for fetching daily deals
     func fetchAllDailyDeals(completion: @escaping ([DailyDealItem]) -> Void) {
         db.collection("foodTrucks").getDocuments { (querySnapshot, error) in
             if let error = error {

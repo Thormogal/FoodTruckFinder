@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct RatingInputView: View {
+struct FTRatingInputView: View {
     @Binding var isPresented: Bool
     @State private var rating: Double = 0
     var onRatingSubmitted: (Double) -> Void

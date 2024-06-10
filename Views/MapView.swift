@@ -9,8 +9,8 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @StateObject private var locationManager = LocationManager()
-    @State private var foodTrucks: [FoodTruck] = []
+    @StateObject private var locationManager = LocationManagerViewModel()
+    @State private var foodTrucks: [FoodTruckModel] = []
     @State private var searchText = ""
     @State private var showSuggestions = false
     @StateObject private var searchCompleter = SearchCompleter()
@@ -45,7 +45,7 @@ struct MapView: View {
                 
                 VStack {
                     HStack {
-                        SearchBar(
+                        SearchBarView(
                             text: $searchCompleter.queryFragment,
                             suggestions: $searchCompleter.results,
                             onSearchButtonClicked: search,
@@ -121,4 +121,3 @@ struct MapView: View {
         }
     }
 }
-

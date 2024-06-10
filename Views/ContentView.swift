@@ -19,14 +19,14 @@ struct ContentView: View {
             if authViewModel.isSignedIn {
                 if let userType = userType {
                     if userType == 1 {
-                        StartViewUser()
+                        UserStartView()
                     } else if userType == 2 {
                         FoodTruckViewModelProvider { viewModel in
                             FoodTruckProfileView(viewModel: viewModel, userType: userType)
                         }
-
-                    } else if UserManager.shared.userType == 1 {
-                        StartViewUser()
+                        
+                    } else if UserManagerModel.shared.userType == 1 {
+                        UserStartView()
                     }
                 } else {
                     Text("Loading user type...")

@@ -10,15 +10,13 @@ import FirebaseFirestore
 
 struct SignUpView: View {
     @Binding var signedIn: Bool
-    var auth = Auth.auth()
-    var db = Firestore.firestore()
     @State private var password: String = ""
     @State private var email: String = ""
     @State private var username: String = ""
     @State private var selectedRole = "User"
-    
     @State private var errorMessage: String? = nil
-    
+    var auth = Auth.auth()
+    var db = Firestore.firestore()
     let roles = ["User", "Food Truck Owner"]
     
     var body: some View {

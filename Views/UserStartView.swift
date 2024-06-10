@@ -8,12 +8,12 @@
 import SwiftUI
 import FirebaseAuth
 
-struct StartViewUser: View {
+struct UserStartView: View {
     @StateObject private var authViewModel = AuthViewModel()
     @State private var errorMessage: String? // @State to hold the error message
     
     init() {
-        UserManager.shared.userType = 1
+        UserManagerModel.shared.userType = 1
     }
     
     var body: some View {
@@ -38,11 +38,11 @@ struct StartViewUser: View {
                             Text("Profile")
                         }
                     
-                    DailyDealsView() // new button 
-                                            .tabItem {
-                                                Image(systemName: "tag")
-                                                Text("Deals")
-                                            }
+                    DailyDealsView() // new button
+                        .tabItem {
+                            Image(systemName: "tag")
+                            Text("Deals")
+                        }
                     
                     
                 }

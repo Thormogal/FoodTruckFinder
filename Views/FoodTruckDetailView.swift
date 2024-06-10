@@ -11,7 +11,7 @@ struct FoodTruckDetailView: View {
     var foodTruckId: String
     var userType: Int
     @StateObject private var viewModel = FoodTruckViewModel()
-
+    
     var body: some View {
         VStack {
             if !viewModel.foodTruck.id.isEmpty {

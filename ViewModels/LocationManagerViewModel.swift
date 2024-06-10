@@ -10,7 +10,7 @@ import CoreLocation
 import MapKit
 import SwiftUI
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+class LocationManagerViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     
     @Published var userLocation: CLLocation? // Holds the user's current location

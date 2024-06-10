@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct FoodTruck: Identifiable, Codable {
+struct FoodTruckModel: Identifiable, Codable {
     var id: String
     var name: String
     var rating: Double
@@ -19,10 +19,11 @@ struct FoodTruck: Identifiable, Codable {
     var paymentMethods: String
     var imageURL: String
     var menu: [MenuItem]
+    var drinks: [DrinkItem] = []
     var dailyDeals: [DailyDealItem] = []
     var location: Location
     var locationPeriod: String
-    var reviews: [Review]
+    var reviews: [ReviewModel]
     
     func distance(to userLocation: CLLocation) -> Double {
         let truckLocation = CLLocation(latitude: self.location.latitude, longitude: self.location.longitude)
@@ -42,6 +43,12 @@ struct MenuItem: Identifiable, Codable {
     var name: String
     var price: Double
     var ingredients: String
+}
+
+struct DrinkItem: Identifiable, Codable {
+    var id: UUID = UUID()
+    var name: String
+    var price: Double
 }
 
 struct DailyDealItem: Identifiable, Codable {

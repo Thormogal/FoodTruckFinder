@@ -13,8 +13,9 @@ import GoogleSignIn
 import SwiftUI
 
 
-class AppDelegate: NSObject, UIApplicationDelegate {
 
+class AppDelegate: NSObject, UIApplicationDelegate {
+  
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") {
             print("Found GoogleService-Info.plist at: \(path)")
@@ -32,7 +33,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     override init() {
-        UserManager.shared.userType = 0
+        UserManagerModel.shared.userType = 0
     }
     
     @available(iOS 9.0, *)
@@ -43,7 +44,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return GIDSignIn.sharedInstance.handle(url)
     }
-
 
 }
 

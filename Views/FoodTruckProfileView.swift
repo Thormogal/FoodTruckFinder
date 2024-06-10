@@ -11,6 +11,7 @@ import MapKit
 struct FoodTruckProfileView: View {
     @ObservedObject var viewModel: FoodTruckViewModel
     @StateObject private var searchCompleter = SearchCompleter()
+    @StateObject private var locationManager = LocationManagerViewModel()
     @State private var isEditing = false
     @State private var showingMap = false
     @State private var isRatingPresented = false
@@ -55,106 +56,22 @@ struct FoodTruckProfileView: View {
                     }
                 
                 // Information about the food truck.
-                VStack(alignment: .leading, spacing: 10) {
-                    informationRow(title: "Food:", value: viewModel.foodTruck.foodType)
-                    informationRow(title: "Price Range:", value: viewModel.foodTruck.priceRange)
-                    informationRow(title: "Opening Hours:", value: viewModel.foodTruck.openingHours)
-                    informationRow(title: "Payment Methods:", value: viewModel.foodTruck.paymentMethods)
-                    
-                    // Current Location
-                    HStack {
-                        Image(systemName: "map")
-                            .foregroundColor(.blue)
-                        Button(action: {
-                            showingMap = true
-                        }) {
-                            VStack(alignment: .leading) {
-                                Text("Location: \(searchCompleter.currentAddress)")
-                                    .foregroundColor(.blue)
-                                if !viewModel.foodTruck.locationPeriod.isEmpty {
-                                    Text(viewModel.foodTruck.locationPeriod)
-                                        .foregroundColor(.gray)
-                                        .font(.footnote)
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 5)
-                }
-                .padding(.bottom, 30)
+                FTInfoSectionView(viewModel: viewModel, searchCompleter: searchCompleter, showingMap: $showingMap)
                 
                 // Daily Deals
                 if !viewModel.foodTruck.dailyDeals.isEmpty {
-                    Group {
-                        VStack(alignment: .leading) {
-                            Text("🎉 Daily Deals 🎉")
-                                .font(.title)
-                                .fontWeight(.heavy)
-                                .foregroundColor(.red)
-                                .padding(.vertical, 10)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            
-                            ForEach(viewModel.foodTruck.dailyDeals) { deal in
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text(deal.name)
-                                            .font(.headline)
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                        Text("\(deal.originalPrice, specifier: "%.2f") kr")
-                                            .strikethrough()
-                                            .foregroundColor(.gray)
-                                        Text("\(deal.dealPrice, specifier: "%.2f") kr")
-                                            .foregroundColor(.red)
-                                            .font(.headline)
-                                    }
-                                    .padding(.horizontal)
-                                    
-                                    Text("Ingredients: \(deal.ingredients)")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                        .padding(.horizontal)
-                                }
-                                .padding(.vertical, 5)
-                            }
-                        }
-                        .padding()
-                        .background(Color.yellow.opacity(0.3))
-                        .cornerRadius(10)
-                        .shadow(radius: 2)
-                    }
-                    .padding([.horizontal, .bottom])
+                    FTDailyDealsSectionView(dailyDeals: viewModel.foodTruck.dailyDeals)
                 }
                 
                 // Menu
-                Group {
-                    VStack(alignment: .leading) {
-                        Text("Menu")
-                            .font(.title)
-                            .bold()
-                            .padding(.vertical, 10)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        ForEach(viewModel.foodTruck.menu) { item in
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text(item.name)
-                                    Spacer()
-                                    Text("\(item.price, specifier: "%.2f") kr")
-                                }
-                                .padding(.horizontal)
-                                
-                                Text("Ingredients: \(item.ingredients)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                                    .padding(.horizontal)
-                            }
-                            .padding(.vertical, 5)
-                        }
-                    }
-                    .padding(.top, viewModel.foodTruck.dailyDeals.isEmpty ? 0 : 20) // Adjust padding based on daily deals
+                if !viewModel.foodTruck.menu.isEmpty {
+                    FTMenuSectionView(menu: viewModel.foodTruck.menu)
                 }
-                .padding([.horizontal, .top])
+                
+                // Drinks
+                if !viewModel.foodTruck.drinks.isEmpty {
+                    FTDrinksSectionView(drinks: viewModel.foodTruck.drinks)
+                }
                 
                 // Edit button for usertype 2 (owner)
                 if userType == 2 {
@@ -165,28 +82,30 @@ struct FoodTruckProfileView: View {
                             .foregroundColor(.blue)
                     }
                     .sheet(isPresented: $isEditing) {
-                        FoodTruckEditView(foodTruck: $viewModel.foodTruck) {
-                            viewModel.saveFoodTruckData()
-                            let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
-                            searchCompleter.reverseGeocodeLocation(location: location) { address in
-                                searchCompleter.currentAddress = address
+                        FoodTruckEditView(
+                            viewModel: viewModel,
+                            onSave: {
+                                let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
+                                searchCompleter.reverseGeocodeLocation(location: location) { address in
+                                    searchCompleter.currentAddress = address
+                                }
+                                isEditing = false
                             }
-                            isEditing = false
-                        }
+                        )
                     }
                 }
             }
         }
         .sheet(isPresented: $showingMap) {
-            FoodTruckLocationMap(foodTruck: viewModel.foodTruck)
+            FTLocationMapView(foodTruck: viewModel.foodTruck, userLocation: locationManager.userLocation?.coordinate)
         }
         .sheet(isPresented: $isRatingPresented) {
-            RatingInputView(isPresented: $isRatingPresented) { newRating in
+            FTRatingInputView(isPresented: $isRatingPresented) { newRating in
                 viewModel.addRating(newRating)
             }
         }
         .sheet(isPresented: $isReviewListPresented) {
-            ReviewsListView(viewModel: viewModel, userType: userType)
+            FTReviewsListView(viewModel: viewModel, userType: userType)
         }
         .onAppear {
             let location = CLLocation(latitude: viewModel.foodTruck.location.latitude, longitude: viewModel.foodTruck.location.longitude)
@@ -201,47 +120,5 @@ struct FoodTruckProfileView: View {
             }
         }
         .padding()
-    }
-    
-    private func informationRow(title: String, value: String) -> some View {
-        HStack(alignment: .top) {
-            Text(title)
-                .bold()
-                .alignmentGuide(.leading) { d in d[.leading] }
-            VStack(alignment: .leading) {
-                ForEach(value.split(separator: ".").map(String.init), id: \.self) { part in
-                    Text(part.trimmingCharacters(in: .whitespacesAndNewlines))
-                        .alignmentGuide(.leading) { d in d[.leading] }
-                }
-            }
-        }
-    }
-}
-
-struct FoodTruckLocationMap: View {
-    var foodTruck: FoodTruck
-    @Environment(\.presentationMode) var presentationMode
-    
-    var body: some View {
-        NavigationView {
-            Map {
-                Marker(foodTruck.name, coordinate: CLLocationCoordinate2D(latitude: foodTruck.location.latitude, longitude: foodTruck.location.longitude))
-            }
-            .mapStyle(.standard)
-            .navigationTitle("\(foodTruck.name) Location")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("\(foodTruck.name) Location")
-                        .font(.largeTitle)
-                        .foregroundColor(.primary)
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Close") {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
-            }
-        }
     }
 }

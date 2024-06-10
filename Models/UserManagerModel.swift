@@ -6,8 +6,8 @@
 //
 
 import Foundation
-class UserManager {
-    static let shared = UserManager()
+class UserManagerModel {
+    static let shared = UserManagerModel()
     
     private init() {}
     

@@ -18,7 +18,7 @@ struct ProfileView: View {
     @State private var profileImage: UIImage? = nil
     @State private var showingImagePicker = false
     @State private var profileImageUrl: URL? = nil
-    @State private var userReviews: [Review] = []
+    @State private var userReviews: [ReviewModel] = []
     @State private var showingDeleteAlert = false
     
     var body: some View {
@@ -43,7 +43,7 @@ struct ProfileView: View {
                             self.showingImagePicker = true
                         }
                 }
-
+                
                 VStack(alignment: .center, spacing: 8) {
                     Text(Auth.auth().currentUser?.displayName ?? "Username not available")
                         .font(.title)
@@ -61,7 +61,7 @@ struct ProfileView: View {
             .background(Color(UIColor.fromHex("3D84B7")))
             .cornerRadius(10)
             .padding([.top, .horizontal])
-
+            
             VStack(alignment: .leading) {
                 HStack {
                     Image("HamburgerIcon")
@@ -73,7 +73,7 @@ struct ProfileView: View {
                 }
                 .padding(.leading, 45)
                 .padding(.top)
-
+                
                 ScrollView {
                     if userReviews.isEmpty {
                         Text("No reviews yet...")
@@ -100,7 +100,7 @@ struct ProfileView: View {
                 .padding(.leading, 20)
             }
             .frame(maxHeight: .infinity)
-
+            
             HStack {
                 Spacer()
                 Button(action: {
@@ -167,7 +167,7 @@ struct ProfileView: View {
             ImagePicker(image: $profileImage)
         }
     }
-
+    
     private func fetchUserEmail() {
         if let user = Auth.auth().currentUser {
             self.userEmail = user.email ?? "No Email"
@@ -175,7 +175,7 @@ struct ProfileView: View {
             self.userEmail = "No User Signed In"
         }
     }
-
+    
     private func fetchProfileImage() {
         guard let user = Auth.auth().currentUser else { return }
         let storageRef = Storage.storage().reference().child("profile_images/\(user.uid).jpg")
@@ -193,7 +193,7 @@ struct ProfileView: View {
             }
         }
     }
-
+    
     private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data, let image = UIImage(data: data) {
@@ -207,7 +207,7 @@ struct ProfileView: View {
             }
         }.resume()
     }
-
+    
     private func uploadProfileImage() {
         guard let user = Auth.auth().currentUser, let image = profileImage, let imageData = image.jpegData(compressionQuality: 0.8) else { return }
         
@@ -229,7 +229,7 @@ struct ProfileView: View {
             }
         }
     }
-
+    
     func fetchUserReviews() {
         guard let userId = Auth.auth().currentUser?.uid else {
             return
@@ -242,14 +242,14 @@ struct ProfileView: View {
                 return
             }
             
-            var userReviews: [Review] = []
+            var userReviews: [ReviewModel] = []
             for document in querySnapshot!.documents {
                 if let reviews = document.data()["reviews"] as? [[String: Any]] {
                     for reviewData in reviews {
                         if reviewData["userId"] as? String == userId {
                             do {
                                 let jsonData = try JSONSerialization.data(withJSONObject: reviewData, options: [])
-                                var review = try JSONDecoder().decode(Review.self, from: jsonData)
+                                var review = try JSONDecoder().decode(ReviewModel.self, from: jsonData)
                                 review.foodTruckName = review.foodTruckName ?? "Unknown Food Truck"
                                 userReviews.append(review)
                             } catch {
