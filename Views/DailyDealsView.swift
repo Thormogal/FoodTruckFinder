@@ -35,6 +35,7 @@ struct DailyDealsView: View {
             .frame(maxWidth: .infinity, alignment: .center)
             .shadow(color: .black, radius: 1)
     }
+    //List all deals
     private var dealsListView: some View {
         List {
             ForEach(groupedDeals.keys.sorted(), id: \.self) { key in
@@ -46,7 +47,7 @@ struct DailyDealsView: View {
             }
         }
     }
-
+    //View for deal and navigation to foodTruckProfileView
     private func dealRowView(deal: DailyDealItem) -> some View {
         VStack(alignment: .leading) {
             NavigationLink(destination: FoodTruckDetailView(foodTruckId: deal.foodTruckId, userType: userType)) {
