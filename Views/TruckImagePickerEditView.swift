@@ -8,15 +8,15 @@
 import SwiftUI
 import UIKit
 
-struct TruckImagePicker: UIViewControllerRepresentable {
+struct TruckImagePickerEditView: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     @Environment(\.presentationMode) var presentationMode
     var onImagePicked: ((UIImage) -> Void)?
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let parent: TruckImagePicker
+        let parent: TruckImagePickerEditView
         
-        init(parent: TruckImagePicker) {
+        init(parent: TruckImagePickerEditView) {
             self.parent = parent
         }
         
