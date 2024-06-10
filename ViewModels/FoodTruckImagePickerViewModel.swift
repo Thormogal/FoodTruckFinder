@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseStorage
 import FirebaseAuth
 
-class TruckImagePickerViewModel: ObservableObject {
+class FoodTruckImagePickerViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var imageURL: String?
     

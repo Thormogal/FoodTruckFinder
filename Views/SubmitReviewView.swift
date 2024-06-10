@@ -14,21 +14,21 @@ struct SubmitReviewView: View {
     @Binding var isPresented: Bool
     @State private var reviewText: String = ""
     @State private var rating: Double = 0
-    @State private var existingReview: Review?
-
+    @State private var existingReview: ReviewModel?
+    
     var body: some View {
         VStack {
             Text(existingReview == nil ? "Write a Review" : "Edit Your Review")
                 .font(.headline)
                 .padding()
-
+            
             TextField("Review", text: $reviewText)
                 .padding()
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-
+            
             CustomRatingSlider(rating: $rating)
                 .padding()
-
+            
             Button(action: {
                 if let existingReview = existingReview {
                     // Update existing review
@@ -38,7 +38,7 @@ struct SubmitReviewView: View {
                     viewModels.updateReview(updatedReview)
                 } else {
                     // Add new review
-                    let review = Review(
+                    let review = ReviewModel(
                         userId: Auth.auth().currentUser?.uid ?? "",
                         userName: Auth.auth().currentUser?.displayName ?? "Anonymous",
                         text: reviewText,
@@ -71,4 +71,3 @@ struct SubmitReviewView: View {
         }
     }
 }
-

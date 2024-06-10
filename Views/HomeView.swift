@@ -65,8 +65,8 @@ struct CategoryItemView: View {
 }
 
 struct HomeView: View {
-    @State private var foodTrucks: [FoodTruck] = []
-    @State private var filteredFoodTrucks: [FoodTruck] = []
+    @State private var foodTrucks: [FoodTruckModel] = []
+    @State private var filteredFoodTrucks: [FoodTruckModel] = []
     @State private var selectedCategory: Category?
     @State private var selectedSortOption: SortOption = .distance // Default sort option
     @State private var categories: [Category] = [
@@ -80,7 +80,7 @@ struct HomeView: View {
         Category(name: "Kebab", imageName: "kebab"),
         Category(name: "Chicken", imageName: "chicken")
     ]
-    @ObservedObject private var locationManager = LocationManager()
+    @ObservedObject private var locationManager = LocationManagerViewModel()
     private let foodTruckService = FoodTruckService()
     @State private var userType: Int = 1  // Assuming a default value, you can set this from parent view or context
     
@@ -205,4 +205,3 @@ struct HomeView: View {
         }
     }
 }
-

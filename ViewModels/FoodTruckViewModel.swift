@@ -12,7 +12,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class FoodTruckViewModel: ObservableObject {
-    @Published var foodTruck: FoodTruck
+    @Published var foodTruck: FoodTruckModel
     @Published var averageRating: Double = 0.0
     @Published var showingDeleteAlert = false
     @Published var showingPasswordAlert = false
@@ -21,12 +21,12 @@ class FoodTruckViewModel: ObservableObject {
     private var db = Firestore.firestore()
     var auth = Auth.auth()
     
-    init(foodTruck: FoodTruck? = nil) {
+    init(foodTruck: FoodTruckModel? = nil) {
         if let foodTruck = foodTruck {
             self.foodTruck = foodTruck
             fetchAverageRating()
         } else {
-            self.foodTruck = FoodTruck(
+            self.foodTruck = FoodTruckModel(
                 id: UUID().uuidString,
                 name: "",
                 rating: 0.0,
@@ -46,7 +46,7 @@ class FoodTruckViewModel: ObservableObject {
         }
     }
     
-    func addReview(_ review: Review) {
+    func addReview(_ review: ReviewModel) {
         // check for if the user already has an existing review for the food truck.
         if let userId = auth.currentUser?.uid,
            let existingReview = foodTruck.reviews.first(where: { $0.userId == userId }) {
@@ -73,7 +73,7 @@ class FoodTruckViewModel: ObservableObject {
         }
     }
     
-    func updateReview(_ review: Review) {
+    func updateReview(_ review: ReviewModel) {
         var updatedReview = review
         updatedReview.foodTruckName = foodTruck.name
         let foodTruckId = foodTruck.id
@@ -197,7 +197,7 @@ class FoodTruckViewModel: ObservableObject {
                     self?.fetchAverageRating()
                 } else {
                     print("Food truck not found, initializing new food truck.")
-                    self?.foodTruck = FoodTruck(
+                    self?.foodTruck = FoodTruckModel(
                         id: truckId,
                         name: "",
                         rating: 0.0,
@@ -272,7 +272,7 @@ class FoodTruckViewModel: ObservableObject {
     }
 }
 
-extension Review {
+extension ReviewModel {
     var dictionary: [String: Any] {
         return [
             "id": id,
