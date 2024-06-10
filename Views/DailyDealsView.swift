@@ -58,7 +58,7 @@ struct DailyDealsView: View {
                 .strikethrough()
             Text("Deal Price: \(deal.dealPrice, specifier: "%.2f")")
                 .foregroundColor(.red)
-            Text("Ingredients: \(deal.ingredients)")
+            Text("\(deal.ingredients)")
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
