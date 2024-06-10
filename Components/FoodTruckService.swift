@@ -23,7 +23,10 @@ class FoodTruckService {
                     if data["menu"] == nil {
                         data["menu"] = []
                     }
-                    // Ensure locationPeriod is handled
+                    if data["drinks"] == nil {
+                        data["drinks"] = []
+                    }
+                    
                     if data["locationPeriod"] == nil {
                         data["locationPeriod"] = ""
                     }
@@ -57,6 +60,9 @@ class FoodTruckService {
                     }
                     if data["menu"] == nil {
                         data["menu"] = []
+                    }
+                    if data["drinks"] == nil {
+                        data["drinks"] = []
                     }
                     if data["locationPeriod"] == nil {
                         data["locationPeriod"] = ""
