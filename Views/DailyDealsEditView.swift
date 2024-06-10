@@ -12,7 +12,7 @@ struct DailyDealsEditView: View {
     
     var body: some View {
         Section(header: Text("Daily Deals")) {
-            ForEach(Array(viewModel.foodTruck.dailyDeals.enumerated()), id: \.element.id) { index, item in
+            ForEach(Array(viewModel.foodTruck.dailyDeals.enumerated()), id: \.element.id) { index, _ in
                 VStack {
                     TextField("Item Name", text: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.name))
                     HStack {
@@ -34,7 +34,7 @@ struct DailyDealsEditView: View {
         }
     }
     
-    private func binding<Value>(for array: Binding<[Value]>, index: Int, keyPath: WritableKeyPath<Value, String>) -> Binding<String> {
+    private func binding(for array: Binding<[DailyDealItem]>, index: Int, keyPath: WritableKeyPath<DailyDealItem, String>) -> Binding<String> {
         return Binding<String>(
             get: {
                 if array.wrappedValue.indices.contains(index) {
@@ -50,7 +50,7 @@ struct DailyDealsEditView: View {
         )
     }
     
-    private func binding<Value>(for array: Binding<[Value]>, index: Int, keyPath: WritableKeyPath<Value, Double>) -> Binding<Double> {
+    private func binding(for array: Binding<[DailyDealItem]>, index: Int, keyPath: WritableKeyPath<DailyDealItem, Double>) -> Binding<Double> {
         return Binding<Double>(
             get: {
                 if array.wrappedValue.indices.contains(index) {

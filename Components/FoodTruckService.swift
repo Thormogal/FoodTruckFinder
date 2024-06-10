@@ -81,7 +81,15 @@ class FoodTruckService {
     
     func saveFoodTruck(_ foodTruck: FoodTruckModel, completion: @escaping (Error?) -> Void) {
         do {
-            try db.collection("foodTrucks").document(foodTruck.id).setData(from: foodTruck) { error in
+            let jsonData = try JSONEncoder().encode(foodTruck)
+            let data = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
+            print("Saving food truck data: \(data)") // Log the data being saved
+            db.collection("foodTrucks").document(foodTruck.id).setData(data) { error in
+                if let error = error {
+                    print("Error saving food truck: \(error)")
+                } else {
+                    print("Food truck data successfully saved.")
+                }
                 completion(error)
             }
         } catch {
@@ -89,7 +97,6 @@ class FoodTruckService {
         }
     }
     
-    // New function for fetching daily deals
     func fetchAllDailyDeals(completion: @escaping ([DailyDealItem]) -> Void) {
         db.collection("foodTrucks").getDocuments { (querySnapshot, error) in
             if let error = error {
