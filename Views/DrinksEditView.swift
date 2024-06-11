@@ -18,7 +18,7 @@ struct DrinksEditView: View {
             ForEach(Array(viewModel.foodTruck.drinks.enumerated()), id: \.element.id) { index, _ in
                 VStack {
                     TextField("Drink Name", text: binding(for: $viewModel.foodTruck.drinks, index: index, keyPath: \.name))
-                    TextField("Drink Price", value: binding(for: $viewModel.foodTruck.drinks, index: index, keyPath: \.price), formatter: NumberFormatter())
+                    DecimalField("Drink Price", value: binding(for: $viewModel.foodTruck.drinks, index: index, keyPath: \.price))
                     Button(action: {
                         if confirmationEnabled {
                             indexToRemove = index
