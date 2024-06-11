@@ -19,8 +19,8 @@ struct DailyDealsEditView: View {
                 VStack {
                     TextField("Item Name", text: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.name))
                     HStack {
-                        TextField("Original Price", value: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.originalPrice), formatter: NumberFormatter())
-                        TextField("Deal Price", value: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.dealPrice), formatter: NumberFormatter())
+                        DecimalField("Original Price", value: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.originalPrice))
+                        DecimalField("Deal Price", value: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.dealPrice))
                     }
                     TextField("Ingredients", text: binding(for: $viewModel.foodTruck.dailyDeals, index: index, keyPath: \.ingredients))
                     Button(action: {

@@ -18,7 +18,7 @@ struct MenuEditView: View {
             ForEach(Array(viewModel.foodTruck.menu.enumerated()), id: \.element.id) { index, _ in
                 VStack {
                     TextField("Item Name", text: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.name))
-                    TextField("Item Price", value: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.price), formatter: NumberFormatter())
+                    DecimalField("Item Price", value: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.price))
                     TextField("Ingredients", text: binding(for: $viewModel.foodTruck.menu, index: index, keyPath: \.ingredients))
                     Button(action: {
                         if confirmationEnabled {
@@ -51,7 +51,7 @@ struct MenuEditView: View {
         }
     }
     
-    private func binding<Value>(for array: Binding<[Value]>, index: Int, keyPath: WritableKeyPath<Value, String>) -> Binding<String> {
+    private func binding(for array: Binding<[MenuItem]>, index: Int, keyPath: WritableKeyPath<MenuItem, String>) -> Binding<String> {
         return Binding<String>(
             get: {
                 if array.wrappedValue.indices.contains(index) {
@@ -67,7 +67,7 @@ struct MenuEditView: View {
         )
     }
     
-    private func binding<Value>(for array: Binding<[Value]>, index: Int, keyPath: WritableKeyPath<Value, Double>) -> Binding<Double> {
+    private func binding(for array: Binding<[MenuItem]>, index: Int, keyPath: WritableKeyPath<MenuItem, Double>) -> Binding<Double> {
         return Binding<Double>(
             get: {
                 if array.wrappedValue.indices.contains(index) {

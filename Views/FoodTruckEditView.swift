@@ -120,5 +120,3 @@ struct FoodTruckEditView: View {
         }
     }
 }
-
-
