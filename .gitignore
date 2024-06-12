@@ -10,7 +10,6 @@ Objektfiler:
 *.al
 
 Konfigurationsfiler för Xcode:
-
 *.pbxuser
 *.mode1v3
 *.mode2v3
@@ -18,9 +17,11 @@ Konfigurationsfiler för Xcode:
 *.xcuserstate
 
 Andra genererade filer:
-
 *.swp
 .DS_Store
 *.lock
 Pods/
+GoogleService-Info.plist
 GoogleService-Info-Secrets.plist
+
+
