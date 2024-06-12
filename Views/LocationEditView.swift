@@ -29,17 +29,7 @@ struct LocationEditView: View {
             if showSuggestions && !searchCompleter.results.isEmpty {
                 List(searchCompleter.results, id: \.self) { suggestion in
                     Button(action: {
-                        searchCompleter.selectSuggestion(suggestion) { coordinate in
-                            if let coordinate = coordinate {
-                                viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                                let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                                searchCompleter.reverseGeocodeLocation(location: location) { address in
-                                    searchCompleter.currentAddress = address
-                                }
-                            }
-                            address = ""
-                            showSuggestions = false
-                        }
+                        updateLocation(with: suggestion)
                     }) {
                         VStack(alignment: .leading) {
                             Text(suggestion.title)
@@ -54,6 +44,20 @@ struct LocationEditView: View {
             
             TextField("Location Period (e.g., 9 June - 16 June)", text: $viewModel.foodTruck.locationPeriod)
                 .padding(.top, 10)
+        }
+    }
+    
+    private func updateLocation(with suggestion: MKLocalSearchCompletion) {
+        searchCompleter.selectSuggestion(suggestion) { coordinate in
+            if let coordinate = coordinate {
+                viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                searchCompleter.reverseGeocodeLocation(location: location) { address in
+                    searchCompleter.currentAddress = address
+                }
+            }
+            address = ""
+            showSuggestions = false
         }
     }
 }

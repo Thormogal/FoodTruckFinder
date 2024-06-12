@@ -47,7 +47,7 @@ struct FoodTruckEditView: View {
                     Image(systemName: "gear")
                 }
                 Button("Done") {
-                    saveAddressAndComplete()
+                    saveFoodTruckEditInformation()
                 }
             })
             .sheet(isPresented: $showingImagePicker) {
@@ -100,23 +100,8 @@ struct FoodTruckEditView: View {
         }
     }
     
-    private func saveAddressAndComplete() {
-        // Check if address needs to be updated
-        if !address.isEmpty {
-            searchCompleter.searchAddress(address) { coordinate in
-                if let coordinate = coordinate {
-                    viewModel.foodTruck.location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                    searchCompleter.reverseGeocodeLocation(location: location) { address in
-                        searchCompleter.currentAddress = address
-                    }
-                }
-                viewModel.saveFoodTruckData()
-                onSave()
-            }
-        } else {
-            viewModel.saveFoodTruckData()
-            onSave()
-        }
+    private func saveFoodTruckEditInformation() {
+        viewModel.saveFoodTruckData()
+        onSave()
     }
 }
