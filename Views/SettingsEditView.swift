@@ -16,7 +16,7 @@ struct SettingsEditView: View {
             Form {
                 Section(header: Text("Settings")) {
                     Toggle(isOn: $confirmationEnabled) {
-                        Text("Confirm Before Removing")
+                        Text("Confirm before removing")
                     }
                 }
             }
